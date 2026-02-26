@@ -59,15 +59,8 @@ const InventoryPreview = () => {
               key={car.id}
               className="bg-card rounded-lg overflow-hidden shadow-card hover:shadow-elevated transition-all duration-300 border border-border group"
             >
-              <div className="relative overflow-hidden h-48">
-                <img
-                  src={car.image}
-                  alt={car.name}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute top-3 right-3 bg-primary text-primary-foreground text-xs font-heading font-bold px-3 py-1 rounded">
-                  {car.price}
-                </div>
+              <div className="bg-muted flex items-center justify-center h-48">
+                <span className="text-primary font-heading font-bold text-lg">{car.price}</span>
               </div>
               <div className="p-5">
                 <h3 className="font-heading font-bold text-lg text-foreground mb-3">{car.name}</h3>
