@@ -9,8 +9,10 @@ const navItems = [
   { label: "Inventory", href: "/inventory" },
   { label: "Direct Import", href: "/direct-import" },
   { label: "Duty Free", href: "/duty-free" },
+  { label: "Financing", href: "/financing" },
+  { label: "Overseas Stock", href: "/overseas-stock" },
   { label: "Sell Your Car", href: "/sell" },
-  { label: "Duty Calculator", href: "/calculator" },
+  { label: "Calculator", href: "/calculator" },
   { label: "Blog", href: "/blog" },
 ];
 
@@ -44,9 +46,9 @@ const Navbar = () => {
           </div>
 
           <div className="hidden lg:flex items-center gap-3">
-            <a href="tel:+254700000000" className="flex items-center gap-2 text-sm font-semibold text-foreground">
+            <a href="tel:+254723041684" className="flex items-center gap-2 text-sm font-semibold text-foreground">
               <Phone className="h-4 w-4 text-primary" />
-              +254 700 000 000
+              0723 041 684
             </a>
             <Link to="/appointment">
               <Button variant="hero" size="lg">Book Appointment</Button>

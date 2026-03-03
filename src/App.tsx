@@ -8,6 +8,11 @@ import SellPage from "./pages/SellPage";
 import AppointmentPage from "./pages/AppointmentPage";
 import DutyCalculatorPage from "./pages/DutyCalculatorPage";
 import BlogPage from "./pages/BlogPage";
+import FinancingPage from "./pages/FinancingPage";
+import DirectImportPage from "./pages/DirectImportPage";
+import DutyFreePage from "./pages/DutyFreePage";
+import OverseasStockPage from "./pages/OverseasStockPage";
+import InventoryPage from "./pages/InventoryPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -20,6 +25,11 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
+          <Route path="/inventory" element={<InventoryPage />} />
+          <Route path="/direct-import" element={<DirectImportPage />} />
+          <Route path="/duty-free" element={<DutyFreePage />} />
+          <Route path="/financing" element={<FinancingPage />} />
+          <Route path="/overseas-stock" element={<OverseasStockPage />} />
           <Route path="/sell" element={<SellPage />} />
           <Route path="/appointment" element={<AppointmentPage />} />
           <Route path="/calculator" element={<DutyCalculatorPage />} />

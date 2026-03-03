@@ -19,7 +19,7 @@ const CTASection = () => {
               Schedule Appointment
             </Button>
           </Link>
-          <a href="tel:+254700000000">
+          <a href="tel:+254723041684">
             <Button variant="heroOutline" size="lg" className="text-base px-8 py-6 gap-2">
               <Phone className="h-5 w-5" />
               Call Us Now

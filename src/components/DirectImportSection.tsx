@@ -4,11 +4,12 @@ import { Check } from "lucide-react";
 import importImg from "@/assets/import-shipping.jpg";
 
 const benefits = [
-  "Access to thousands of vehicles from Japan, UK & Dubai",
-  "Competitive pricing — no middleman markup",
+  "Direct import from UK, Japan, South Africa & Australia",
+  "Save up to 30% compared to local dealerships",
   "Full inspection reports before purchase",
-  "Door-to-door delivery to Mombasa & Nairobi",
-  "Comprehensive after-sales support",
+  "We facilitate everything until your driveway",
+  "Up to 50% import financing available",
+  "Duty-free importation available for eligible individuals",
 ];
 
 const DirectImportSection = () => {
@@ -28,7 +29,7 @@ const DirectImportSection = () => {
               Import Your Car Directly
             </h2>
             <p className="text-muted-foreground mb-6 leading-relaxed">
-              Skip the middleman and save thousands. We handle the entire import process from vehicle sourcing to clearance at the port of Mombasa.
+              Spotted your dream car on Autotrader, BE FORWARD, or any overseas platform? We shall facilitate everything until your driveway. Save up to 30% on direct import!
             </p>
             <ul className="space-y-3 mb-8">
               {benefits.map((b) => (
