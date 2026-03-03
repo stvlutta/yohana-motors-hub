@@ -140,6 +140,25 @@ const AdminDashboard = () => {
     }
   };
 
+  const updateStatus = async (table: "appointments" | "sell_submissions", id: string, status: string) => {
+    const { error } = await supabase.from(table).update({ status }).eq("id", id);
+    if (error) {
+      toast({ title: "Error", description: error.message, variant: "destructive" });
+    } else {
+      toast({ title: `Status updated to "${status}"` });
+      fetchData();
+    }
+  };
+
+  const statusColor = (s: string) => {
+    switch (s) {
+      case "confirmed": return "bg-blue-500/10 text-blue-600";
+      case "completed": return "bg-green-500/10 text-green-600";
+      case "cancelled": return "bg-destructive/10 text-destructive";
+      default: return "bg-primary/10 text-primary";
+    }
+  };
+
   const vf = (field: string, value: string) => setVehicleForm({ ...vehicleForm, [field]: value });
 
   return (
@@ -282,9 +301,16 @@ const AdminDashboard = () => {
                         <td className="p-3 text-foreground">{a.appointment_date}</td>
                         <td className="p-3 text-foreground">{a.appointment_time}</td>
                         <td className="p-3">
-                          <span className="inline-block px-2 py-0.5 rounded-full text-xs font-semibold bg-primary/10 text-primary">
-                            {a.status}
-                          </span>
+                          <select
+                            value={a.status}
+                            onChange={(e) => updateStatus("appointments", a.id, e.target.value)}
+                            className={`px-2 py-0.5 rounded-full text-xs font-semibold border-none outline-none cursor-pointer ${statusColor(a.status)}`}
+                          >
+                            <option value="pending">pending</option>
+                            <option value="confirmed">confirmed</option>
+                            <option value="completed">completed</option>
+                            <option value="cancelled">cancelled</option>
+                          </select>
                         </td>
                         <td className="p-3 text-muted-foreground max-w-[200px] truncate">{a.message || "—"}</td>
                       </tr>
@@ -323,9 +349,16 @@ const AdminDashboard = () => {
                         <td className="p-3 text-foreground">{s.asking_price}</td>
                         <td className="p-3 text-foreground">{s.condition}</td>
                         <td className="p-3">
-                          <span className="inline-block px-2 py-0.5 rounded-full text-xs font-semibold bg-primary/10 text-primary">
-                            {s.status}
-                          </span>
+                          <select
+                            value={s.status}
+                            onChange={(e) => updateStatus("sell_submissions", s.id, e.target.value)}
+                            className={`px-2 py-0.5 rounded-full text-xs font-semibold border-none outline-none cursor-pointer ${statusColor(s.status)}`}
+                          >
+                            <option value="pending">pending</option>
+                            <option value="confirmed">confirmed</option>
+                            <option value="completed">completed</option>
+                            <option value="cancelled">cancelled</option>
+                          </select>
                         </td>
                       </tr>
                     ))}
