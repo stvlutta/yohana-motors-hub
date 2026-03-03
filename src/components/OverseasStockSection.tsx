@@ -12,7 +12,7 @@ const OverseasStockSection = () => {
               Overseas Stock
             </p>
             <h2 className="text-4xl md:text-5xl font-heading font-bold text-foreground mb-6">
-              Browse Cars in Japan, UK & Dubai
+              Browse Cars in Japan, UK, SA & Australia
             </h2>
             <p className="text-muted-foreground mb-6 leading-relaxed">
               Access thousands of quality vehicles from international auctions and dealers. Choose your dream car and we'll handle the rest — inspection, purchase, shipping, and clearance.

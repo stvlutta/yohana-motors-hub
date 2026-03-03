@@ -5,23 +5,23 @@ import { Accessibility, Plane, Building2, Globe2 } from "lucide-react";
 const categories = [
   {
     icon: Accessibility,
-    title: "Persons with Disabilities",
-    description: "Tax exemptions on specially adapted vehicles for qualifying individuals.",
+    title: "People Living with Disability",
+    description: "We assist you in importing cars specially modified to meet your mobility needs while handling the full tax exemption paperwork and customs process on your behalf.",
   },
   {
     icon: Plane,
     title: "Returning Residents",
-    description: "Duty-free importation for Kenyans returning home after living abroad.",
+    description: "Planning a move back to Kenya after a long stay overseas? We can assist you with utilizing your returning residence duty-exempt vehicle status — fast, easy, and affordable.",
   },
   {
     icon: Building2,
-    title: "Diplomats",
-    description: "Full diplomatic duty exemptions for accredited diplomatic personnel.",
+    title: "Diplomatic Staff",
+    description: "Are you a diplomat, diplomatic staff, foreign aid staff, or working for a multinational? Yohana Automotive will handle your duty-free vehicle importation fast and affordably.",
   },
   {
     icon: Globe2,
-    title: "Expatriates",
-    description: "Special import privileges for expatriates working in Kenya.",
+    title: "Expatriates & NGOs",
+    description: "Special duty-free import privileges for expatriates and NGO personnel working in Kenya. Up to 50% import financing available.",
   },
 ];
 
@@ -37,7 +37,7 @@ const DutyFreeSection = () => {
             Duty Free Vehicles
           </h2>
           <p className="text-secondary-foreground/70 mt-4 max-w-2xl mx-auto">
-            We specialize in helping eligible individuals import vehicles duty-free into Kenya.
+            Are you eligible for tax-exempt car importation in Kenya? Let Yohana Automotive handle it for you — fast, easy, and affordable with up to 50% import financing available!
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">

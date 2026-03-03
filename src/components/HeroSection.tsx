@@ -12,7 +12,7 @@ const HeroSection = () => {
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-2xl animate-fade-in-up">
           <p className="text-primary font-heading font-semibold uppercase tracking-[0.3em] text-sm mb-4">
-            Kenya's Trusted Car Dealership
+            Together At Every Step
           </p>
           <h1 className="text-5xl md:text-7xl font-heading font-bold text-primary-foreground leading-tight mb-6">
             Drive Your
