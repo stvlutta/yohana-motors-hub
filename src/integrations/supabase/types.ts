@@ -14,7 +14,150 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      appointments: {
+        Row: {
+          appointment_date: string
+          appointment_time: string
+          created_at: string
+          email: string
+          id: string
+          message: string | null
+          name: string
+          phone: string
+          service: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          appointment_date: string
+          appointment_time: string
+          created_at?: string
+          email: string
+          id?: string
+          message?: string | null
+          name: string
+          phone: string
+          service: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          appointment_date?: string
+          appointment_time?: string
+          created_at?: string
+          email?: string
+          id?: string
+          message?: string | null
+          name?: string
+          phone?: string
+          service?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      sell_submissions: {
+        Row: {
+          asking_price: string
+          condition: string
+          created_at: string
+          description: string | null
+          email: string
+          id: string
+          make: string
+          mileage: string
+          model: string
+          name: string
+          phone: string
+          status: string
+          updated_at: string
+          year: string
+        }
+        Insert: {
+          asking_price: string
+          condition: string
+          created_at?: string
+          description?: string | null
+          email: string
+          id?: string
+          make: string
+          mileage: string
+          model: string
+          name: string
+          phone: string
+          status?: string
+          updated_at?: string
+          year: string
+        }
+        Update: {
+          asking_price?: string
+          condition?: string
+          created_at?: string
+          description?: string | null
+          email?: string
+          id?: string
+          make?: string
+          mileage?: string
+          model?: string
+          name?: string
+          phone?: string
+          status?: string
+          updated_at?: string
+          year?: string
+        }
+        Relationships: []
+      }
+      vehicles: {
+        Row: {
+          body_type: string | null
+          created_at: string
+          description: string | null
+          fuel: string | null
+          id: string
+          is_available: boolean
+          make: string
+          mileage: string | null
+          model: string
+          name: string
+          price: string
+          transmission: string | null
+          updated_at: string
+          year: number
+        }
+        Insert: {
+          body_type?: string | null
+          created_at?: string
+          description?: string | null
+          fuel?: string | null
+          id?: string
+          is_available?: boolean
+          make: string
+          mileage?: string | null
+          model: string
+          name: string
+          price: string
+          transmission?: string | null
+          updated_at?: string
+          year: number
+        }
+        Update: {
+          body_type?: string | null
+          created_at?: string
+          description?: string | null
+          fuel?: string | null
+          id?: string
+          is_available?: boolean
+          make?: string
+          mileage?: string | null
+          model?: string
+          name?: string
+          price?: string
+          transmission?: string | null
+          updated_at?: string
+          year?: number
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
