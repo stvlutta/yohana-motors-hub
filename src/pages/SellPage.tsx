@@ -5,8 +5,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Camera, Upload } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 
 const SellPage = () => {
+  const { toast } = useToast();
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: "", phone: "", email: "",
     make: "", model: "", year: "", mileage: "", price: "",
@@ -14,9 +18,32 @@ const SellPage = () => {
   });
   const [photos, setPhotos] = useState<File[]>([]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    alert("Thank you! We'll review your listing and get back to you within 24 hours.");
+    setLoading(true);
+    try {
+      const { error } = await supabase.from("sell_submissions").insert({
+        name: formData.name,
+        phone: formData.phone,
+        email: formData.email,
+        make: formData.make,
+        model: formData.model,
+        year: formData.year,
+        mileage: formData.mileage,
+        asking_price: formData.price,
+        condition: formData.condition,
+        description: formData.description || null,
+      });
+      if (error) throw error;
+      toast({ title: "Submission Received!", description: "We'll review your listing and get back to you within 24 hours." });
+      setFormData({ name: "", phone: "", email: "", make: "", model: "", year: "", mileage: "", price: "", condition: "", description: "" });
+      setPhotos([]);
+    } catch (err) {
+      console.error(err);
+      toast({ title: "Error", description: "Something went wrong. Please call us at 0723 041 684.", variant: "destructive" });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -81,7 +108,9 @@ const SellPage = () => {
                 )}
               </div>
 
-              <Button type="submit" variant="hero" size="lg" className="w-full">Submit Your Vehicle</Button>
+              <Button type="submit" variant="hero" size="lg" className="w-full" disabled={loading}>
+                {loading ? "Submitting..." : "Submit Your Vehicle"}
+              </Button>
             </form>
           </div>
         </section>

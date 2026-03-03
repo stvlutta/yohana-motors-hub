@@ -5,15 +5,38 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { CalendarCheck } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 
 const AppointmentPage = () => {
+  const { toast } = useToast();
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: "", phone: "", email: "", date: "", time: "", service: "", message: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    alert("Appointment scheduled! We'll confirm via SMS and email shortly.");
+    setLoading(true);
+    try {
+      const { error } = await supabase.from("appointments").insert({
+        name: formData.name,
+        phone: formData.phone,
+        email: formData.email,
+        service: formData.service,
+        appointment_date: formData.date,
+        appointment_time: formData.time,
+        message: formData.message || null,
+      });
+      if (error) throw error;
+      toast({ title: "Appointment Booked!", description: "We'll confirm via SMS and email shortly." });
+      setFormData({ name: "", phone: "", email: "", date: "", time: "", service: "", message: "" });
+    } catch (err) {
+      console.error(err);
+      toast({ title: "Error", description: "Something went wrong. Please call us at 0723 041 684.", variant: "destructive" });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -27,7 +50,7 @@ const AppointmentPage = () => {
               Schedule an Appointment
             </h1>
             <p className="text-secondary-foreground/70 mt-4 max-w-2xl mx-auto">
-              Book a visit to our showroom or schedule a consultation with our team.
+              Book a visit to our showroom at Ridgeways, Kiambu Rd or schedule a consultation with our team.
             </p>
           </div>
         </section>
@@ -57,7 +80,9 @@ const AppointmentPage = () => {
                 <Input type="time" value={formData.time} onChange={(e) => setFormData({...formData, time: e.target.value})} required />
               </div>
               <Textarea placeholder="Additional notes..." value={formData.message} onChange={(e) => setFormData({...formData, message: e.target.value})} />
-              <Button type="submit" variant="hero" size="lg" className="w-full">Book Appointment</Button>
+              <Button type="submit" variant="hero" size="lg" className="w-full" disabled={loading}>
+                {loading ? "Booking..." : "Book Appointment"}
+              </Button>
             </form>
           </div>
         </section>
