@@ -13,6 +13,7 @@ import DirectImportPage from "./pages/DirectImportPage";
 import DutyFreePage from "./pages/DutyFreePage";
 import OverseasStockPage from "./pages/OverseasStockPage";
 import InventoryPage from "./pages/InventoryPage";
+import PremiumPage from "./pages/PremiumPage";
 import NotFound from "./pages/NotFound";
 import WhatsAppButton from "./components/WhatsAppButton";
 import AIChatbot from "./components/AIChatbot";
@@ -32,6 +33,7 @@ const App = () => (
           <Route path="/duty-free" element={<DutyFreePage />} />
           <Route path="/financing" element={<FinancingPage />} />
           <Route path="/overseas-stock" element={<OverseasStockPage />} />
+          <Route path="/premium" element={<PremiumPage />} />
           <Route path="/sell" element={<SellPage />} />
           <Route path="/appointment" element={<AppointmentPage />} />
           <Route path="/calculator" element={<DutyCalculatorPage />} />

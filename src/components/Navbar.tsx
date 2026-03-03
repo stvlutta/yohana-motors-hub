@@ -11,6 +11,7 @@ const navItems = [
   { label: "Duty Free", href: "/duty-free" },
   { label: "Financing", href: "/financing" },
   { label: "Overseas Stock", href: "/overseas-stock" },
+  { label: "Premium", href: "/premium" },
   { label: "Sell Your Car", href: "/sell" },
   { label: "Calculator", href: "/calculator" },
   { label: "Blog", href: "/blog" },
