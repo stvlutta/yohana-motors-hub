@@ -14,6 +14,9 @@ import DutyFreePage from "./pages/DutyFreePage";
 import OverseasStockPage from "./pages/OverseasStockPage";
 import InventoryPage from "./pages/InventoryPage";
 import PremiumPage from "./pages/PremiumPage";
+import LoginPage from "./pages/LoginPage";
+import AdminDashboard from "./pages/AdminDashboard";
+import ProtectedRoute from "./components/ProtectedRoute";
 import NotFound from "./pages/NotFound";
 import WhatsAppButton from "./components/WhatsAppButton";
 import AIChatbot from "./components/AIChatbot";
@@ -38,6 +41,8 @@ const App = () => (
           <Route path="/appointment" element={<AppointmentPage />} />
           <Route path="/calculator" element={<DutyCalculatorPage />} />
           <Route path="/blog" element={<BlogPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/admin" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} />
           <Route path="*" element={<NotFound />} />
         </Routes>
         <WhatsAppButton />
