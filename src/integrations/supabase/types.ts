@@ -114,6 +114,7 @@ export type Database = {
           description: string | null
           fuel: string | null
           id: string
+          image_url: string | null
           is_available: boolean
           make: string
           mileage: string | null
@@ -130,6 +131,7 @@ export type Database = {
           description?: string | null
           fuel?: string | null
           id?: string
+          image_url?: string | null
           is_available?: boolean
           make: string
           mileage?: string | null
@@ -146,6 +148,7 @@ export type Database = {
           description?: string | null
           fuel?: string | null
           id?: string
+          image_url?: string | null
           is_available?: boolean
           make?: string
           mileage?: string | null

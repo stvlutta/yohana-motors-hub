@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { CalendarCheck, Car, LogOut, RefreshCw, Plus, Pencil, Trash2, Package } from "lucide-react";
+import { CalendarCheck, Car, LogOut, RefreshCw, Plus, Pencil, Trash2, Package, Upload, X } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import logo from "@/assets/logo.png";
 
@@ -27,7 +27,7 @@ type Vehicle = {
   id: string; name: string; make: string; model: string; year: number;
   price: string; mileage: string | null; fuel: string | null;
   transmission: string | null; body_type: string | null;
-  description: string | null; is_available: boolean; created_at: string;
+  description: string | null; image_url: string | null; is_available: boolean; created_at: string;
 };
 
 const emptyVehicle = {
@@ -48,6 +48,8 @@ const AdminDashboard = () => {
   const [editingVehicle, setEditingVehicle] = useState<Vehicle | null>(null);
   const [vehicleForm, setVehicleForm] = useState(emptyVehicle);
   const [saving, setSaving] = useState(false);
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
 
   const fetchData = async () => {
     setLoading(true);
@@ -72,6 +74,8 @@ const AdminDashboard = () => {
   const openAddVehicle = () => {
     setEditingVehicle(null);
     setVehicleForm(emptyVehicle);
+    setImageFile(null);
+    setImagePreview(null);
     setVehicleDialogOpen(true);
   };
 
@@ -83,12 +87,41 @@ const AdminDashboard = () => {
       transmission: v.transmission || "", body_type: v.body_type || "",
       description: v.description || "",
     });
+    setImageFile(null);
+    setImagePreview(v.image_url || null);
     setVehicleDialogOpen(true);
+  };
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setImageFile(file);
+      setImagePreview(URL.createObjectURL(file));
+    }
   };
 
   const handleSaveVehicle = async (e: React.FormEvent) => {
     e.preventDefault();
     setSaving(true);
+
+    let image_url: string | null = editingVehicle?.image_url || null;
+
+    // Upload image if a new file was selected
+    if (imageFile) {
+      const ext = imageFile.name.split(".").pop();
+      const path = `${crypto.randomUUID()}.${ext}`;
+      const { error: uploadError } = await supabase.storage
+        .from("vehicle-images")
+        .upload(path, imageFile);
+      if (uploadError) {
+        toast({ title: "Upload failed", description: uploadError.message, variant: "destructive" });
+        setSaving(false);
+        return;
+      }
+      const { data: urlData } = supabase.storage.from("vehicle-images").getPublicUrl(path);
+      image_url = urlData.publicUrl;
+    }
+
     const payload = {
       name: vehicleForm.name,
       make: vehicleForm.make,
@@ -100,6 +133,7 @@ const AdminDashboard = () => {
       transmission: vehicleForm.transmission || null,
       body_type: vehicleForm.body_type || null,
       description: vehicleForm.description || null,
+      image_url,
     };
 
     let error;
@@ -389,6 +423,28 @@ const AdminDashboard = () => {
               <Input placeholder="Body Type (SUV/Sedan/Truck)" value={vehicleForm.body_type} onChange={(e) => vf("body_type", e.target.value)} />
             </div>
             <Textarea placeholder="Description (optional)" value={vehicleForm.description} onChange={(e) => vf("description", e.target.value)} />
+            {/* Image upload */}
+            <div>
+              <label className="block text-sm font-medium text-foreground mb-1">Vehicle Photo</label>
+              {imagePreview ? (
+                <div className="relative w-full h-40 rounded-md overflow-hidden border border-border">
+                  <img src={imagePreview} alt="Preview" className="w-full h-full object-cover" />
+                  <button
+                    type="button"
+                    onClick={() => { setImageFile(null); setImagePreview(null); }}
+                    className="absolute top-2 right-2 bg-background/80 rounded-full p-1 hover:bg-background"
+                  >
+                    <X className="h-4 w-4 text-foreground" />
+                  </button>
+                </div>
+              ) : (
+                <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-border rounded-md cursor-pointer hover:border-primary/50 transition-colors">
+                  <Upload className="h-6 w-6 text-muted-foreground mb-1" />
+                  <span className="text-sm text-muted-foreground">Click to upload photo</span>
+                  <input type="file" accept="image/*" className="hidden" onChange={handleImageChange} />
+                </label>
+              )}
+            </div>
             <Button type="submit" variant="hero" className="w-full" disabled={saving}>
               {saving ? "Saving..." : editingVehicle ? "Update Vehicle" : "Add Vehicle"}
             </Button>
