@@ -27,7 +27,7 @@ type Vehicle = {
   id: string; name: string; make: string; model: string; year: number;
   price: string; mileage: string | null; fuel: string | null;
   transmission: string | null; body_type: string | null;
-  description: string | null; image_url: string | null; is_available: boolean; created_at: string;
+  description: string | null; image_url: string | null; image_urls: string[] | null; is_available: boolean; created_at: string;
 };
 
 const emptyVehicle = {
@@ -48,8 +48,9 @@ const AdminDashboard = () => {
   const [editingVehicle, setEditingVehicle] = useState<Vehicle | null>(null);
   const [vehicleForm, setVehicleForm] = useState(emptyVehicle);
   const [saving, setSaving] = useState(false);
-  const [imageFile, setImageFile] = useState<File | null>(null);
-  const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [newImageFiles, setNewImageFiles] = useState<File[]>([]);
+  const [existingImageUrls, setExistingImageUrls] = useState<string[]>([]);
+  const [newImagePreviews, setNewImagePreviews] = useState<string[]>([]);
 
   const fetchData = async () => {
     setLoading(true);
@@ -74,8 +75,9 @@ const AdminDashboard = () => {
   const openAddVehicle = () => {
     setEditingVehicle(null);
     setVehicleForm(emptyVehicle);
-    setImageFile(null);
-    setImagePreview(null);
+    setNewImageFiles([]);
+    setNewImagePreviews([]);
+    setExistingImageUrls([]);
     setVehicleDialogOpen(true);
   };
 
@@ -87,40 +89,53 @@ const AdminDashboard = () => {
       transmission: v.transmission || "", body_type: v.body_type || "",
       description: v.description || "",
     });
-    setImageFile(null);
-    setImagePreview(v.image_url || null);
+    setNewImageFiles([]);
+    setNewImagePreviews([]);
+    // Merge legacy image_url with image_urls list, deduped
+    const existing = [...(v.image_urls || [])];
+    if (v.image_url && !existing.includes(v.image_url)) existing.unshift(v.image_url);
+    setExistingImageUrls(existing);
     setVehicleDialogOpen(true);
   };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      setImageFile(file);
-      setImagePreview(URL.createObjectURL(file));
-    }
+    const files = Array.from(e.target.files || []);
+    if (!files.length) return;
+    setNewImageFiles((prev) => [...prev, ...files]);
+    setNewImagePreviews((prev) => [...prev, ...files.map((f) => URL.createObjectURL(f))]);
+    e.target.value = "";
+  };
+
+  const removeExistingImage = (url: string) => {
+    setExistingImageUrls((prev) => prev.filter((u) => u !== url));
+  };
+
+  const removeNewImage = (idx: number) => {
+    setNewImageFiles((prev) => prev.filter((_, i) => i !== idx));
+    setNewImagePreviews((prev) => prev.filter((_, i) => i !== idx));
   };
 
   const handleSaveVehicle = async (e: React.FormEvent) => {
     e.preventDefault();
     setSaving(true);
 
-    let image_url: string | null = editingVehicle?.image_url || null;
-
-    // Upload image if a new file was selected
-    if (imageFile) {
-      const ext = imageFile.name.split(".").pop();
+    const uploadedUrls: string[] = [];
+    for (const file of newImageFiles) {
+      const ext = file.name.split(".").pop();
       const path = `${crypto.randomUUID()}.${ext}`;
       const { error: uploadError } = await supabase.storage
         .from("vehicle-images")
-        .upload(path, imageFile);
+        .upload(path, file);
       if (uploadError) {
         toast({ title: "Upload failed", description: uploadError.message, variant: "destructive" });
         setSaving(false);
         return;
       }
       const { data: urlData } = supabase.storage.from("vehicle-images").getPublicUrl(path);
-      image_url = urlData.publicUrl;
+      uploadedUrls.push(urlData.publicUrl);
     }
+
+    const allImages = [...existingImageUrls, ...uploadedUrls];
 
     const payload = {
       name: vehicleForm.name,
@@ -133,7 +148,8 @@ const AdminDashboard = () => {
       transmission: vehicleForm.transmission || null,
       body_type: vehicleForm.body_type || null,
       description: vehicleForm.description || null,
-      image_url,
+      image_url: allImages[0] || null,
+      image_urls: allImages,
     };
 
     let error;
@@ -423,27 +439,37 @@ const AdminDashboard = () => {
               <Input placeholder="Body Type (SUV/Sedan/Truck)" value={vehicleForm.body_type} onChange={(e) => vf("body_type", e.target.value)} />
             </div>
             <Textarea placeholder="Description (optional)" value={vehicleForm.description} onChange={(e) => vf("description", e.target.value)} />
-            {/* Image upload */}
+            {/* Images upload (multiple) */}
             <div>
-              <label className="block text-sm font-medium text-foreground mb-1">Vehicle Photo</label>
-              {imagePreview ? (
-                <div className="relative w-full h-40 rounded-md overflow-hidden border border-border">
-                  <img src={imagePreview} alt="Preview" className="w-full h-full object-cover" />
-                  <button
-                    type="button"
-                    onClick={() => { setImageFile(null); setImagePreview(null); }}
-                    className="absolute top-2 right-2 bg-background/80 rounded-full p-1 hover:bg-background"
-                  >
-                    <X className="h-4 w-4 text-foreground" />
-                  </button>
+              <label className="block text-sm font-medium text-foreground mb-2">Vehicle Photos</label>
+              {(existingImageUrls.length > 0 || newImagePreviews.length > 0) && (
+                <div className="grid grid-cols-3 gap-2 mb-3">
+                  {existingImageUrls.map((url) => (
+                    <div key={url} className="relative h-24 rounded-md overflow-hidden border border-border">
+                      <img src={url} alt="" className="w-full h-full object-cover" />
+                      <button type="button" onClick={() => removeExistingImage(url)}
+                        className="absolute top-1 right-1 bg-background/80 rounded-full p-0.5 hover:bg-background">
+                        <X className="h-3 w-3 text-foreground" />
+                      </button>
+                    </div>
+                  ))}
+                  {newImagePreviews.map((src, i) => (
+                    <div key={src} className="relative h-24 rounded-md overflow-hidden border border-primary/40">
+                      <img src={src} alt="" className="w-full h-full object-cover" />
+                      <button type="button" onClick={() => removeNewImage(i)}
+                        className="absolute top-1 right-1 bg-background/80 rounded-full p-0.5 hover:bg-background">
+                        <X className="h-3 w-3 text-foreground" />
+                      </button>
+                    </div>
+                  ))}
                 </div>
-              ) : (
-                <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-border rounded-md cursor-pointer hover:border-primary/50 transition-colors">
-                  <Upload className="h-6 w-6 text-muted-foreground mb-1" />
-                  <span className="text-sm text-muted-foreground">Click to upload photo</span>
-                  <input type="file" accept="image/*" className="hidden" onChange={handleImageChange} />
-                </label>
               )}
+              <label className="flex flex-col items-center justify-center w-full h-24 border-2 border-dashed border-border rounded-md cursor-pointer hover:border-primary/50 transition-colors">
+                <Upload className="h-5 w-5 text-muted-foreground mb-1" />
+                <span className="text-sm text-muted-foreground">Click to add photo(s)</span>
+                <input type="file" accept="image/*" multiple className="hidden" onChange={handleImageChange} />
+              </label>
+              <p className="text-xs text-muted-foreground mt-1">First photo is the cover image. You can add multiple.</p>
             </div>
             <Button type="submit" variant="hero" className="w-full" disabled={saving}>
               {saving ? "Saving..." : editingVehicle ? "Update Vehicle" : "Add Vehicle"}

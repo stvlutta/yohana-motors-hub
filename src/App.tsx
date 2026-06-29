@@ -13,6 +13,7 @@ import DirectImportPage from "./pages/DirectImportPage";
 import DutyFreePage from "./pages/DutyFreePage";
 import OverseasStockPage from "./pages/OverseasStockPage";
 import InventoryPage from "./pages/InventoryPage";
+import VehicleDetailPage from "./pages/VehicleDetailPage";
 import PremiumPage from "./pages/PremiumPage";
 import LoginPage from "./pages/LoginPage";
 import AdminDashboard from "./pages/AdminDashboard";
@@ -32,6 +33,7 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/inventory" element={<InventoryPage />} />
+          <Route path="/inventory/:id" element={<VehicleDetailPage />} />
           <Route path="/direct-import" element={<DirectImportPage />} />
           <Route path="/duty-free" element={<DutyFreePage />} />
           <Route path="/financing" element={<FinancingPage />} />
