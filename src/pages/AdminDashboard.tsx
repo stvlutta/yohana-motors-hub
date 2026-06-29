@@ -75,8 +75,9 @@ const AdminDashboard = () => {
   const openAddVehicle = () => {
     setEditingVehicle(null);
     setVehicleForm(emptyVehicle);
-    setImageFile(null);
-    setImagePreview(null);
+    setNewImageFiles([]);
+    setNewImagePreviews([]);
+    setExistingImageUrls([]);
     setVehicleDialogOpen(true);
   };
 
@@ -88,40 +89,53 @@ const AdminDashboard = () => {
       transmission: v.transmission || "", body_type: v.body_type || "",
       description: v.description || "",
     });
-    setImageFile(null);
-    setImagePreview(v.image_url || null);
+    setNewImageFiles([]);
+    setNewImagePreviews([]);
+    // Merge legacy image_url with image_urls list, deduped
+    const existing = [...(v.image_urls || [])];
+    if (v.image_url && !existing.includes(v.image_url)) existing.unshift(v.image_url);
+    setExistingImageUrls(existing);
     setVehicleDialogOpen(true);
   };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      setImageFile(file);
-      setImagePreview(URL.createObjectURL(file));
-    }
+    const files = Array.from(e.target.files || []);
+    if (!files.length) return;
+    setNewImageFiles((prev) => [...prev, ...files]);
+    setNewImagePreviews((prev) => [...prev, ...files.map((f) => URL.createObjectURL(f))]);
+    e.target.value = "";
+  };
+
+  const removeExistingImage = (url: string) => {
+    setExistingImageUrls((prev) => prev.filter((u) => u !== url));
+  };
+
+  const removeNewImage = (idx: number) => {
+    setNewImageFiles((prev) => prev.filter((_, i) => i !== idx));
+    setNewImagePreviews((prev) => prev.filter((_, i) => i !== idx));
   };
 
   const handleSaveVehicle = async (e: React.FormEvent) => {
     e.preventDefault();
     setSaving(true);
 
-    let image_url: string | null = editingVehicle?.image_url || null;
-
-    // Upload image if a new file was selected
-    if (imageFile) {
-      const ext = imageFile.name.split(".").pop();
+    const uploadedUrls: string[] = [];
+    for (const file of newImageFiles) {
+      const ext = file.name.split(".").pop();
       const path = `${crypto.randomUUID()}.${ext}`;
       const { error: uploadError } = await supabase.storage
         .from("vehicle-images")
-        .upload(path, imageFile);
+        .upload(path, file);
       if (uploadError) {
         toast({ title: "Upload failed", description: uploadError.message, variant: "destructive" });
         setSaving(false);
         return;
       }
       const { data: urlData } = supabase.storage.from("vehicle-images").getPublicUrl(path);
-      image_url = urlData.publicUrl;
+      uploadedUrls.push(urlData.publicUrl);
     }
+
+    const allImages = [...existingImageUrls, ...uploadedUrls];
 
     const payload = {
       name: vehicleForm.name,
@@ -134,7 +148,8 @@ const AdminDashboard = () => {
       transmission: vehicleForm.transmission || null,
       body_type: vehicleForm.body_type || null,
       description: vehicleForm.description || null,
-      image_url,
+      image_url: allImages[0] || null,
+      image_urls: allImages,
     };
 
     let error;
