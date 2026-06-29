@@ -1,12 +1,40 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import heroImg from "@/assets/hero-showroom.jpg";
+import slide1 from "@/assets/hero/handover-1.jpg";
+import slide2 from "@/assets/hero/handover-2.jpg";
+import slide3 from "@/assets/hero/handover-3.jpg";
+import slide4 from "@/assets/hero/handover-4.jpg";
+import slide5 from "@/assets/hero/handover-5.jpg";
+import slide6 from "@/assets/hero/handover-6.jpg";
+import slide7 from "@/assets/hero/handover-7.jpg";
+import slide8 from "@/assets/hero/handover-8.jpg";
+import slide9 from "@/assets/hero/handover-9.jpg";
+import slide10 from "@/assets/hero/handover-10.jpg";
+
+const slides = [slide1, slide2, slide3, slide4, slide5, slide6, slide7, slide8, slide9, slide10];
 
 const HeroSection = () => {
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    const id = setInterval(() => setIndex((i) => (i + 1) % slides.length), 4500);
+    return () => clearInterval(id);
+  }, []);
+
   return (
     <section className="relative min-h-[90vh] flex items-center overflow-hidden">
       <div className="absolute inset-0">
-        <img src={heroImg} alt="Yohana Automotive Showroom" className="w-full h-full object-cover" />
+        {slides.map((src, i) => (
+          <img
+            key={src}
+            src={src}
+            alt={`Happy Yohana Automotive client ${i + 1}`}
+            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
+              i === index ? "opacity-100" : "opacity-0"
+            }`}
+          />
+        ))}
         <div className="absolute inset-0 gradient-hero opacity-80" />
       </div>
       <div className="container mx-auto px-4 relative z-10">
@@ -34,6 +62,19 @@ const HeroSection = () => {
             </Link>
           </div>
         </div>
+      </div>
+
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+        {slides.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setIndex(i)}
+            aria-label={`Go to slide ${i + 1}`}
+            className={`h-2 rounded-full transition-all ${
+              i === index ? "w-8 bg-primary" : "w-2 bg-primary-foreground/40"
+            }`}
+          />
+        ))}
       </div>
     </section>
   );
