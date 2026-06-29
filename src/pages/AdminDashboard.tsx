@@ -27,7 +27,7 @@ type Vehicle = {
   id: string; name: string; make: string; model: string; year: number;
   price: string; mileage: string | null; fuel: string | null;
   transmission: string | null; body_type: string | null;
-  description: string | null; image_url: string | null; is_available: boolean; created_at: string;
+  description: string | null; image_url: string | null; image_urls: string[] | null; is_available: boolean; created_at: string;
 };
 
 const emptyVehicle = {
