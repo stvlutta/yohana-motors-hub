@@ -439,27 +439,37 @@ const AdminDashboard = () => {
               <Input placeholder="Body Type (SUV/Sedan/Truck)" value={vehicleForm.body_type} onChange={(e) => vf("body_type", e.target.value)} />
             </div>
             <Textarea placeholder="Description (optional)" value={vehicleForm.description} onChange={(e) => vf("description", e.target.value)} />
-            {/* Image upload */}
+            {/* Images upload (multiple) */}
             <div>
-              <label className="block text-sm font-medium text-foreground mb-1">Vehicle Photo</label>
-              {imagePreview ? (
-                <div className="relative w-full h-40 rounded-md overflow-hidden border border-border">
-                  <img src={imagePreview} alt="Preview" className="w-full h-full object-cover" />
-                  <button
-                    type="button"
-                    onClick={() => { setImageFile(null); setImagePreview(null); }}
-                    className="absolute top-2 right-2 bg-background/80 rounded-full p-1 hover:bg-background"
-                  >
-                    <X className="h-4 w-4 text-foreground" />
-                  </button>
+              <label className="block text-sm font-medium text-foreground mb-2">Vehicle Photos</label>
+              {(existingImageUrls.length > 0 || newImagePreviews.length > 0) && (
+                <div className="grid grid-cols-3 gap-2 mb-3">
+                  {existingImageUrls.map((url) => (
+                    <div key={url} className="relative h-24 rounded-md overflow-hidden border border-border">
+                      <img src={url} alt="" className="w-full h-full object-cover" />
+                      <button type="button" onClick={() => removeExistingImage(url)}
+                        className="absolute top-1 right-1 bg-background/80 rounded-full p-0.5 hover:bg-background">
+                        <X className="h-3 w-3 text-foreground" />
+                      </button>
+                    </div>
+                  ))}
+                  {newImagePreviews.map((src, i) => (
+                    <div key={src} className="relative h-24 rounded-md overflow-hidden border border-primary/40">
+                      <img src={src} alt="" className="w-full h-full object-cover" />
+                      <button type="button" onClick={() => removeNewImage(i)}
+                        className="absolute top-1 right-1 bg-background/80 rounded-full p-0.5 hover:bg-background">
+                        <X className="h-3 w-3 text-foreground" />
+                      </button>
+                    </div>
+                  ))}
                 </div>
-              ) : (
-                <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-border rounded-md cursor-pointer hover:border-primary/50 transition-colors">
-                  <Upload className="h-6 w-6 text-muted-foreground mb-1" />
-                  <span className="text-sm text-muted-foreground">Click to upload photo</span>
-                  <input type="file" accept="image/*" className="hidden" onChange={handleImageChange} />
-                </label>
               )}
+              <label className="flex flex-col items-center justify-center w-full h-24 border-2 border-dashed border-border rounded-md cursor-pointer hover:border-primary/50 transition-colors">
+                <Upload className="h-5 w-5 text-muted-foreground mb-1" />
+                <span className="text-sm text-muted-foreground">Click to add photo(s)</span>
+                <input type="file" accept="image/*" multiple className="hidden" onChange={handleImageChange} />
+              </label>
+              <p className="text-xs text-muted-foreground mt-1">First photo is the cover image. You can add multiple.</p>
             </div>
             <Button type="submit" variant="hero" className="w-full" disabled={saving}>
               {saving ? "Saving..." : editingVehicle ? "Update Vehicle" : "Add Vehicle"}
