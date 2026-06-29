@@ -11,8 +11,18 @@ import slide7 from "@/assets/hero/handover-7.jpg";
 import slide8 from "@/assets/hero/handover-8.jpg";
 import slide9 from "@/assets/hero/handover-9.jpg";
 import slide10 from "@/assets/hero/handover-10.jpg";
+import slide11 from "@/assets/hero/handover-11.jpg";
+import slide12 from "@/assets/hero/handover-12.jpg";
+import slide13 from "@/assets/hero/handover-13.jpg";
+import slide14 from "@/assets/hero/handover-14.jpg";
+import slide15 from "@/assets/hero/handover-15.jpg";
+import slide16 from "@/assets/hero/handover-16.jpg";
+import slide17 from "@/assets/hero/handover-17.jpg";
 
-const slides = [slide1, slide2, slide3, slide4, slide5, slide6, slide7, slide8, slide9, slide10];
+const slides = [
+  slide1, slide2, slide3, slide4, slide5, slide6, slide7, slide8, slide9,
+  slide10, slide11, slide12, slide13, slide14, slide15, slide16, slide17,
+];
 
 const HeroSection = () => {
   const [index, setIndex] = useState(0);
@@ -23,30 +33,42 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <section className="relative min-h-[90vh] flex items-center overflow-hidden">
+    <section className="relative min-h-[90vh] flex items-center overflow-hidden bg-secondary">
       <div className="absolute inset-0">
         {slides.map((src, i) => (
-          <img
+          <div
             key={src}
-            src={src}
-            alt={`Happy Yohana Automotive client ${i + 1}`}
-            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
+            className={`absolute inset-0 transition-opacity duration-1000 ${
               i === index ? "opacity-100" : "opacity-0"
             }`}
-          />
+          >
+            {/* Blurred fill background so the full image always shows on top */}
+            <img
+              src={src}
+              alt=""
+              aria-hidden="true"
+              className="absolute inset-0 w-full h-full object-cover scale-110 blur-2xl opacity-60"
+            />
+            <img
+              src={src}
+              alt={`Happy Yohana Automotive client ${i + 1}`}
+              className="absolute inset-0 w-full h-full object-contain"
+            />
+          </div>
         ))}
-        <div className="absolute inset-0 gradient-hero opacity-80" />
+        <div className="absolute inset-0 gradient-hero opacity-70 pointer-events-none" />
       </div>
+
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-2xl animate-fade-in-up">
           <p className="text-primary font-heading font-semibold uppercase tracking-[0.3em] text-sm mb-4">
             Together At Every Step
           </p>
-          <h1 className="text-5xl md:text-7xl font-heading font-bold text-primary-foreground leading-tight mb-6">
+          <h1 className="text-5xl md:text-7xl font-heading font-bold text-primary-foreground leading-tight mb-6 drop-shadow-lg">
             Drive Your
             <span className="block text-gradient-red">Dream Car</span>
           </h1>
-          <p className="text-lg text-primary-foreground/80 mb-8 max-w-lg font-body">
+          <p className="text-lg text-primary-foreground/90 mb-8 max-w-lg font-body drop-shadow">
             Import directly from Japan, UK & Dubai. Enjoy duty-free options, flexible financing, and a seamless buying experience.
           </p>
           <div className="flex flex-wrap gap-4">
