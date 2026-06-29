@@ -33,6 +33,7 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/inventory" element={<InventoryPage />} />
+          <Route path="/inventory/:id" element={<VehicleDetailPage />} />
           <Route path="/direct-import" element={<DirectImportPage />} />
           <Route path="/duty-free" element={<DutyFreePage />} />
           <Route path="/financing" element={<FinancingPage />} />
