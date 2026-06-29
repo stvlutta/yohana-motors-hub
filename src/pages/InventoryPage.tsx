@@ -205,9 +205,10 @@ const InventoryPage = () => {
                 ) : (
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     {filtered.map((car) => (
-                      <div
+                      <Link
+                        to={`/inventory/${car.id}`}
                         key={car.id}
-                        className="bg-card rounded-lg overflow-hidden shadow-card hover:shadow-elevated transition-all duration-300 border border-border group"
+                        className="bg-card rounded-lg overflow-hidden shadow-card hover:shadow-elevated transition-all duration-300 border border-border group block"
                       >
                         <div className="h-56 bg-muted flex items-center justify-center overflow-hidden">
                           {car.image_url ? (
@@ -217,7 +218,7 @@ const InventoryPage = () => {
                           )}
                         </div>
                         <div className="p-5">
-                          <h3 className="font-heading font-bold text-lg text-foreground mb-1">{car.name}</h3>
+                          <h3 className="font-heading font-bold text-lg text-foreground mb-1 group-hover:text-primary transition-colors">{car.name}</h3>
                           <p className="text-primary font-semibold mb-3">{car.price}</p>
                           <div className="flex flex-wrap items-center gap-3 text-xs text-muted-foreground">
                             <span className="flex items-center gap-1"><Calendar className="h-3 w-3" />{car.year}</span>
@@ -227,7 +228,7 @@ const InventoryPage = () => {
                             {car.body_type && <span className="bg-muted px-2 py-0.5 rounded text-muted-foreground">{car.body_type}</span>}
                           </div>
                         </div>
-                      </div>
+                      </Link>
                     ))}
                   </div>
                 )}
