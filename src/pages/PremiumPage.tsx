@@ -54,7 +54,7 @@ const PremiumPage = () => {
               demand excellence.
             </p>
             <div className="flex flex-wrap justify-center gap-4 mt-8">
-              <Link to="/appointment">
+              <Link to="/appointment?service=Premium%20%26%20Luxury%20Division">
                 <Button variant="hero" size="lg">
                   Book a Consultation
                   <ArrowRight className="ml-2 h-5 w-5" />
