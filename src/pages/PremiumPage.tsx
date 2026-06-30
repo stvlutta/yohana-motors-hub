@@ -98,7 +98,7 @@ const PremiumPage = () => {
                   <p className="text-muted-foreground text-sm leading-relaxed mb-6">
                     {service.description}
                   </p>
-                  <ul className="space-y-2">
+                  <ul className="space-y-2 mb-6">
                     {service.features.map((f) => (
                       <li key={f} className="flex items-start gap-2 text-sm text-foreground/80">
                         <Star className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
@@ -106,6 +106,12 @@ const PremiumPage = () => {
                       </li>
                     ))}
                   </ul>
+                  <Link to={`/appointment?service=${encodeURIComponent(service.service)}`}>
+                    <Button variant="outline" size="sm" className="w-full">
+                      Book {service.title}
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Button>
+                  </Link>
                 </div>
               ))}
             </div>
