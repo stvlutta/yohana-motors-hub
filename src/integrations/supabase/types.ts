@@ -56,6 +56,69 @@ export type Database = {
         }
         Relationships: []
       }
+      overseas_vehicles: {
+        Row: {
+          body_type: string | null
+          created_at: string
+          description: string | null
+          fuel: string | null
+          id: string
+          image_url: string | null
+          image_urls: string[]
+          is_available: boolean
+          make: string
+          mileage: string | null
+          model: string
+          name: string
+          price: string
+          source_country: string | null
+          source_url: string | null
+          transmission: string | null
+          updated_at: string
+          year: number
+        }
+        Insert: {
+          body_type?: string | null
+          created_at?: string
+          description?: string | null
+          fuel?: string | null
+          id?: string
+          image_url?: string | null
+          image_urls?: string[]
+          is_available?: boolean
+          make: string
+          mileage?: string | null
+          model: string
+          name: string
+          price: string
+          source_country?: string | null
+          source_url?: string | null
+          transmission?: string | null
+          updated_at?: string
+          year: number
+        }
+        Update: {
+          body_type?: string | null
+          created_at?: string
+          description?: string | null
+          fuel?: string | null
+          id?: string
+          image_url?: string | null
+          image_urls?: string[]
+          is_available?: boolean
+          make?: string
+          mileage?: string | null
+          model?: string
+          name?: string
+          price?: string
+          source_country?: string | null
+          source_url?: string | null
+          transmission?: string | null
+          updated_at?: string
+          year?: number
+        }
+        Relationships: []
+      }
       sell_submissions: {
         Row: {
           asking_price: string
@@ -69,6 +132,7 @@ export type Database = {
           model: string
           name: string
           phone: string
+          photo_urls: string[]
           status: string
           updated_at: string
           year: string
@@ -85,6 +149,7 @@ export type Database = {
           model: string
           name: string
           phone: string
+          photo_urls?: string[]
           status?: string
           updated_at?: string
           year: string
@@ -101,6 +166,7 @@ export type Database = {
           model?: string
           name?: string
           phone?: string
+          photo_urls?: string[]
           status?: string
           updated_at?: string
           year?: string
