@@ -129,7 +129,7 @@ const PremiumPage = () => {
               Discretion and excellence guaranteed.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
-              <Link to="/appointment">
+              <Link to="/appointment?service=Premium%20%26%20Luxury%20Division">
                 <Button variant="hero" size="lg">Schedule Private Viewing</Button>
               </Link>
               <a
