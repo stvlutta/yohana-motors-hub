@@ -89,12 +89,7 @@ const AppointmentPage = () => {
                   required
                 >
                   <option value="">Select Service</option>
-                  <option>Vehicle Purchase Consultation</option>
-                  <option>Direct Import Inquiry</option>
-                  <option>Duty Free Consultation</option>
-                  <option>Financing Options</option>
-                  <option>Sell Your Car</option>
-                  <option>Test Drive</option>
+                  {SERVICES.map((s) => <option key={s} value={s}>{s}</option>)}
                 </select>
                 <Input type="date" value={formData.date} onChange={(e) => setFormData({...formData, date: e.target.value})} required />
                 <Input type="time" value={formData.time} onChange={(e) => setFormData({...formData, time: e.target.value})} required />
