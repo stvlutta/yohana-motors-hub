@@ -8,6 +8,7 @@ const services = [
   {
     icon: Shield,
     title: "Armoured Vehicles",
+    service: "Armoured Vehicle Consultation",
     description:
       "Certified ballistic protection for VIPs, diplomats, and corporate executives. We source and deliver armoured SUVs, sedans, and specialty vehicles from trusted global manufacturers.",
     features: ["B4–B7 ballistic ratings", "Run-flat tyres & blast protection", "Discreet factory-level integration", "After-sales armour maintenance"],
@@ -15,6 +16,7 @@ const services = [
   {
     icon: Car,
     title: "Luxury Car Hire",
+    service: "Luxury Car Hire",
     description:
       "Experience world-class vehicles for weddings, corporate events, airport transfers, or weekend getaways. Chauffeur-driven or self-drive options available.",
     features: ["Range Rover, Mercedes S-Class, BMW 7 Series", "Chauffeur & self-drive options", "Airport meet-and-greet service", "Flexible daily, weekly & monthly rates"],
@@ -22,6 +24,7 @@ const services = [
   {
     icon: Crown,
     title: "VIP Concierge Services",
+    service: "VIP Concierge / Chauffeur",
     description:
       "End-to-end lifestyle management for discerning clients. From sourcing rare vehicles worldwide to coordinating logistics, insurance, and registration — we handle it all.",
     features: ["Global vehicle sourcing", "Door-to-door delivery anywhere in Kenya", "Insurance & registration handling", "Dedicated relationship manager"],
