@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -8,12 +9,31 @@ import { CalendarCheck } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 
+const SERVICES = [
+  "Vehicle Purchase Consultation",
+  "Direct Import Inquiry",
+  "Duty Free Consultation",
+  "Financing Options",
+  "Sell Your Car",
+  "Test Drive",
+  "Armoured Vehicle Consultation",
+  "Luxury Car Hire",
+  "VIP Concierge / Chauffeur",
+  "Premium & Luxury Division",
+];
+
 const AppointmentPage = () => {
   const { toast } = useToast();
+  const [searchParams] = useSearchParams();
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: "", phone: "", email: "", date: "", time: "", service: "", message: "",
   });
+
+  useEffect(() => {
+    const svc = searchParams.get("service");
+    if (svc) setFormData((f) => ({ ...f, service: svc }));
+  }, [searchParams]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
