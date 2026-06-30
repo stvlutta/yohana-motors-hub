@@ -171,7 +171,7 @@ const AdminDashboard = () => {
 
     let error;
     if (editingVehicle) {
-      ({ error } = await supabase.from(editingTable).update(payload).eq("id", editingVehicle.id));
+      ({ error } = await supabase.from(editingTable).update(payload as never).eq("id", editingVehicle.id));
     } else {
       ({ error } = await supabase.from(editingTable).insert(payload as never));
     }
