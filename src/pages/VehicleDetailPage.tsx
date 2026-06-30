@@ -22,10 +22,13 @@ const VehicleDetailPage = () => {
 
   useEffect(() => {
     if (!id) return;
-    supabase.from("vehicles").select("*").eq("id", id).maybeSingle().then(({ data }) => {
-      setVehicle(data as Vehicle | null);
+    (async () => {
+      const { data } = await supabase.from("vehicles").select("*").eq("id", id).maybeSingle();
+      if (data) { setVehicle(data as Vehicle); setLoading(false); return; }
+      const { data: ov } = await supabase.from("overseas_vehicles").select("*").eq("id", id).maybeSingle();
+      setVehicle((ov as Vehicle | null) ?? null);
       setLoading(false);
-    });
+    })();
   }, [id]);
 
   const images: string[] = (() => {
