@@ -22,6 +22,17 @@ const SellPage = () => {
     e.preventDefault();
     setLoading(true);
     try {
+      // Upload photos first
+      const photoUrls: string[] = [];
+      for (const file of photos) {
+        const ext = file.name.split(".").pop();
+        const path = `${crypto.randomUUID()}.${ext}`;
+        const { error: upErr } = await supabase.storage.from("sell-photos").upload(path, file);
+        if (upErr) throw upErr;
+        const { data: urlData } = supabase.storage.from("sell-photos").getPublicUrl(path);
+        photoUrls.push(urlData.publicUrl);
+      }
+
       const { error } = await supabase.from("sell_submissions").insert({
         name: formData.name,
         phone: formData.phone,
@@ -33,6 +44,7 @@ const SellPage = () => {
         asking_price: formData.price,
         condition: formData.condition,
         description: formData.description || null,
+        photo_urls: photoUrls,
       });
       if (error) throw error;
       toast({ title: "Submission Received!", description: "We'll review your listing and get back to you within 24 hours." });
@@ -40,7 +52,7 @@ const SellPage = () => {
       setPhotos([]);
     } catch (err) {
       console.error(err);
-      toast({ title: "Error", description: "Something went wrong. Please call us at 0723 041 684.", variant: "destructive" });
+      toast({ title: "Error", description: "Something went wrong. Please call us at 0714 007 122.", variant: "destructive" });
     } finally {
       setLoading(false);
     }

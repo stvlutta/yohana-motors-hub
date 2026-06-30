@@ -95,8 +95,8 @@ const DirectImportPage = () => {
                   Start Your Import <ArrowRight className="h-4 w-4" />
                 </Button>
               </Link>
-              <a href="tel:+254723041684">
-                <Button variant="navy" size="lg">Call 0723 041 684</Button>
+              <a href="tel:+254714007122">
+                <Button variant="navy" size="lg">Call 0714 007 122</Button>
               </a>
             </div>
           </div>

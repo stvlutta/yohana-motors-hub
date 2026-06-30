@@ -8,6 +8,7 @@ const services = [
   {
     icon: Shield,
     title: "Armoured Vehicles",
+    service: "Armoured Vehicle Consultation",
     description:
       "Certified ballistic protection for VIPs, diplomats, and corporate executives. We source and deliver armoured SUVs, sedans, and specialty vehicles from trusted global manufacturers.",
     features: ["B4–B7 ballistic ratings", "Run-flat tyres & blast protection", "Discreet factory-level integration", "After-sales armour maintenance"],
@@ -15,6 +16,7 @@ const services = [
   {
     icon: Car,
     title: "Luxury Car Hire",
+    service: "Luxury Car Hire",
     description:
       "Experience world-class vehicles for weddings, corporate events, airport transfers, or weekend getaways. Chauffeur-driven or self-drive options available.",
     features: ["Range Rover, Mercedes S-Class, BMW 7 Series", "Chauffeur & self-drive options", "Airport meet-and-greet service", "Flexible daily, weekly & monthly rates"],
@@ -22,6 +24,7 @@ const services = [
   {
     icon: Crown,
     title: "VIP Concierge Services",
+    service: "VIP Concierge / Chauffeur",
     description:
       "End-to-end lifestyle management for discerning clients. From sourcing rare vehicles worldwide to coordinating logistics, insurance, and registration — we handle it all.",
     features: ["Global vehicle sourcing", "Door-to-door delivery anywhere in Kenya", "Insurance & registration handling", "Dedicated relationship manager"],
@@ -51,13 +54,13 @@ const PremiumPage = () => {
               demand excellence.
             </p>
             <div className="flex flex-wrap justify-center gap-4 mt-8">
-              <Link to="/appointment">
+              <Link to="/appointment?service=Premium%20%26%20Luxury%20Division">
                 <Button variant="hero" size="lg">
                   Book a Consultation
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
-              <a href="tel:+254723041684">
+              <a href="tel:+254714007122">
                 <Button variant="outline" size="lg" className="border-secondary-foreground/30 text-secondary-foreground hover:bg-secondary-foreground/10">
                   <Phone className="mr-2 h-5 w-5" />
                   Call Us
@@ -95,7 +98,7 @@ const PremiumPage = () => {
                   <p className="text-muted-foreground text-sm leading-relaxed mb-6">
                     {service.description}
                   </p>
-                  <ul className="space-y-2">
+                  <ul className="space-y-2 mb-6">
                     {service.features.map((f) => (
                       <li key={f} className="flex items-start gap-2 text-sm text-foreground/80">
                         <Star className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
@@ -103,6 +106,12 @@ const PremiumPage = () => {
                       </li>
                     ))}
                   </ul>
+                  <Link to={`/appointment?service=${encodeURIComponent(service.service)}`}>
+                    <Button variant="outline" size="sm" className="w-full">
+                      Book {service.title}
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Button>
+                  </Link>
                 </div>
               ))}
             </div>
@@ -120,11 +129,11 @@ const PremiumPage = () => {
               Discretion and excellence guaranteed.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
-              <Link to="/appointment">
+              <Link to="/appointment?service=Premium%20%26%20Luxury%20Division">
                 <Button variant="hero" size="lg">Schedule Private Viewing</Button>
               </Link>
               <a
-                href="https://wa.me/254723041684?text=Hello%20Yohana%20Premium%20Division!%20I%27d%20like%20to%20inquire%20about%20your%20premium%20services."
+                href="https://wa.me/254714007122?text=Hello%20Yohana%20Premium%20Division!%20I%27d%20like%20to%20inquire%20about%20your%20premium%20services."
                 target="_blank"
                 rel="noopener noreferrer"
               >

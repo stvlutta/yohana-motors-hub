@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -8,12 +9,31 @@ import { CalendarCheck } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 
+const SERVICES = [
+  "Vehicle Purchase Consultation",
+  "Direct Import Inquiry",
+  "Duty Free Consultation",
+  "Financing Options",
+  "Sell Your Car",
+  "Test Drive",
+  "Armoured Vehicle Consultation",
+  "Luxury Car Hire",
+  "VIP Concierge / Chauffeur",
+  "Premium & Luxury Division",
+];
+
 const AppointmentPage = () => {
   const { toast } = useToast();
+  const [searchParams] = useSearchParams();
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: "", phone: "", email: "", date: "", time: "", service: "", message: "",
   });
+
+  useEffect(() => {
+    const svc = searchParams.get("service");
+    if (svc) setFormData((f) => ({ ...f, service: svc }));
+  }, [searchParams]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -33,7 +53,7 @@ const AppointmentPage = () => {
       setFormData({ name: "", phone: "", email: "", date: "", time: "", service: "", message: "" });
     } catch (err) {
       console.error(err);
-      toast({ title: "Error", description: "Something went wrong. Please call us at 0723 041 684.", variant: "destructive" });
+      toast({ title: "Error", description: "Something went wrong. Please call us at 0714 007 122.", variant: "destructive" });
     } finally {
       setLoading(false);
     }
@@ -69,12 +89,7 @@ const AppointmentPage = () => {
                   required
                 >
                   <option value="">Select Service</option>
-                  <option>Vehicle Purchase Consultation</option>
-                  <option>Direct Import Inquiry</option>
-                  <option>Duty Free Consultation</option>
-                  <option>Financing Options</option>
-                  <option>Sell Your Car</option>
-                  <option>Test Drive</option>
+                  {SERVICES.map((s) => <option key={s} value={s}>{s}</option>)}
                 </select>
                 <Input type="date" value={formData.date} onChange={(e) => setFormData({...formData, date: e.target.value})} required />
                 <Input type="time" value={formData.time} onChange={(e) => setFormData({...formData, time: e.target.value})} required />

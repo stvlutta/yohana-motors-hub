@@ -22,10 +22,13 @@ const VehicleDetailPage = () => {
 
   useEffect(() => {
     if (!id) return;
-    supabase.from("vehicles").select("*").eq("id", id).maybeSingle().then(({ data }) => {
-      setVehicle(data as Vehicle | null);
+    (async () => {
+      const { data } = await supabase.from("vehicles").select("*").eq("id", id).maybeSingle();
+      if (data) { setVehicle(data as Vehicle); setLoading(false); return; }
+      const { data: ov } = await supabase.from("overseas_vehicles").select("*").eq("id", id).maybeSingle();
+      setVehicle((ov as Vehicle | null) ?? null);
       setLoading(false);
-    });
+    })();
   }, [id]);
 
   const images: string[] = (() => {
@@ -135,7 +138,7 @@ const VehicleDetailPage = () => {
 
                 <div className="flex flex-wrap gap-3">
                   <Link to="/appointment"><Button variant="hero" size="lg" className="gap-2">Schedule a Viewing <ArrowRight className="h-4 w-4" /></Button></Link>
-                  <a href="tel:+254723041684"><Button variant="navy" size="lg" className="gap-2"><Phone className="h-4 w-4" /> Call 0723 041 684</Button></a>
+                  <a href="tel:+254714007122"><Button variant="navy" size="lg" className="gap-2"><Phone className="h-4 w-4" /> Call 0714 007 122</Button></a>
                 </div>
               </div>
             </div>
