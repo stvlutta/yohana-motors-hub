@@ -135,7 +135,7 @@ const VehicleDetailPage = () => {
 
                 <div className="flex flex-wrap gap-3">
                   <Link to="/appointment"><Button variant="hero" size="lg" className="gap-2">Schedule a Viewing <ArrowRight className="h-4 w-4" /></Button></Link>
-                  <a href="tel:+254723041684"><Button variant="navy" size="lg" className="gap-2"><Phone className="h-4 w-4" /> Call 0723 041 684</Button></a>
+                  <a href="tel:+254714007122"><Button variant="navy" size="lg" className="gap-2"><Phone className="h-4 w-4" /> Call 0714 007 122</Button></a>
                 </div>
               </div>
             </div>

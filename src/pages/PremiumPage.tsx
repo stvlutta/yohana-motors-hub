@@ -57,7 +57,7 @@ const PremiumPage = () => {
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
-              <a href="tel:+254723041684">
+              <a href="tel:+254714007122">
                 <Button variant="outline" size="lg" className="border-secondary-foreground/30 text-secondary-foreground hover:bg-secondary-foreground/10">
                   <Phone className="mr-2 h-5 w-5" />
                   Call Us
@@ -124,7 +124,7 @@ const PremiumPage = () => {
                 <Button variant="hero" size="lg">Schedule Private Viewing</Button>
               </Link>
               <a
-                href="https://wa.me/254723041684?text=Hello%20Yohana%20Premium%20Division!%20I%27d%20like%20to%20inquire%20about%20your%20premium%20services."
+                href="https://wa.me/254714007122?text=Hello%20Yohana%20Premium%20Division!%20I%27d%20like%20to%20inquire%20about%20your%20premium%20services."
                 target="_blank"
                 rel="noopener noreferrer"
               >

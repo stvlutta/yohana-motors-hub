@@ -40,7 +40,7 @@ const OverseasStockPage = () => {
                 Found a car on Autotrader UK, BE FORWARD, SBT Japan, or any overseas platform? Send us the link or details and we'll give you a landed cost within 24 hours.
               </p>
               <div className="flex flex-wrap justify-center gap-4">
-                <a href="https://wa.me/254723041684" target="_blank" rel="noopener noreferrer">
+                <a href="https://wa.me/254714007122" target="_blank" rel="noopener noreferrer">
                   <Button variant="hero" size="lg" className="gap-2">
                     WhatsApp Us <ArrowRight className="h-4 w-4" />
                   </Button>

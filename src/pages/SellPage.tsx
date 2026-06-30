@@ -40,7 +40,7 @@ const SellPage = () => {
       setPhotos([]);
     } catch (err) {
       console.error(err);
-      toast({ title: "Error", description: "Something went wrong. Please call us at 0723 041 684.", variant: "destructive" });
+      toast({ title: "Error", description: "Something went wrong. Please call us at 0714 007 122.", variant: "destructive" });
     } finally {
       setLoading(false);
     }

@@ -88,7 +88,7 @@ const AIChatbot = () => {
       console.error(e);
       setMessages((prev) => [
         ...prev,
-        { role: "assistant", content: "Sorry, I'm having trouble connecting right now. Please call us at 0723 041 684 for assistance!" },
+        { role: "assistant", content: "Sorry, I'm having trouble connecting right now. Please call us at 0714 007 122 for assistance!" },
       ]);
     } finally {
       setIsLoading(false);
