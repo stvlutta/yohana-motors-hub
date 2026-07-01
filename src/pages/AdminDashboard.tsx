@@ -26,7 +26,7 @@ type SellSubmission = {
 type Vehicle = {
   id: string; name: string; make: string; model: string; year: number;
   price: string; mileage: string | null; fuel: string | null;
-  transmission: string | null; body_type: string | null;
+  transmission: string | null; body_type: string | null; engine_cc: number | null;
   description: string | null; image_url: string | null; image_urls: string[] | null; is_available: boolean; created_at: string;
 };
 
@@ -34,7 +34,7 @@ type OverseasVehicle = Vehicle & { source_country: string | null; source_url: st
 
 const emptyVehicle = {
   name: "", make: "", model: "", year: "", price: "",
-  mileage: "", fuel: "", transmission: "", body_type: "", description: "",
+  mileage: "", fuel: "", transmission: "", body_type: "", engine_cc: "", description: "",
   source_country: "", source_url: "",
 };
 
