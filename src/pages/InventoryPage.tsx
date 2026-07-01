@@ -42,7 +42,7 @@ const InventoryPage = () => {
   useEffect(() => {
     supabase
       .from("vehicles")
-      .select("id, name, make, model, year, price, mileage, fuel, transmission, body_type, image_url")
+      .select("id, name, make, model, year, price, mileage, fuel, transmission, body_type, engine_cc, image_url")
       .eq("is_available", true)
       .order("created_at", { ascending: false })
       .then(({ data }) => {
