@@ -99,6 +99,7 @@ const AdminDashboard = () => {
       name: v.name, make: v.make, model: v.model, year: String(v.year),
       price: v.price, mileage: v.mileage || "", fuel: v.fuel || "",
       transmission: v.transmission || "", body_type: v.body_type || "",
+      engine_cc: v.engine_cc ? String(v.engine_cc) : "",
       description: v.description || "",
       source_country: (v as OverseasVehicle).source_country || "",
       source_url: (v as OverseasVehicle).source_url || "",
