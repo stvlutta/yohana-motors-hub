@@ -152,9 +152,9 @@ const InventoryPage = () => {
                     >
                       <SlidersHorizontal className="h-4 w-4" />
                       Filters
-                      {hasActiveFilters && (
+                      {activeCount > 0 && (
                         <span className="ml-1 bg-primary text-primary-foreground text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                          {[makeFilter, fuelFilter, bodyFilter, priceRange !== 0].filter(Boolean).length}
+                          {activeCount}
                         </span>
                       )}
                     </Button>
