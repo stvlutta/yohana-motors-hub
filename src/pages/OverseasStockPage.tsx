@@ -87,7 +87,7 @@ const OverseasStockPage = () => {
               <div className="bg-card rounded-lg p-8 border border-border shadow-card text-center">
                 <h3 className="text-2xl font-heading font-bold text-foreground mb-4">How to Order</h3>
                 <p className="text-muted-foreground mb-6 max-w-lg mx-auto">
-                  Found a car on Autotrader UK, BE FORWARD, SBT Japan, or any overseas platform? Send us the link or details and we'll give you a landed cost within 24 hours.
+                  Have a specific car in mind from the UK, Japan, South Africa, or Australia? Send us the details and we'll give you a landed cost within 24 hours.
                 </p>
                 <div className="flex flex-wrap justify-center gap-4">
                   <a href="https://wa.me/254714007122" target="_blank" rel="noopener noreferrer">

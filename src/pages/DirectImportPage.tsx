@@ -5,10 +5,10 @@ import { Link } from "react-router-dom";
 import { Ship, Check, Globe, ArrowRight } from "lucide-react";
 
 const sources = [
-  { country: "United Kingdom", platforms: "Autotrader UK, eBay Motors, specialist dealers" },
-  { country: "Japan", platforms: "Japanese auctions, BE FORWARD, SBT Japan" },
-  { country: "South Africa", platforms: "AutoTrader SA, Cars.co.za, specialist dealers" },
-  { country: "Australia", platforms: "Carsales, dealer networks, private sellers" },
+  { country: "United Kingdom", platforms: "Trusted dealer networks & auctions" },
+  { country: "Japan", platforms: "Vetted auction houses & exporters" },
+  { country: "South Africa", platforms: "Established dealer networks" },
+  { country: "Australia", platforms: "Dealer networks & private sellers" },
 ];
 
 const process = [

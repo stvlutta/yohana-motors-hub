@@ -29,7 +29,7 @@ const DirectImportSection = () => {
               Import Your Car Directly
             </h2>
             <p className="text-muted-foreground mb-6 leading-relaxed">
-              Spotted your dream car on Autotrader, BE FORWARD, or any overseas platform? We shall facilitate everything until your driveway. Save up to 30% on direct import!
+              Have a specific car in mind from the UK, Japan, South Africa, or Australia? We shall facilitate everything until your driveway. Save up to 30% on direct import!
             </p>
             <ul className="space-y-3 mb-8">
               {benefits.map((b) => (
