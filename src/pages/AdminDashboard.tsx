@@ -439,6 +439,7 @@ const AdminDashboard = () => {
               <Input placeholder="Fuel" value={vehicleForm.fuel} onChange={(e) => vf("fuel", e.target.value)} />
               <Input placeholder="Transmission" value={vehicleForm.transmission} onChange={(e) => vf("transmission", e.target.value)} />
               <Input placeholder="Body Type" value={vehicleForm.body_type} onChange={(e) => vf("body_type", e.target.value)} />
+              <Input placeholder="Engine (CC, e.g. 2500)" type="number" value={vehicleForm.engine_cc} onChange={(e) => vf("engine_cc", e.target.value)} />
             </div>
             {editingTable === "overseas_vehicles" && (
               <div className="grid grid-cols-2 gap-3">
