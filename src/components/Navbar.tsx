@@ -52,9 +52,21 @@ const Navbar = () => {
               <Phone className="h-4 w-4 text-primary" />
               0714 007 122
             </a>
+            <ThemeToggle />
             <Link to="/appointment">
               <Button variant="hero" size="lg">Book Appointment</Button>
             </Link>
+          </div>
+
+          {/* Mobile toggle */}
+          <div className="flex items-center gap-1 lg:hidden">
+            <ThemeToggle />
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="p-2 text-foreground"
+            >
+              {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </button>
           </div>
 
           {/* Mobile toggle */}
