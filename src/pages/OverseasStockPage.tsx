@@ -27,15 +27,15 @@ const OverseasStockPage = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
-      <main className="pt-20">
+      <main className="pt-24">
         <section className="py-16 gradient-navy">
           <div className="container mx-auto px-4 text-center">
             <Globe className="h-12 w-12 text-primary mx-auto mb-4" />
             <h1 className="text-4xl md:text-5xl font-heading font-bold text-secondary-foreground">
-              Overseas Stock
+              Overseas Stock / Ready to Import
             </h1>
             <p className="text-secondary-foreground/70 mt-4 max-w-2xl mx-auto">
-              Browse quality vehicles available for import from UK, Japan, South Africa & Australia.
+              Browse quality vehicles ready for import from UK, Japan, South Africa & Australia — landed cost quoted within 24 hours.
             </p>
           </div>
         </section>

@@ -10,22 +10,17 @@ import { Car, MapPin, Phone, ArrowRight, Fuel, Gauge, Calendar, Search, X, Slide
 type Vehicle = {
   id: string; name: string; make: string; model: string; year: number;
   price: string; mileage: string | null; fuel: string | null;
-  transmission: string | null; body_type: string | null;
+  transmission: string | null; body_type: string | null; engine_cc: number | null;
   image_url: string | null;
 };
 
-const priceToNumber = (p: string) => {
-  const num = p.replace(/[^0-9]/g, "");
+const parseNumber = (s: string | null | undefined) => {
+  if (!s) return 0;
+  const num = String(s).replace(/[^0-9]/g, "");
   return num ? parseInt(num) : 0;
 };
 
-const PRICE_RANGES = [
-  { label: "All Prices", min: 0, max: Infinity },
-  { label: "Under KSh 3M", min: 0, max: 3_000_000 },
-  { label: "KSh 3M – 6M", min: 3_000_000, max: 6_000_000 },
-  { label: "KSh 6M – 10M", min: 6_000_000, max: 10_000_000 },
-  { label: "Over KSh 10M", min: 10_000_000, max: Infinity },
-];
+const CURRENT_YEAR = new Date().getFullYear();
 
 const InventoryPage = () => {
   const [vehicles, setVehicles] = useState<Vehicle[]>([]);
@@ -36,13 +31,18 @@ const InventoryPage = () => {
   const [makeFilter, setMakeFilter] = useState("");
   const [fuelFilter, setFuelFilter] = useState("");
   const [bodyFilter, setBodyFilter] = useState("");
-  const [priceRange, setPriceRange] = useState(0);
+  const [budgetMin, setBudgetMin] = useState("");
+  const [budgetMax, setBudgetMax] = useState("");
+  const [mileageMax, setMileageMax] = useState("");
+  const [ageMax, setAgeMax] = useState("");
+  const [ccMin, setCcMin] = useState("");
+  const [ccMax, setCcMax] = useState("");
   const [showFilters, setShowFilters] = useState(false);
 
   useEffect(() => {
     supabase
       .from("vehicles")
-      .select("id, name, make, model, year, price, mileage, fuel, transmission, body_type, image_url")
+      .select("id, name, make, model, year, price, mileage, fuel, transmission, body_type, engine_cc, image_url")
       .eq("is_available", true)
       .order("created_at", { ascending: false })
       .then(({ data }) => {
@@ -58,28 +58,47 @@ const InventoryPage = () => {
 
   const filtered = useMemo(() => {
     const q = search.toLowerCase();
-    const range = PRICE_RANGES[priceRange];
+    const bMin = budgetMin ? parseNumber(budgetMin) : 0;
+    const bMax = budgetMax ? parseNumber(budgetMax) : Infinity;
+    const mMax = mileageMax ? parseNumber(mileageMax) : Infinity;
+    const aMax = ageMax ? parseInt(ageMax) : Infinity;
+    const cMin = ccMin ? parseInt(ccMin) : 0;
+    const cMax = ccMax ? parseInt(ccMax) : Infinity;
     return vehicles.filter(v => {
       if (q && !v.name.toLowerCase().includes(q) && !v.make.toLowerCase().includes(q) && !v.model.toLowerCase().includes(q)) return false;
       if (makeFilter && v.make !== makeFilter) return false;
       if (fuelFilter && v.fuel !== fuelFilter) return false;
       if (bodyFilter && v.body_type !== bodyFilter) return false;
-      const price = priceToNumber(v.price);
-      if (price < range.min || price > range.max) return false;
+      const price = parseNumber(v.price);
+      if (price < bMin || price > bMax) return false;
+      if (mileageMax) {
+        const m = parseNumber(v.mileage);
+        if (m > mMax) return false;
+      }
+      if (ageMax) {
+        const age = CURRENT_YEAR - v.year;
+        if (age > aMax) return false;
+      }
+      if (ccMin || ccMax) {
+        const cc = v.engine_cc || 0;
+        if (cc < cMin || cc > cMax) return false;
+      }
       return true;
     });
-  }, [vehicles, search, makeFilter, fuelFilter, bodyFilter, priceRange]);
+  }, [vehicles, search, makeFilter, fuelFilter, bodyFilter, budgetMin, budgetMax, mileageMax, ageMax, ccMin, ccMax]);
 
-  const hasActiveFilters = search || makeFilter || fuelFilter || bodyFilter || priceRange !== 0;
+  const activeCount = [makeFilter, fuelFilter, bodyFilter, budgetMin, budgetMax, mileageMax, ageMax, ccMin, ccMax].filter(Boolean).length;
+  const hasActiveFilters = search || activeCount > 0;
 
   const clearFilters = () => {
-    setSearch(""); setMakeFilter(""); setFuelFilter(""); setBodyFilter(""); setPriceRange(0);
+    setSearch(""); setMakeFilter(""); setFuelFilter(""); setBodyFilter("");
+    setBudgetMin(""); setBudgetMax(""); setMileageMax(""); setAgeMax(""); setCcMin(""); setCcMax("");
   };
 
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
-      <main className="pt-20">
+      <main className="pt-24">
         <section className="py-16 gradient-navy">
           <div className="container mx-auto px-4 text-center">
             <Car className="h-12 w-12 text-primary mx-auto mb-4" />
@@ -133,9 +152,9 @@ const InventoryPage = () => {
                     >
                       <SlidersHorizontal className="h-4 w-4" />
                       Filters
-                      {hasActiveFilters && (
+                      {activeCount > 0 && (
                         <span className="ml-1 bg-primary text-primary-foreground text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                          {[makeFilter, fuelFilter, bodyFilter, priceRange !== 0].filter(Boolean).length}
+                          {activeCount}
                         </span>
                       )}
                     </Button>
@@ -182,14 +201,28 @@ const InventoryPage = () => {
                         </select>
                       </div>
                       <div>
-                        <label className="text-xs font-medium text-muted-foreground mb-1 block">Price Range</label>
-                        <select
-                          value={priceRange}
-                          onChange={(e) => setPriceRange(Number(e.target.value))}
-                          className="w-full h-10 rounded-md border border-input bg-background px-3 text-sm outline-none focus:ring-2 focus:ring-ring"
-                        >
-                          {PRICE_RANGES.map((r, i) => <option key={i} value={i}>{r.label}</option>)}
-                        </select>
+                        <label className="text-xs font-medium text-muted-foreground mb-1 block">Max Age (years)</label>
+                        <Input type="number" min="0" placeholder="e.g. 5" value={ageMax} onChange={(e) => setAgeMax(e.target.value)} />
+                      </div>
+                      <div>
+                        <label className="text-xs font-medium text-muted-foreground mb-1 block">Max Mileage (km)</label>
+                        <Input type="number" min="0" placeholder="e.g. 100000" value={mileageMax} onChange={(e) => setMileageMax(e.target.value)} />
+                      </div>
+                      <div>
+                        <label className="text-xs font-medium text-muted-foreground mb-1 block">Engine Min (CC)</label>
+                        <Input type="number" min="0" placeholder="e.g. 1500" value={ccMin} onChange={(e) => setCcMin(e.target.value)} />
+                      </div>
+                      <div>
+                        <label className="text-xs font-medium text-muted-foreground mb-1 block">Engine Max (CC)</label>
+                        <Input type="number" min="0" placeholder="e.g. 3000" value={ccMax} onChange={(e) => setCcMax(e.target.value)} />
+                      </div>
+                      <div>
+                        <label className="text-xs font-medium text-muted-foreground mb-1 block">Budget Min (KSh)</label>
+                        <Input type="number" min="0" placeholder="e.g. 2000000" value={budgetMin} onChange={(e) => setBudgetMin(e.target.value)} />
+                      </div>
+                      <div>
+                        <label className="text-xs font-medium text-muted-foreground mb-1 block">Budget Max (KSh)</label>
+                        <Input type="number" min="0" placeholder="e.g. 8000000" value={budgetMax} onChange={(e) => setBudgetMax(e.target.value)} />
                       </div>
                     </div>
                   )}

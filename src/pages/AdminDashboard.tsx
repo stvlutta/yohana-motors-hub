@@ -26,7 +26,7 @@ type SellSubmission = {
 type Vehicle = {
   id: string; name: string; make: string; model: string; year: number;
   price: string; mileage: string | null; fuel: string | null;
-  transmission: string | null; body_type: string | null;
+  transmission: string | null; body_type: string | null; engine_cc: number | null;
   description: string | null; image_url: string | null; image_urls: string[] | null; is_available: boolean; created_at: string;
 };
 
@@ -34,7 +34,7 @@ type OverseasVehicle = Vehicle & { source_country: string | null; source_url: st
 
 const emptyVehicle = {
   name: "", make: "", model: "", year: "", price: "",
-  mileage: "", fuel: "", transmission: "", body_type: "", description: "",
+  mileage: "", fuel: "", transmission: "", body_type: "", engine_cc: "", description: "",
   source_country: "", source_url: "",
 };
 
@@ -99,6 +99,7 @@ const AdminDashboard = () => {
       name: v.name, make: v.make, model: v.model, year: String(v.year),
       price: v.price, mileage: v.mileage || "", fuel: v.fuel || "",
       transmission: v.transmission || "", body_type: v.body_type || "",
+      engine_cc: v.engine_cc ? String(v.engine_cc) : "",
       description: v.description || "",
       source_country: (v as OverseasVehicle).source_country || "",
       source_url: (v as OverseasVehicle).source_url || "",
@@ -160,6 +161,7 @@ const AdminDashboard = () => {
       fuel: vehicleForm.fuel || null,
       transmission: vehicleForm.transmission || null,
       body_type: vehicleForm.body_type || null,
+      engine_cc: vehicleForm.engine_cc ? parseInt(vehicleForm.engine_cc) : null,
       description: vehicleForm.description || null,
       image_url: allImages[0] || null,
       image_urls: allImages,
@@ -437,6 +439,7 @@ const AdminDashboard = () => {
               <Input placeholder="Fuel" value={vehicleForm.fuel} onChange={(e) => vf("fuel", e.target.value)} />
               <Input placeholder="Transmission" value={vehicleForm.transmission} onChange={(e) => vf("transmission", e.target.value)} />
               <Input placeholder="Body Type" value={vehicleForm.body_type} onChange={(e) => vf("body_type", e.target.value)} />
+              <Input placeholder="Engine (CC, e.g. 2500)" type="number" value={vehicleForm.engine_cc} onChange={(e) => vf("engine_cc", e.target.value)} />
             </div>
             {editingTable === "overseas_vehicles" && (
               <div className="grid grid-cols-2 gap-3">
