@@ -201,14 +201,28 @@ const InventoryPage = () => {
                         </select>
                       </div>
                       <div>
-                        <label className="text-xs font-medium text-muted-foreground mb-1 block">Price Range</label>
-                        <select
-                          value={priceRange}
-                          onChange={(e) => setPriceRange(Number(e.target.value))}
-                          className="w-full h-10 rounded-md border border-input bg-background px-3 text-sm outline-none focus:ring-2 focus:ring-ring"
-                        >
-                          {PRICE_RANGES.map((r, i) => <option key={i} value={i}>{r.label}</option>)}
-                        </select>
+                        <label className="text-xs font-medium text-muted-foreground mb-1 block">Max Age (years)</label>
+                        <Input type="number" min="0" placeholder="e.g. 5" value={ageMax} onChange={(e) => setAgeMax(e.target.value)} />
+                      </div>
+                      <div>
+                        <label className="text-xs font-medium text-muted-foreground mb-1 block">Max Mileage (km)</label>
+                        <Input type="number" min="0" placeholder="e.g. 100000" value={mileageMax} onChange={(e) => setMileageMax(e.target.value)} />
+                      </div>
+                      <div>
+                        <label className="text-xs font-medium text-muted-foreground mb-1 block">Engine Min (CC)</label>
+                        <Input type="number" min="0" placeholder="e.g. 1500" value={ccMin} onChange={(e) => setCcMin(e.target.value)} />
+                      </div>
+                      <div>
+                        <label className="text-xs font-medium text-muted-foreground mb-1 block">Engine Max (CC)</label>
+                        <Input type="number" min="0" placeholder="e.g. 3000" value={ccMax} onChange={(e) => setCcMax(e.target.value)} />
+                      </div>
+                      <div>
+                        <label className="text-xs font-medium text-muted-foreground mb-1 block">Budget Min (KSh)</label>
+                        <Input type="number" min="0" placeholder="e.g. 2000000" value={budgetMin} onChange={(e) => setBudgetMin(e.target.value)} />
+                      </div>
+                      <div>
+                        <label className="text-xs font-medium text-muted-foreground mb-1 block">Budget Max (KSh)</label>
+                        <Input type="number" min="0" placeholder="e.g. 8000000" value={budgetMax} onChange={(e) => setBudgetMax(e.target.value)} />
                       </div>
                     </div>
                   )}
