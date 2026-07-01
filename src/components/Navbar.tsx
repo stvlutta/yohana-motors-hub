@@ -25,9 +25,9 @@ const Navbar = () => {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-md border-b border-border">
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-20">
+        <div className="flex items-center justify-between h-24">
           <Link to="/" className="flex items-center gap-2">
-            <img src={logo} alt="Yohana Automotive" className="h-14 w-auto" />
+            <img src={logo} alt="Yohana Automotive" className="h-20 md:h-24 w-auto" />
           </Link>
 
           {/* Desktop Nav */}
