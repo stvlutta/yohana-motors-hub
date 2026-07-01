@@ -61,6 +61,7 @@ export type Database = {
           body_type: string | null
           created_at: string
           description: string | null
+          engine_cc: number | null
           fuel: string | null
           id: string
           image_url: string | null
@@ -81,6 +82,7 @@ export type Database = {
           body_type?: string | null
           created_at?: string
           description?: string | null
+          engine_cc?: number | null
           fuel?: string | null
           id?: string
           image_url?: string | null
@@ -101,6 +103,7 @@ export type Database = {
           body_type?: string | null
           created_at?: string
           description?: string | null
+          engine_cc?: number | null
           fuel?: string | null
           id?: string
           image_url?: string | null
@@ -178,6 +181,7 @@ export type Database = {
           body_type: string | null
           created_at: string
           description: string | null
+          engine_cc: number | null
           fuel: string | null
           id: string
           image_url: string | null
@@ -196,6 +200,7 @@ export type Database = {
           body_type?: string | null
           created_at?: string
           description?: string | null
+          engine_cc?: number | null
           fuel?: string | null
           id?: string
           image_url?: string | null
@@ -214,6 +219,7 @@ export type Database = {
           body_type?: string | null
           created_at?: string
           description?: string | null
+          engine_cc?: number | null
           fuel?: string | null
           id?: string
           image_url?: string | null
