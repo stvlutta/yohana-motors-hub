@@ -10,7 +10,7 @@ import { Car, MapPin, Phone, ArrowRight, Fuel, Gauge, Calendar, Search, X, Slide
 type Vehicle = {
   id: string; name: string; make: string; model: string; year: number;
   price: string; mileage: string | null; fuel: string | null;
-  transmission: string | null; body_type: string | null;
+  transmission: string | null; body_type: string | null; engine_cc: number | null;
   image_url: string | null;
 };
 
