@@ -161,6 +161,7 @@ const AdminDashboard = () => {
       fuel: vehicleForm.fuel || null,
       transmission: vehicleForm.transmission || null,
       body_type: vehicleForm.body_type || null,
+      engine_cc: vehicleForm.engine_cc ? parseInt(vehicleForm.engine_cc) : null,
       description: vehicleForm.description || null,
       image_url: allImages[0] || null,
       image_urls: allImages,
