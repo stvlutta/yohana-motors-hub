@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Link } from "react-router-dom";
 import { Car, MapPin, Phone, ArrowRight, Fuel, Gauge, Calendar, Search, X, SlidersHorizontal } from "lucide-react";
+import { formatPrice } from "@/lib/utils";
 
 type Vehicle = {
   id: string; name: string; make: string; model: string; year: number;
