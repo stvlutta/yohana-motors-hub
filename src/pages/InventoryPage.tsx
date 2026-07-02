@@ -252,7 +252,7 @@ const InventoryPage = () => {
                         </div>
                         <div className="p-5">
                           <h3 className="font-heading font-bold text-lg text-foreground mb-1 group-hover:text-primary transition-colors">{car.name}</h3>
-                          <p className="text-primary font-semibold mb-3">{car.price}</p>
+                          <p className="text-primary font-semibold mb-3">{formatPrice(car.price)}</p>
                           <div className="flex flex-wrap items-center gap-3 text-xs text-muted-foreground">
                             <span className="flex items-center gap-1"><Calendar className="h-3 w-3" />{car.year}</span>
                             {car.mileage && <span className="flex items-center gap-1"><Gauge className="h-3 w-3" />{car.mileage}</span>}
