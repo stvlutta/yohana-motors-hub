@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Globe, ArrowRight, Car, MapPin } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { formatPrice } from "@/lib/utils";
 
 const brands = ["Toyota", "Nissan", "Honda", "Mazda", "Subaru", "Mercedes-Benz", "BMW", "Audi", "Range Rover", "Ford", "Suzuki", "Mitsubishi"];
 
