@@ -68,7 +68,7 @@ const OverseasStockPage = () => {
                       {v.source_country && (
                         <p className="text-xs text-muted-foreground mt-1 flex items-center gap-1"><MapPin className="h-3 w-3" /> {v.source_country}</p>
                       )}
-                      <p className="text-primary font-heading font-bold text-lg mt-3">{v.price}</p>
+                      <p className="text-primary font-heading font-bold text-lg mt-3">{formatPrice(v.price)}</p>
                     </div>
                   </Link>
                 ))}
