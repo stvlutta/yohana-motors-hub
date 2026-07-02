@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Car, ArrowLeft, Phone, Calendar, Gauge, Fuel, MapPin, ArrowRight } from "lucide-react";
+import { formatPrice } from "@/lib/utils";
 
 type Vehicle = {
   id: string; name: string; make: string; model: string; year: number;
