@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Fuel, Gauge, Calendar, Car } from "lucide-react";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { formatPrice } from "@/lib/utils";
 
 type Vehicle = {
   id: string; name: string; year: number; price: string;
@@ -52,7 +53,7 @@ const InventoryPreview = () => {
                 </div>
                 <div className="p-5">
                   <h3 className="font-heading font-bold text-lg text-foreground mb-1 group-hover:text-primary transition-colors">{car.name}</h3>
-                  <p className="text-primary font-semibold text-sm mb-3">{car.price}</p>
+                  <p className="text-primary font-semibold text-sm mb-3">{formatPrice(car.price)}</p>
                   <div className="flex items-center gap-4 text-xs text-muted-foreground">
                     <span className="flex items-center gap-1"><Calendar className="h-3 w-3" />{car.year}</span>
                     {car.mileage && <span className="flex items-center gap-1"><Gauge className="h-3 w-3" />{car.mileage}</span>}

@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Car, ArrowLeft, Phone, Calendar, Gauge, Fuel, MapPin, ArrowRight } from "lucide-react";
+import { formatPrice } from "@/lib/utils";
 
 type Vehicle = {
   id: string; name: string; make: string; model: string; year: number;
@@ -87,7 +88,7 @@ const VehicleDetailPage = () => {
                   <span className="inline-block bg-muted text-muted-foreground text-xs font-semibold px-3 py-1 rounded-full mb-3">SOLD</span>
                 )}
                 <h1 className="text-3xl md:text-4xl font-heading font-bold text-foreground mb-2">{vehicle.name}</h1>
-                <p className="text-2xl text-primary font-bold mb-6">{vehicle.price}</p>
+                <p className="text-2xl text-primary font-bold mb-6">{formatPrice(vehicle.price)}</p>
 
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-6">
                   <div className="bg-card border border-border rounded-lg p-3">
