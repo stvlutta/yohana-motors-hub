@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Fuel, Gauge, Calendar, Car } from "lucide-react";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { formatPrice } from "@/lib/utils";
 
 type Vehicle = {
   id: string; name: string; year: number; price: string;
