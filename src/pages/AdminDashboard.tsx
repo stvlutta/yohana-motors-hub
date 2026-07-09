@@ -365,6 +365,7 @@ const AdminDashboard = () => {
             <TabsTrigger value="overseas">Overseas Stock</TabsTrigger>
             <TabsTrigger value="appointments">Appointments</TabsTrigger>
             <TabsTrigger value="submissions">Sell Submissions</TabsTrigger>
+            <TabsTrigger value="vlog">VLOG</TabsTrigger>
           </TabsList>
 
           <TabsContent value="vehicles" className="mt-4">
