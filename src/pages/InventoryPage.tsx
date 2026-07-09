@@ -30,6 +30,7 @@ const InventoryPage = () => {
   // Filter state
   const [search, setSearch] = useState("");
   const [makeFilter, setMakeFilter] = useState("");
+  const [modelFilter, setModelFilter] = useState("");
   const [fuelFilter, setFuelFilter] = useState("");
   const [bodyFilter, setBodyFilter] = useState("");
   const [budgetMin, setBudgetMin] = useState("");
@@ -53,9 +54,23 @@ const InventoryPage = () => {
   }, []);
 
   // Derive unique filter options from data
-  const makes = useMemo(() => [...new Set(vehicles.map(v => v.make))].sort(), [vehicles]);
+  const makes = useMemo(() => [...new Set(vehicles.map(v => v.make))].sort((a, b) => a.localeCompare(b)), [vehicles]);
   const fuels = useMemo(() => [...new Set(vehicles.map(v => v.fuel).filter(Boolean))].sort(), [vehicles]);
   const bodyTypes = useMemo(() => [...new Set(vehicles.map(v => v.body_type).filter(Boolean))].sort(), [vehicles]);
+  const modelsForMake = useMemo(
+    () => makeFilter ? [...new Set(vehicles.filter(v => v.make === makeFilter).map(v => v.model))].sort() : [],
+    [vehicles, makeFilter]
+  );
+
+  // Group makes by first letter A-Z
+  const makesByLetter = useMemo(() => {
+    const groups: Record<string, string[]> = {};
+    makes.forEach((m) => {
+      const letter = m[0]?.toUpperCase() || "#";
+      (groups[letter] ||= []).push(m);
+    });
+    return groups;
+  }, [makes]);
 
   const filtered = useMemo(() => {
     const q = search.toLowerCase();
@@ -68,6 +83,7 @@ const InventoryPage = () => {
     return vehicles.filter(v => {
       if (q && !v.name.toLowerCase().includes(q) && !v.make.toLowerCase().includes(q) && !v.model.toLowerCase().includes(q)) return false;
       if (makeFilter && v.make !== makeFilter) return false;
+      if (modelFilter && v.model !== modelFilter) return false;
       if (fuelFilter && v.fuel !== fuelFilter) return false;
       if (bodyFilter && v.body_type !== bodyFilter) return false;
       const price = parseNumber(v.price);
@@ -86,13 +102,13 @@ const InventoryPage = () => {
       }
       return true;
     });
-  }, [vehicles, search, makeFilter, fuelFilter, bodyFilter, budgetMin, budgetMax, mileageMax, ageMax, ccMin, ccMax]);
+  }, [vehicles, search, makeFilter, modelFilter, fuelFilter, bodyFilter, budgetMin, budgetMax, mileageMax, ageMax, ccMin, ccMax]);
 
-  const activeCount = [makeFilter, fuelFilter, bodyFilter, budgetMin, budgetMax, mileageMax, ageMax, ccMin, ccMax].filter(Boolean).length;
+  const activeCount = [makeFilter, modelFilter, fuelFilter, bodyFilter, budgetMin, budgetMax, mileageMax, ageMax, ccMin, ccMax].filter(Boolean).length;
   const hasActiveFilters = search || activeCount > 0;
 
   const clearFilters = () => {
-    setSearch(""); setMakeFilter(""); setFuelFilter(""); setBodyFilter("");
+    setSearch(""); setMakeFilter(""); setModelFilter(""); setFuelFilter(""); setBodyFilter("");
     setBudgetMin(""); setBudgetMax(""); setMileageMax(""); setAgeMax(""); setCcMin(""); setCcMax("");
   };
 
@@ -166,13 +182,69 @@ const InventoryPage = () => {
                     )}
                   </div>
 
+                  {/* Browse by Brand (A-Z) */}
+                  <div className="p-4 bg-card border border-border rounded-lg">
+                    <div className="flex items-center justify-between mb-3">
+                      <h3 className="font-heading font-semibold text-foreground text-sm uppercase tracking-wide">
+                        {makeFilter ? `${makeFilter} — Models` : "Browse by Brand"}
+                      </h3>
+                      {makeFilter && (
+                        <Button variant="ghost" size="sm" onClick={() => { setMakeFilter(""); setModelFilter(""); }}>
+                          ← All brands
+                        </Button>
+                      )}
+                    </div>
+                    {!makeFilter ? (
+                      <div className="space-y-3">
+                        {Object.keys(makesByLetter).sort().map((letter) => (
+                          <div key={letter} className="flex flex-wrap items-baseline gap-2">
+                            <span className="font-heading font-bold text-primary w-5">{letter}</span>
+                            {makesByLetter[letter].map((m) => (
+                              <button
+                                key={m}
+                                type="button"
+                                onClick={() => { setMakeFilter(m); setModelFilter(""); }}
+                                className="px-3 py-1 rounded-full bg-muted text-foreground text-sm hover:bg-primary hover:text-primary-foreground transition-colors"
+                              >
+                                {m}
+                              </button>
+                            ))}
+                          </div>
+                        ))}
+                        {makes.length === 0 && (
+                          <p className="text-sm text-muted-foreground">No brands available yet.</p>
+                        )}
+                      </div>
+                    ) : (
+                      <div className="flex flex-wrap gap-2">
+                        <button
+                          type="button"
+                          onClick={() => setModelFilter("")}
+                          className={`px-3 py-1 rounded-full text-sm transition-colors ${!modelFilter ? "bg-primary text-primary-foreground" : "bg-muted text-foreground hover:bg-primary/20"}`}
+                        >
+                          All {makeFilter}
+                        </button>
+                        {modelsForMake.map((m) => (
+                          <button
+                            key={m}
+                            type="button"
+                            onClick={() => setModelFilter(m)}
+                            className={`px-3 py-1 rounded-full text-sm transition-colors ${modelFilter === m ? "bg-primary text-primary-foreground" : "bg-muted text-foreground hover:bg-primary/20"}`}
+                          >
+                            {m}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+
                   {showFilters && (
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 p-4 bg-card border border-border rounded-lg">
                       <div>
                         <label className="text-xs font-medium text-muted-foreground mb-1 block">Make</label>
                         <select
                           value={makeFilter}
-                          onChange={(e) => setMakeFilter(e.target.value)}
+                          onChange={(e) => { setMakeFilter(e.target.value); setModelFilter(""); }}
                           className="w-full h-10 rounded-md border border-input bg-background px-3 text-sm outline-none focus:ring-2 focus:ring-ring"
                         >
                           <option value="">All Makes</option>

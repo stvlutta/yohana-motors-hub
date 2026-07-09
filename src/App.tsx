@@ -8,6 +8,7 @@ import SellPage from "./pages/SellPage";
 import AppointmentPage from "./pages/AppointmentPage";
 import DutyCalculatorPage from "./pages/DutyCalculatorPage";
 import BlogPage from "./pages/BlogPage";
+import VlogPage from "./pages/VlogPage";
 import FinancingPage from "./pages/FinancingPage";
 import DirectImportPage from "./pages/DirectImportPage";
 import DutyFreePage from "./pages/DutyFreePage";
@@ -42,7 +43,8 @@ const App = () => (
           <Route path="/sell" element={<SellPage />} />
           <Route path="/appointment" element={<AppointmentPage />} />
           <Route path="/calculator" element={<DutyCalculatorPage />} />
-          <Route path="/blog" element={<BlogPage />} />
+          <Route path="/blog" element={<VlogPage />} />
+          <Route path="/vlog" element={<VlogPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/admin" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} />
           <Route path="*" element={<NotFound />} />

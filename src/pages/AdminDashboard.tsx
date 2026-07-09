@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { CalendarCheck, Car, LogOut, RefreshCw, Plus, Pencil, Trash2, Package, Upload, X, Globe, Eye } from "lucide-react";
+import { CalendarCheck, Car, LogOut, RefreshCw, Plus, Pencil, Trash2, Package, Upload, X, Globe, Eye, Film } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import logo from "@/assets/logo.png";
 
@@ -32,11 +32,18 @@ type Vehicle = {
 
 type OverseasVehicle = Vehicle & { source_country: string | null; source_url: string | null };
 
+type VlogVideo = {
+  id: string; title: string; url: string; platform: string;
+  thumbnail_url: string | null; description: string | null; created_at: string;
+};
+
 const emptyVehicle = {
   name: "", make: "", model: "", year: "", price: "",
   mileage: "", fuel: "", transmission: "", body_type: "", engine_cc: "", description: "",
   source_country: "", source_url: "",
 };
+
+const emptyVideo = { title: "", url: "", platform: "youtube", thumbnail_url: "", description: "" };
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
@@ -45,7 +52,14 @@ const AdminDashboard = () => {
   const [submissions, setSubmissions] = useState<SellSubmission[]>([]);
   const [vehicles, setVehicles] = useState<Vehicle[]>([]);
   const [overseas, setOverseas] = useState<OverseasVehicle[]>([]);
+  const [videos, setVideos] = useState<VlogVideo[]>([]);
   const [loading, setLoading] = useState(true);
+
+  // Vlog form state
+  const [videoDialogOpen, setVideoDialogOpen] = useState(false);
+  const [editingVideo, setEditingVideo] = useState<VlogVideo | null>(null);
+  const [videoForm, setVideoForm] = useState(emptyVideo);
+  const [savingVideo, setSavingVideo] = useState(false);
 
   // Vehicle form state
   const [vehicleDialogOpen, setVehicleDialogOpen] = useState(false);
@@ -62,17 +76,59 @@ const AdminDashboard = () => {
 
   const fetchData = async () => {
     setLoading(true);
-    const [apptRes, sellRes, vehRes, ovRes] = await Promise.all([
+    const [apptRes, sellRes, vehRes, ovRes, vidRes] = await Promise.all([
       supabase.from("appointments").select("*").order("created_at", { ascending: false }),
       supabase.from("sell_submissions").select("*").order("created_at", { ascending: false }),
       supabase.from("vehicles").select("*").order("created_at", { ascending: false }),
       supabase.from("overseas_vehicles").select("*").order("created_at", { ascending: false }),
+      supabase.from("vlog_videos" as never).select("*").order("created_at", { ascending: false }),
     ]);
     if (apptRes.data) setAppointments(apptRes.data);
     if (sellRes.data) setSubmissions(sellRes.data as SellSubmission[]);
     if (vehRes.data) setVehicles(vehRes.data);
     if (ovRes.data) setOverseas(ovRes.data as OverseasVehicle[]);
+    if (vidRes.data) setVideos(vidRes.data as VlogVideo[]);
     setLoading(false);
+  };
+
+  const openAddVideo = () => {
+    setEditingVideo(null);
+    setVideoForm(emptyVideo);
+    setVideoDialogOpen(true);
+  };
+
+  const openEditVideo = (v: VlogVideo) => {
+    setEditingVideo(v);
+    setVideoForm({
+      title: v.title, url: v.url, platform: v.platform,
+      thumbnail_url: v.thumbnail_url || "", description: v.description || "",
+    });
+    setVideoDialogOpen(true);
+  };
+
+  const handleSaveVideo = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSavingVideo(true);
+    const payload = {
+      title: videoForm.title,
+      url: videoForm.url,
+      platform: videoForm.platform,
+      thumbnail_url: videoForm.thumbnail_url || null,
+      description: videoForm.description || null,
+    };
+    const { error } = editingVideo
+      ? await supabase.from("vlog_videos" as never).update(payload as never).eq("id", editingVideo.id)
+      : await supabase.from("vlog_videos" as never).insert(payload as never);
+    setSavingVideo(false);
+    if (error) toast({ title: "Error", description: error.message, variant: "destructive" });
+    else { toast({ title: editingVideo ? "Video updated" : "Video added" }); setVideoDialogOpen(false); fetchData(); }
+  };
+
+  const deleteVideo = async (id: string) => {
+    if (!confirm("Delete this video?")) return;
+    const { error } = await supabase.from("vlog_videos" as never).delete().eq("id", id);
+    if (error) toast({ title: "Error", description: error.message, variant: "destructive" });
+    else { toast({ title: "Video deleted" }); fetchData(); }
   };
 
   useEffect(() => { fetchData(); }, []);
@@ -309,6 +365,7 @@ const AdminDashboard = () => {
             <TabsTrigger value="overseas">Overseas Stock</TabsTrigger>
             <TabsTrigger value="appointments">Appointments</TabsTrigger>
             <TabsTrigger value="submissions">Sell Submissions</TabsTrigger>
+            <TabsTrigger value="vlog">VLOG</TabsTrigger>
           </TabsList>
 
           <TabsContent value="vehicles" className="mt-4">
@@ -417,6 +474,40 @@ const AdminDashboard = () => {
               </div>
             )}
           </TabsContent>
+
+          <TabsContent value="vlog" className="mt-4">
+            <div className="flex justify-between items-center mb-4">
+              <p className="text-sm text-muted-foreground">{videos.length} video{videos.length !== 1 ? "s" : ""} published</p>
+              <Button variant="hero" size="sm" onClick={openAddVideo}><Plus className="h-4 w-4 mr-1" /> Add Video Link</Button>
+            </div>
+            {videos.length === 0 ? <p className="text-muted-foreground text-center py-12">No videos yet. Add links to Instagram reels, YouTube videos, or TikTok clips.</p> : (
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead><tr className="border-b border-border text-left">
+                    <th className="p-3 font-semibold text-muted-foreground">Title</th>
+                    <th className="p-3 font-semibold text-muted-foreground">Platform</th>
+                    <th className="p-3 font-semibold text-muted-foreground">URL</th>
+                    <th className="p-3 font-semibold text-muted-foreground text-right">Actions</th>
+                  </tr></thead>
+                  <tbody>
+                    {videos.map((v) => (
+                      <tr key={v.id} className="border-b border-border hover:bg-muted/50">
+                        <td className="p-3 text-foreground font-medium">{v.title}</td>
+                        <td className="p-3 text-foreground capitalize">{v.platform}</td>
+                        <td className="p-3"><a href={v.url} target="_blank" rel="noopener noreferrer" className="text-primary underline text-xs truncate max-w-xs inline-block">{v.url}</a></td>
+                        <td className="p-3 text-right">
+                          <div className="flex justify-end gap-1">
+                            <Button variant="ghost" size="sm" onClick={() => openEditVideo(v)}><Pencil className="h-4 w-4" /></Button>
+                            <Button variant="ghost" size="sm" className="text-destructive" onClick={() => deleteVideo(v.id)}><Trash2 className="h-4 w-4" /></Button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </TabsContent>
         </Tabs>
       </main>
 
@@ -517,6 +608,38 @@ const AdminDashboard = () => {
               </div>
             </div>
           )}
+        </DialogContent>
+      </Dialog>
+
+      {/* Video Add/Edit Dialog */}
+      <Dialog open={videoDialogOpen} onOpenChange={setVideoDialogOpen}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle className="font-heading flex items-center gap-2">
+              <Film className="h-5 w-5 text-primary" /> {editingVideo ? "Edit" : "Add"} Video Link
+            </DialogTitle>
+          </DialogHeader>
+          <form onSubmit={handleSaveVideo} className="space-y-4">
+            <Input placeholder="Video title" value={videoForm.title} onChange={(e) => setVideoForm({ ...videoForm, title: e.target.value })} required />
+            <div>
+              <label className="text-xs font-medium text-muted-foreground mb-1 block">Platform</label>
+              <select
+                value={videoForm.platform}
+                onChange={(e) => setVideoForm({ ...videoForm, platform: e.target.value })}
+                className="w-full h-10 rounded-md border border-input bg-background px-3 text-sm outline-none focus:ring-2 focus:ring-ring"
+              >
+                <option value="youtube">YouTube</option>
+                <option value="instagram">Instagram</option>
+                <option value="tiktok">TikTok</option>
+              </select>
+            </div>
+            <Input placeholder="Video / Reel URL (https://...)" type="url" value={videoForm.url} onChange={(e) => setVideoForm({ ...videoForm, url: e.target.value })} required />
+            <Input placeholder="Thumbnail URL (optional — auto for YouTube)" value={videoForm.thumbnail_url} onChange={(e) => setVideoForm({ ...videoForm, thumbnail_url: e.target.value })} />
+            <Textarea placeholder="Description (optional)" value={videoForm.description} onChange={(e) => setVideoForm({ ...videoForm, description: e.target.value })} />
+            <Button type="submit" variant="hero" className="w-full" disabled={savingVideo}>
+              {savingVideo ? "Saving..." : editingVideo ? "Update Video" : "Add Video"}
+            </Button>
+          </form>
         </DialogContent>
       </Dialog>
     </div>

@@ -8,14 +8,14 @@ import ThemeToggle from "@/components/ThemeToggle";
 const navItems = [
   { label: "Home", href: "/" },
   { label: "Inventory", href: "/inventory" },
+  { label: "Overseas Stock / Ready to Import", href: "/overseas-stock" },
   { label: "Direct Import", href: "/direct-import" },
   { label: "Duty Free", href: "/duty-free" },
   { label: "Financing", href: "/financing" },
-  { label: "Overseas Stock / Ready to Import", href: "/overseas-stock" },
   { label: "Premium", href: "/premium" },
   { label: "Sell Your Car", href: "/sell" },
   { label: "Calculator", href: "/calculator" },
-  { label: "Blog", href: "/blog" },
+  { label: "VLOG", href: "/vlog" },
 ];
 
 const Navbar = () => {
