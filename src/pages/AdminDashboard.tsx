@@ -474,6 +474,40 @@ const AdminDashboard = () => {
               </div>
             )}
           </TabsContent>
+
+          <TabsContent value="vlog" className="mt-4">
+            <div className="flex justify-between items-center mb-4">
+              <p className="text-sm text-muted-foreground">{videos.length} video{videos.length !== 1 ? "s" : ""} published</p>
+              <Button variant="hero" size="sm" onClick={openAddVideo}><Plus className="h-4 w-4 mr-1" /> Add Video Link</Button>
+            </div>
+            {videos.length === 0 ? <p className="text-muted-foreground text-center py-12">No videos yet. Add links to Instagram reels, YouTube videos, or TikTok clips.</p> : (
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead><tr className="border-b border-border text-left">
+                    <th className="p-3 font-semibold text-muted-foreground">Title</th>
+                    <th className="p-3 font-semibold text-muted-foreground">Platform</th>
+                    <th className="p-3 font-semibold text-muted-foreground">URL</th>
+                    <th className="p-3 font-semibold text-muted-foreground text-right">Actions</th>
+                  </tr></thead>
+                  <tbody>
+                    {videos.map((v) => (
+                      <tr key={v.id} className="border-b border-border hover:bg-muted/50">
+                        <td className="p-3 text-foreground font-medium">{v.title}</td>
+                        <td className="p-3 text-foreground capitalize">{v.platform}</td>
+                        <td className="p-3"><a href={v.url} target="_blank" rel="noopener noreferrer" className="text-primary underline text-xs truncate max-w-xs inline-block">{v.url}</a></td>
+                        <td className="p-3 text-right">
+                          <div className="flex justify-end gap-1">
+                            <Button variant="ghost" size="sm" onClick={() => openEditVideo(v)}><Pencil className="h-4 w-4" /></Button>
+                            <Button variant="ghost" size="sm" className="text-destructive" onClick={() => deleteVideo(v.id)}><Trash2 className="h-4 w-4" /></Button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </TabsContent>
         </Tabs>
       </main>
 
