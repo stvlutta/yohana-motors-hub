@@ -610,6 +610,38 @@ const AdminDashboard = () => {
           )}
         </DialogContent>
       </Dialog>
+
+      {/* Video Add/Edit Dialog */}
+      <Dialog open={videoDialogOpen} onOpenChange={setVideoDialogOpen}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle className="font-heading flex items-center gap-2">
+              <Film className="h-5 w-5 text-primary" /> {editingVideo ? "Edit" : "Add"} Video Link
+            </DialogTitle>
+          </DialogHeader>
+          <form onSubmit={handleSaveVideo} className="space-y-4">
+            <Input placeholder="Video title" value={videoForm.title} onChange={(e) => setVideoForm({ ...videoForm, title: e.target.value })} required />
+            <div>
+              <label className="text-xs font-medium text-muted-foreground mb-1 block">Platform</label>
+              <select
+                value={videoForm.platform}
+                onChange={(e) => setVideoForm({ ...videoForm, platform: e.target.value })}
+                className="w-full h-10 rounded-md border border-input bg-background px-3 text-sm outline-none focus:ring-2 focus:ring-ring"
+              >
+                <option value="youtube">YouTube</option>
+                <option value="instagram">Instagram</option>
+                <option value="tiktok">TikTok</option>
+              </select>
+            </div>
+            <Input placeholder="Video / Reel URL (https://...)" type="url" value={videoForm.url} onChange={(e) => setVideoForm({ ...videoForm, url: e.target.value })} required />
+            <Input placeholder="Thumbnail URL (optional — auto for YouTube)" value={videoForm.thumbnail_url} onChange={(e) => setVideoForm({ ...videoForm, thumbnail_url: e.target.value })} />
+            <Textarea placeholder="Description (optional)" value={videoForm.description} onChange={(e) => setVideoForm({ ...videoForm, description: e.target.value })} />
+            <Button type="submit" variant="hero" className="w-full" disabled={savingVideo}>
+              {savingVideo ? "Saving..." : editingVideo ? "Update Video" : "Add Video"}
+            </Button>
+          </form>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
