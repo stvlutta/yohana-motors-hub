@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { CalendarCheck, Car, LogOut, RefreshCw, Plus, Pencil, Trash2, Package, Upload, X, Globe, Eye } from "lucide-react";
+import { CalendarCheck, Car, LogOut, RefreshCw, Plus, Pencil, Trash2, Package, Upload, X, Globe, Eye, Film } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import logo from "@/assets/logo.png";
 
@@ -32,11 +32,18 @@ type Vehicle = {
 
 type OverseasVehicle = Vehicle & { source_country: string | null; source_url: string | null };
 
+type VlogVideo = {
+  id: string; title: string; url: string; platform: string;
+  thumbnail_url: string | null; description: string | null; created_at: string;
+};
+
 const emptyVehicle = {
   name: "", make: "", model: "", year: "", price: "",
   mileage: "", fuel: "", transmission: "", body_type: "", engine_cc: "", description: "",
   source_country: "", source_url: "",
 };
+
+const emptyVideo = { title: "", url: "", platform: "youtube", thumbnail_url: "", description: "" };
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
@@ -45,7 +52,14 @@ const AdminDashboard = () => {
   const [submissions, setSubmissions] = useState<SellSubmission[]>([]);
   const [vehicles, setVehicles] = useState<Vehicle[]>([]);
   const [overseas, setOverseas] = useState<OverseasVehicle[]>([]);
+  const [videos, setVideos] = useState<VlogVideo[]>([]);
   const [loading, setLoading] = useState(true);
+
+  // Vlog form state
+  const [videoDialogOpen, setVideoDialogOpen] = useState(false);
+  const [editingVideo, setEditingVideo] = useState<VlogVideo | null>(null);
+  const [videoForm, setVideoForm] = useState(emptyVideo);
+  const [savingVideo, setSavingVideo] = useState(false);
 
   // Vehicle form state
   const [vehicleDialogOpen, setVehicleDialogOpen] = useState(false);
