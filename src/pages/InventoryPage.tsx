@@ -30,6 +30,7 @@ const InventoryPage = () => {
   // Filter state
   const [search, setSearch] = useState("");
   const [makeFilter, setMakeFilter] = useState("");
+  const [modelFilter, setModelFilter] = useState("");
   const [fuelFilter, setFuelFilter] = useState("");
   const [bodyFilter, setBodyFilter] = useState("");
   const [budgetMin, setBudgetMin] = useState("");
