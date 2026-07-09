@@ -76,17 +76,59 @@ const AdminDashboard = () => {
 
   const fetchData = async () => {
     setLoading(true);
-    const [apptRes, sellRes, vehRes, ovRes] = await Promise.all([
+    const [apptRes, sellRes, vehRes, ovRes, vidRes] = await Promise.all([
       supabase.from("appointments").select("*").order("created_at", { ascending: false }),
       supabase.from("sell_submissions").select("*").order("created_at", { ascending: false }),
       supabase.from("vehicles").select("*").order("created_at", { ascending: false }),
       supabase.from("overseas_vehicles").select("*").order("created_at", { ascending: false }),
+      supabase.from("vlog_videos" as never).select("*").order("created_at", { ascending: false }),
     ]);
     if (apptRes.data) setAppointments(apptRes.data);
     if (sellRes.data) setSubmissions(sellRes.data as SellSubmission[]);
     if (vehRes.data) setVehicles(vehRes.data);
     if (ovRes.data) setOverseas(ovRes.data as OverseasVehicle[]);
+    if (vidRes.data) setVideos(vidRes.data as VlogVideo[]);
     setLoading(false);
+  };
+
+  const openAddVideo = () => {
+    setEditingVideo(null);
+    setVideoForm(emptyVideo);
+    setVideoDialogOpen(true);
+  };
+
+  const openEditVideo = (v: VlogVideo) => {
+    setEditingVideo(v);
+    setVideoForm({
+      title: v.title, url: v.url, platform: v.platform,
+      thumbnail_url: v.thumbnail_url || "", description: v.description || "",
+    });
+    setVideoDialogOpen(true);
+  };
+
+  const handleSaveVideo = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSavingVideo(true);
+    const payload = {
+      title: videoForm.title,
+      url: videoForm.url,
+      platform: videoForm.platform,
+      thumbnail_url: videoForm.thumbnail_url || null,
+      description: videoForm.description || null,
+    };
+    const { error } = editingVideo
+      ? await supabase.from("vlog_videos" as never).update(payload as never).eq("id", editingVideo.id)
+      : await supabase.from("vlog_videos" as never).insert(payload as never);
+    setSavingVideo(false);
+    if (error) toast({ title: "Error", description: error.message, variant: "destructive" });
+    else { toast({ title: editingVideo ? "Video updated" : "Video added" }); setVideoDialogOpen(false); fetchData(); }
+  };
+
+  const deleteVideo = async (id: string) => {
+    if (!confirm("Delete this video?")) return;
+    const { error } = await supabase.from("vlog_videos" as never).delete().eq("id", id);
+    if (error) toast({ title: "Error", description: error.message, variant: "destructive" });
+    else { toast({ title: "Video deleted" }); fetchData(); }
   };
 
   useEffect(() => { fetchData(); }, []);
