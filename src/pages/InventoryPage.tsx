@@ -182,13 +182,69 @@ const InventoryPage = () => {
                     )}
                   </div>
 
+                  {/* Browse by Brand (A-Z) */}
+                  <div className="p-4 bg-card border border-border rounded-lg">
+                    <div className="flex items-center justify-between mb-3">
+                      <h3 className="font-heading font-semibold text-foreground text-sm uppercase tracking-wide">
+                        {makeFilter ? `${makeFilter} — Models` : "Browse by Brand"}
+                      </h3>
+                      {makeFilter && (
+                        <Button variant="ghost" size="sm" onClick={() => { setMakeFilter(""); setModelFilter(""); }}>
+                          ← All brands
+                        </Button>
+                      )}
+                    </div>
+                    {!makeFilter ? (
+                      <div className="space-y-3">
+                        {Object.keys(makesByLetter).sort().map((letter) => (
+                          <div key={letter} className="flex flex-wrap items-baseline gap-2">
+                            <span className="font-heading font-bold text-primary w-5">{letter}</span>
+                            {makesByLetter[letter].map((m) => (
+                              <button
+                                key={m}
+                                type="button"
+                                onClick={() => { setMakeFilter(m); setModelFilter(""); }}
+                                className="px-3 py-1 rounded-full bg-muted text-foreground text-sm hover:bg-primary hover:text-primary-foreground transition-colors"
+                              >
+                                {m}
+                              </button>
+                            ))}
+                          </div>
+                        ))}
+                        {makes.length === 0 && (
+                          <p className="text-sm text-muted-foreground">No brands available yet.</p>
+                        )}
+                      </div>
+                    ) : (
+                      <div className="flex flex-wrap gap-2">
+                        <button
+                          type="button"
+                          onClick={() => setModelFilter("")}
+                          className={`px-3 py-1 rounded-full text-sm transition-colors ${!modelFilter ? "bg-primary text-primary-foreground" : "bg-muted text-foreground hover:bg-primary/20"}`}
+                        >
+                          All {makeFilter}
+                        </button>
+                        {modelsForMake.map((m) => (
+                          <button
+                            key={m}
+                            type="button"
+                            onClick={() => setModelFilter(m)}
+                            className={`px-3 py-1 rounded-full text-sm transition-colors ${modelFilter === m ? "bg-primary text-primary-foreground" : "bg-muted text-foreground hover:bg-primary/20"}`}
+                          >
+                            {m}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+
                   {showFilters && (
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 p-4 bg-card border border-border rounded-lg">
                       <div>
                         <label className="text-xs font-medium text-muted-foreground mb-1 block">Make</label>
                         <select
                           value={makeFilter}
-                          onChange={(e) => setMakeFilter(e.target.value)}
+                          onChange={(e) => { setMakeFilter(e.target.value); setModelFilter(""); }}
                           className="w-full h-10 rounded-md border border-input bg-background px-3 text-sm outline-none focus:ring-2 focus:ring-ring"
                         >
                           <option value="">All Makes</option>
