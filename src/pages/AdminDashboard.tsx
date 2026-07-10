@@ -40,7 +40,7 @@ type VlogVideo = {
 const emptyVehicle = {
   name: "", make: "", model: "", year: "", price: "",
   mileage: "", fuel: "", transmission: "", body_type: "", engine_cc: "", description: "",
-  source_country: "", source_url: "",
+  source_country: "", source_url: "", price_cif: "", price_delivered_nairobi: "",
 };
 
 const emptyVideo = { title: "", url: "", platform: "youtube", thumbnail_url: "", description: "" };
@@ -159,6 +159,8 @@ const AdminDashboard = () => {
       description: v.description || "",
       source_country: (v as OverseasVehicle).source_country || "",
       source_url: (v as OverseasVehicle).source_url || "",
+      price_cif: (v as OverseasVehicle & { price_cif?: string }).price_cif || "",
+      price_delivered_nairobi: (v as OverseasVehicle & { price_delivered_nairobi?: string }).price_delivered_nairobi || "",
     });
     setNewImageFiles([]);
     setNewImagePreviews([]);
@@ -225,6 +227,8 @@ const AdminDashboard = () => {
     if (editingTable === "overseas_vehicles") {
       payload.source_country = vehicleForm.source_country || null;
       payload.source_url = vehicleForm.source_url || null;
+      payload.price_cif = vehicleForm.price_cif || null;
+      payload.price_delivered_nairobi = vehicleForm.price_delivered_nairobi || null;
     }
 
     let error;
@@ -536,6 +540,8 @@ const AdminDashboard = () => {
               <div className="grid grid-cols-2 gap-3">
                 <Input placeholder="Source Country (e.g. Japan)" value={vehicleForm.source_country} onChange={(e) => vf("source_country", e.target.value)} />
                 <Input placeholder="Source URL (optional)" value={vehicleForm.source_url} onChange={(e) => vf("source_url", e.target.value)} />
+                <Input placeholder="CIF Price (e.g. KSh 2,500,000)" value={vehicleForm.price_cif} onChange={(e) => vf("price_cif", e.target.value)} />
+                <Input placeholder="Delivered to Nairobi Price" value={vehicleForm.price_delivered_nairobi} onChange={(e) => vf("price_delivered_nairobi", e.target.value)} />
               </div>
             )}
             <Textarea placeholder="Description (optional)" value={vehicleForm.description} onChange={(e) => vf("description", e.target.value)} />
