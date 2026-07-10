@@ -21,6 +21,18 @@ const parseNumber = (s: string | null | undefined) => {
   return num ? parseInt(num) : 0;
 };
 
+// Canonical list of car brands available worldwide (no specific models)
+const WORLD_CAR_MAKES = [
+  "Acura","Alfa Romeo","Aston Martin","Audi","Bentley","BMW","Bugatti","BYD","Cadillac",
+  "Chery","Chevrolet","Chrysler","Citroën","Dacia","Daihatsu","Dodge","DS Automobiles",
+  "Ferrari","Fiat","Ford","Genesis","GMC","Great Wall","Haval","Honda","Hummer","Hyundai",
+  "Infiniti","Isuzu","Jaguar","Jeep","Kia","Lamborghini","Land Rover","Lexus","Lincoln",
+  "Lotus","Mahindra","Maserati","Maybach","Mazda","McLaren","Mercedes-Benz","MG","Mini",
+  "Mitsubishi","Nissan","Opel","Peugeot","Polestar","Porsche","Proton","RAM","Range Rover",
+  "Renault","Rolls-Royce","Rover","Saab","SEAT","Škoda","Smart","Ssangyong","Subaru",
+  "Suzuki","Tata","Tesla","Toyota","Vauxhall","Volkswagen","Volvo",
+];
+
 const CURRENT_YEAR = new Date().getFullYear();
 
 const InventoryPage = () => {
