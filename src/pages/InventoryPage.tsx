@@ -53,14 +53,30 @@ const InventoryPage = () => {
       });
   }, []);
 
-  // Derive unique filter options from data
-  const makes = useMemo(() => [...new Set(vehicles.map(v => v.make))].sort((a, b) => a.localeCompare(b)), [vehicles]);
+  // Derive unique filter options from data (case-insensitive dedupe)
+  const makes = useMemo(() => {
+    const map = new Map<string, string>();
+    vehicles.forEach(v => {
+      const raw = (v.make || "").trim();
+      if (!raw) return;
+      const key = raw.toLowerCase();
+      if (!map.has(key)) map.set(key, raw.replace(/\b\w/g, c => c.toUpperCase()));
+    });
+    return [...map.values()].sort((a, b) => a.localeCompare(b));
+  }, [vehicles]);
   const fuels = useMemo(() => [...new Set(vehicles.map(v => v.fuel).filter(Boolean))].sort(), [vehicles]);
   const bodyTypes = useMemo(() => [...new Set(vehicles.map(v => v.body_type).filter(Boolean))].sort(), [vehicles]);
-  const modelsForMake = useMemo(
-    () => makeFilter ? [...new Set(vehicles.filter(v => v.make === makeFilter).map(v => v.model))].sort() : [],
-    [vehicles, makeFilter]
-  );
+  const modelsForMake = useMemo(() => {
+    if (!makeFilter) return [];
+    const map = new Map<string, string>();
+    vehicles.filter(v => (v.make || "").trim().toLowerCase() === makeFilter.toLowerCase()).forEach(v => {
+      const raw = (v.model || "").trim();
+      if (!raw) return;
+      const key = raw.toLowerCase();
+      if (!map.has(key)) map.set(key, raw);
+    });
+    return [...map.values()].sort();
+  }, [vehicles, makeFilter]);
 
   const filtered = useMemo(() => {
     const q = search.toLowerCase();
@@ -72,8 +88,8 @@ const InventoryPage = () => {
     const cMax = ccMax ? parseInt(ccMax) : Infinity;
     return vehicles.filter(v => {
       if (q && !v.name.toLowerCase().includes(q) && !v.make.toLowerCase().includes(q) && !v.model.toLowerCase().includes(q)) return false;
-      if (makeFilter && v.make !== makeFilter) return false;
-      if (modelFilter && v.model !== modelFilter) return false;
+      if (makeFilter && (v.make || "").trim().toLowerCase() !== makeFilter.toLowerCase()) return false;
+      if (modelFilter && (v.model || "").trim().toLowerCase() !== modelFilter.toLowerCase()) return false;
       if (fuelFilter && v.fuel !== fuelFilter) return false;
       if (bodyFilter && v.body_type !== bodyFilter) return false;
       const price = parseNumber(v.price);
