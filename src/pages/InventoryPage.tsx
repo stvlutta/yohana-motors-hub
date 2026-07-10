@@ -88,8 +88,8 @@ const InventoryPage = () => {
     const cMax = ccMax ? parseInt(ccMax) : Infinity;
     return vehicles.filter(v => {
       if (q && !v.name.toLowerCase().includes(q) && !v.make.toLowerCase().includes(q) && !v.model.toLowerCase().includes(q)) return false;
-      if (makeFilter && v.make !== makeFilter) return false;
-      if (modelFilter && v.model !== modelFilter) return false;
+      if (makeFilter && (v.make || "").trim().toLowerCase() !== makeFilter.toLowerCase()) return false;
+      if (modelFilter && (v.model || "").trim().toLowerCase() !== modelFilter.toLowerCase()) return false;
       if (fuelFilter && v.fuel !== fuelFilter) return false;
       if (bodyFilter && v.body_type !== bodyFilter) return false;
       const price = parseNumber(v.price);
