@@ -14,6 +14,7 @@ type OverseasVehicle = {
   price: string; source_country: string | null; image_url: string | null;
   fuel: string | null; transmission: string | null; mileage: string | null;
   source_url: string | null;
+  price_cif: string | null; price_delivered_nairobi: string | null;
 };
 
 const OverseasStockPage = () => {
@@ -68,7 +69,23 @@ const OverseasStockPage = () => {
                       {v.source_country && (
                         <p className="text-xs text-muted-foreground mt-1 flex items-center gap-1"><MapPin className="h-3 w-3" /> {v.source_country}</p>
                       )}
-                      <p className="text-primary font-heading font-bold text-lg mt-3">{formatPrice(v.price)}</p>
+                      <div className="mt-3 space-y-1.5 pt-3 border-t border-border">
+                        {v.price_cif ? (
+                          <div className="flex items-baseline justify-between gap-2">
+                            <span className="text-xs uppercase tracking-wide text-muted-foreground">CIF</span>
+                            <span className="text-primary font-heading font-bold">{formatPrice(v.price_cif)}</span>
+                          </div>
+                        ) : null}
+                        {v.price_delivered_nairobi ? (
+                          <div className="flex items-baseline justify-between gap-2">
+                            <span className="text-xs uppercase tracking-wide text-muted-foreground">Delivered to Nairobi</span>
+                            <span className="text-primary font-heading font-bold">{formatPrice(v.price_delivered_nairobi)}</span>
+                          </div>
+                        ) : null}
+                        {!v.price_cif && !v.price_delivered_nairobi && v.price ? (
+                          <p className="text-primary font-heading font-bold text-lg">{formatPrice(v.price)}</p>
+                        ) : null}
+                      </div>
                     </div>
                   </Link>
                 ))}

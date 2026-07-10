@@ -1,0 +1,1 @@
+ALTER TABLE public.overseas_vehicles ADD COLUMN IF NOT EXISTS price_cif text, ADD COLUMN IF NOT EXISTS price_delivered_nairobi text;

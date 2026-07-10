@@ -72,6 +72,8 @@ export type Database = {
           model: string
           name: string
           price: string
+          price_cif: string | null
+          price_delivered_nairobi: string | null
           source_country: string | null
           source_url: string | null
           transmission: string | null
@@ -93,6 +95,8 @@ export type Database = {
           model: string
           name: string
           price: string
+          price_cif?: string | null
+          price_delivered_nairobi?: string | null
           source_country?: string | null
           source_url?: string | null
           transmission?: string | null
@@ -114,6 +118,8 @@ export type Database = {
           model?: string
           name?: string
           price?: string
+          price_cif?: string | null
+          price_delivered_nairobi?: string | null
           source_country?: string | null
           source_url?: string | null
           transmission?: string | null
