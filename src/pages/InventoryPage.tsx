@@ -61,14 +61,6 @@ const InventoryPage = () => {
     () => makeFilter ? [...new Set(vehicles.filter(v => v.make === makeFilter).map(v => v.model))].sort() : [],
     [vehicles, makeFilter]
   );
-  const makesByLetter = useMemo(() => {
-    const groups: Record<string, string[]> = {};
-    makes.forEach((m) => {
-      const letter = m[0]?.toUpperCase() || "#";
-      (groups[letter] ||= []).push(m);
-    });
-    return groups;
-  }, [makes]);
 
   const filtered = useMemo(() => {
     const q = search.toLowerCase();
