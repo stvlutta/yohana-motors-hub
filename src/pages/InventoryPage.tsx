@@ -187,6 +187,18 @@ const InventoryPage = () => {
                         </select>
                       </div>
                       <div>
+                        <label className="text-xs font-medium text-muted-foreground mb-1 block">Model</label>
+                        <select
+                          value={modelFilter}
+                          onChange={(e) => setModelFilter(e.target.value)}
+                          disabled={!makeFilter}
+                          className="w-full h-10 rounded-md border border-input bg-background px-3 text-sm outline-none focus:ring-2 focus:ring-ring disabled:opacity-50"
+                        >
+                          <option value="">{makeFilter ? "All Models" : "Select make first"}</option>
+                          {modelsForMake.map(m => <option key={m} value={m}>{m}</option>)}
+                        </select>
+                      </div>
+                      <div>
                         <label className="text-xs font-medium text-muted-foreground mb-1 block">Fuel Type</label>
                         <select
                           value={fuelFilter}
