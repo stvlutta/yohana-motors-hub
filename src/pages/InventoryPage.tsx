@@ -61,8 +61,6 @@ const InventoryPage = () => {
     () => makeFilter ? [...new Set(vehicles.filter(v => v.make === makeFilter).map(v => v.model))].sort() : [],
     [vehicles, makeFilter]
   );
-
-  // Group makes by first letter A-Z
   const makesByLetter = useMemo(() => {
     const groups: Record<string, string[]> = {};
     makes.forEach((m) => {
