@@ -66,15 +66,17 @@ const InventoryPage = () => {
   }, []);
 
   // Derive unique filter options from data (case-insensitive dedupe)
+  // Full worldwide brand list, plus any extra makes present in inventory
   const makes = useMemo(() => {
-    const map = new Map<string, string>();
+    const seen = new Map<string, string>();
+    WORLD_CAR_MAKES.forEach(m => seen.set(m.toLowerCase(), m));
     vehicles.forEach(v => {
       const raw = (v.make || "").trim();
       if (!raw) return;
       const key = raw.toLowerCase();
-      if (!map.has(key)) map.set(key, raw.replace(/\b\w/g, c => c.toUpperCase()));
+      if (!seen.has(key)) seen.set(key, raw.replace(/\b\w/g, c => c.toUpperCase()));
     });
-    return [...map.values()].sort((a, b) => a.localeCompare(b));
+    return [...seen.values()].sort((a, b) => a.localeCompare(b));
   }, [vehicles]);
   const fuels = useMemo(() => [...new Set(vehicles.map(v => v.fuel).filter(Boolean))].sort(), [vehicles]);
   const bodyTypes = useMemo(() => [...new Set(vehicles.map(v => v.body_type).filter(Boolean))].sort(), [vehicles]);
