@@ -28,10 +28,48 @@ const WORLD_CAR_MAKES = [
   "Ferrari","Fiat","Ford","Genesis","GMC","Great Wall","Haval","Honda","Hummer","Hyundai",
   "Infiniti","Isuzu","Jaguar","Jeep","Kia","Lamborghini","Land Rover","Lexus","Lincoln",
   "Lotus","Mahindra","Maserati","Maybach","Mazda","McLaren","Mercedes-Benz","MG","Mini",
-  "Mitsubishi","Nissan","Opel","Peugeot","Polestar","Porsche","Proton","RAM","Range Rover",
+  "Mitsubishi","Nissan","Opel","Peugeot","Polestar","Porsche","Proton","RAM",
   "Renault","Rolls-Royce","Rover","Saab","SEAT","Škoda","Smart","Ssangyong","Subaru",
   "Suzuki","Tata","Tesla","Toyota","Vauxhall","Volkswagen","Volvo",
 ];
+
+const makeAliases: Record<string, string> = {
+  "benz": "Mercedes-Benz",
+  "mercedes": "Mercedes-Benz",
+  "mercedes benz": "Mercedes-Benz",
+  "mercedes-benz": "Mercedes-Benz",
+  "vw": "Volkswagen",
+  "volks wagon": "Volkswagen",
+  "volkswagen": "Volkswagen",
+  "landcruiser": "Toyota",
+  "land cruiser": "Toyota",
+  "toyota landcruiser": "Toyota",
+  "toyota land cruiser": "Toyota",
+};
+
+const normalizeMake = (value: string | null | undefined) => {
+  const raw = (value || "").trim();
+  if (!raw) return "";
+  const cleaned = raw
+    .toLowerCase()
+    .replace(/&/g, "and")
+    .replace(/[^a-z0-9\s-]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+
+  if (makeAliases[cleaned]) return makeAliases[cleaned];
+
+  const matchedMake = WORLD_CAR_MAKES.find((make) => {
+    const normalizedBrand = make
+      .toLowerCase()
+      .replace(/[^a-z0-9\s-]/g, "")
+      .trim();
+
+    return cleaned === normalizedBrand || cleaned.startsWith(`${normalizedBrand} `);
+  });
+
+  return matchedMake || "";
+};
 
 const CURRENT_YEAR = new Date().getFullYear();
 
@@ -66,24 +104,18 @@ const InventoryPage = () => {
   }, []);
 
   // Derive unique filter options from data (case-insensitive dedupe)
-  // Full worldwide brand list, plus any extra makes present in inventory
+  // Full worldwide brand list only, with vehicle make aliases normalized for filtering
   const makes = useMemo(() => {
     const seen = new Map<string, string>();
     WORLD_CAR_MAKES.forEach(m => seen.set(m.toLowerCase(), m));
-    vehicles.forEach(v => {
-      const raw = (v.make || "").trim();
-      if (!raw) return;
-      const key = raw.toLowerCase();
-      if (!seen.has(key)) seen.set(key, raw.replace(/\b\w/g, c => c.toUpperCase()));
-    });
     return [...seen.values()].sort((a, b) => a.localeCompare(b));
-  }, [vehicles]);
+  }, []);
   const fuels = useMemo(() => [...new Set(vehicles.map(v => v.fuel).filter(Boolean))].sort(), [vehicles]);
   const bodyTypes = useMemo(() => [...new Set(vehicles.map(v => v.body_type).filter(Boolean))].sort(), [vehicles]);
   const modelsForMake = useMemo(() => {
     if (!makeFilter) return [];
     const map = new Map<string, string>();
-    vehicles.filter(v => (v.make || "").trim().toLowerCase() === makeFilter.toLowerCase()).forEach(v => {
+    vehicles.filter(v => normalizeMake(v.make) === makeFilter).forEach(v => {
       const raw = (v.model || "").trim();
       if (!raw) return;
       const key = raw.toLowerCase();
@@ -102,7 +134,7 @@ const InventoryPage = () => {
     const cMax = ccMax ? parseInt(ccMax) : Infinity;
     return vehicles.filter(v => {
       if (q && !v.name.toLowerCase().includes(q) && !v.make.toLowerCase().includes(q) && !v.model.toLowerCase().includes(q)) return false;
-      if (makeFilter && (v.make || "").trim().toLowerCase() !== makeFilter.toLowerCase()) return false;
+      if (makeFilter && normalizeMake(v.make) !== makeFilter) return false;
       if (modelFilter && (v.model || "").trim().toLowerCase() !== modelFilter.toLowerCase()) return false;
       if (fuelFilter && v.fuel !== fuelFilter) return false;
       if (bodyFilter && v.body_type !== bodyFilter) return false;
