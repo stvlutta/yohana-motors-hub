@@ -277,7 +277,45 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      public_sell_listings: {
+        Row: {
+          asking_price: string | null
+          condition: string | null
+          created_at: string | null
+          description: string | null
+          id: string | null
+          make: string | null
+          mileage: string | null
+          model: string | null
+          photo_urls: string[] | null
+          year: string | null
+        }
+        Insert: {
+          asking_price?: string | null
+          condition?: string | null
+          created_at?: string | null
+          description?: string | null
+          id?: string | null
+          make?: string | null
+          mileage?: string | null
+          model?: string | null
+          photo_urls?: string[] | null
+          year?: string | null
+        }
+        Update: {
+          asking_price?: string | null
+          condition?: string | null
+          created_at?: string | null
+          description?: string | null
+          id?: string | null
+          make?: string | null
+          mileage?: string | null
+          model?: string | null
+          photo_urls?: string[] | null
+          year?: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       [_ in never]: never
