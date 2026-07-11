@@ -14,6 +14,7 @@ import DirectImportPage from "./pages/DirectImportPage";
 import DutyFreePage from "./pages/DutyFreePage";
 import OverseasStockPage from "./pages/OverseasStockPage";
 import InventoryPage from "./pages/InventoryPage";
+import CommunityInventoryPage from "./pages/CommunityInventoryPage";
 import VehicleDetailPage from "./pages/VehicleDetailPage";
 import PremiumPage from "./pages/PremiumPage";
 import LoginPage from "./pages/LoginPage";
@@ -39,6 +40,7 @@ const App = () => (
           <Route path="/duty-free" element={<DutyFreePage />} />
           <Route path="/financing" element={<FinancingPage />} />
           <Route path="/overseas-stock" element={<OverseasStockPage />} />
+          <Route path="/community-inventory" element={<CommunityInventoryPage />} />
           <Route path="/premium" element={<PremiumPage />} />
           <Route path="/sell" element={<SellPage />} />
           <Route path="/appointment" element={<AppointmentPage />} />

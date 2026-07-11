@@ -96,9 +96,16 @@ const InventoryPage = () => {
       .from("vehicles")
       .select("id, name, make, model, year, price, mileage, fuel, transmission, body_type, engine_cc, image_url")
       .eq("is_available", true)
-      .order("created_at", { ascending: false })
       .then(({ data }) => {
-        if (data) setVehicles(data);
+        if (data) {
+          // Randomize order every load so the featured set differs each visit
+          const arr = [...data];
+          for (let i = arr.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [arr[i], arr[j]] = [arr[j], arr[i]];
+          }
+          setVehicles(arr);
+        }
         setLoading(false);
       });
   }, []);

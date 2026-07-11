@@ -10,6 +10,15 @@ type Vehicle = {
   mileage: string | null; fuel: string | null; image_url: string | null;
 };
 
+const shuffle = <T,>(arr: T[]) => {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+};
+
 const InventoryPreview = () => {
   const [vehicles, setVehicles] = useState<Vehicle[]>([]);
 
@@ -18,9 +27,7 @@ const InventoryPreview = () => {
       .from("vehicles")
       .select("id, name, year, price, mileage, fuel, image_url")
       .eq("is_available", true)
-      .order("created_at", { ascending: false })
-      .limit(4)
-      .then(({ data }) => { if (data) setVehicles(data); });
+      .then(({ data }) => { if (data) setVehicles(shuffle(data as Vehicle[]).slice(0, 4)); });
   }, []);
 
   return (
