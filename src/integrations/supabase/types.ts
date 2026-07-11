@@ -277,48 +277,24 @@ export type Database = {
       }
     }
     Views: {
-      public_sell_listings: {
-        Row: {
-          asking_price: string | null
-          condition: string | null
-          created_at: string | null
-          description: string | null
-          id: string | null
-          make: string | null
-          mileage: string | null
-          model: string | null
-          photo_urls: string[] | null
-          year: string | null
-        }
-        Insert: {
-          asking_price?: string | null
-          condition?: string | null
-          created_at?: string | null
-          description?: string | null
-          id?: string | null
-          make?: string | null
-          mileage?: string | null
-          model?: string | null
-          photo_urls?: string[] | null
-          year?: string | null
-        }
-        Update: {
-          asking_price?: string | null
-          condition?: string | null
-          created_at?: string | null
-          description?: string | null
-          id?: string | null
-          make?: string | null
-          mileage?: string | null
-          model?: string | null
-          photo_urls?: string[] | null
-          year?: string | null
-        }
-        Relationships: []
-      }
+      [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      get_public_sell_listings: {
+        Args: never
+        Returns: {
+          asking_price: string
+          condition: string
+          created_at: string
+          description: string
+          id: string
+          make: string
+          mileage: string
+          model: string
+          photo_urls: string[]
+          year: string
+        }[]
+      }
     }
     Enums: {
       [_ in never]: never
