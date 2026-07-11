@@ -464,8 +464,12 @@ const AdminDashboard = () => {
                         <td className="p-3">
                           <select value={s.status} onChange={(e) => updateStatus("sell_submissions", s.id, e.target.value)}
                             className={`px-2 py-0.5 rounded-full text-xs font-semibold border-none outline-none cursor-pointer ${statusColor(s.status)}`}>
-                            <option value="pending">pending</option><option value="confirmed">confirmed</option>
-                            <option value="completed">completed</option><option value="cancelled">cancelled</option>
+                            <option value="pending">pending</option>
+                            <option value="approved">approved (public)</option>
+                            <option value="confirmed">confirmed</option>
+                            <option value="sold">sold</option>
+                            <option value="completed">completed</option>
+                            <option value="cancelled">cancelled</option>
                           </select>
                         </td>
                         <td className="p-3 text-right">

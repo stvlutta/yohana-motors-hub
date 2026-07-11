@@ -280,7 +280,21 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      get_public_sell_listings: {
+        Args: never
+        Returns: {
+          asking_price: string
+          condition: string
+          created_at: string
+          description: string
+          id: string
+          make: string
+          mileage: string
+          model: string
+          photo_urls: string[]
+          year: string
+        }[]
+      }
     }
     Enums: {
       [_ in never]: never

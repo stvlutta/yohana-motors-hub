@@ -9,6 +9,7 @@ const navItems = [
   { label: "Home", href: "/" },
   { label: "Inventory", href: "/inventory" },
   { label: "Overseas Stock / Ready to Import", href: "/overseas-stock" },
+  { label: "Client Cars", href: "/community-inventory" },
   { label: "Direct Import", href: "/direct-import" },
   { label: "Duty Free", href: "/duty-free" },
   { label: "Financing", href: "/financing" },
