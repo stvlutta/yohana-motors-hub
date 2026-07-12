@@ -18,10 +18,13 @@ const CommunityInventoryPage = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    supabase.rpc("get_public_sell_listings").then(({ data }) => {
-      if (data) setListings(data as Listing[]);
-      setLoading(false);
-    });
+    (supabase.from as unknown as (n: string) => { select: (c: string) => { order: (col: string, opts: { ascending: boolean }) => Promise<{ data: Listing[] | null }> } })("public_sell_listings")
+      .select("id, make, model, year, mileage, asking_price, condition, description, photo_urls")
+      .order("created_at", { ascending: false })
+      .then(({ data }) => {
+        if (data) setListings(data);
+        setLoading(false);
+      });
   }, []);
 
   return (

@@ -182,6 +182,27 @@ export type Database = {
         }
         Relationships: []
       }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
       vehicles: {
         Row: {
           body_type: string | null
@@ -277,27 +298,58 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
-    }
-    Functions: {
-      get_public_sell_listings: {
-        Args: never
-        Returns: {
-          asking_price: string
-          condition: string
-          created_at: string
-          description: string
-          id: string
-          make: string
-          mileage: string
-          model: string
-          photo_urls: string[]
-          year: string
-        }[]
+      public_sell_listings: {
+        Row: {
+          asking_price: string | null
+          condition: string | null
+          created_at: string | null
+          description: string | null
+          id: string | null
+          make: string | null
+          mileage: string | null
+          model: string | null
+          photo_urls: string[] | null
+          year: string | null
+        }
+        Insert: {
+          asking_price?: string | null
+          condition?: string | null
+          created_at?: string | null
+          description?: string | null
+          id?: string | null
+          make?: string | null
+          mileage?: string | null
+          model?: string | null
+          photo_urls?: string[] | null
+          year?: string | null
+        }
+        Update: {
+          asking_price?: string | null
+          condition?: string | null
+          created_at?: string | null
+          description?: string | null
+          id?: string | null
+          make?: string | null
+          mileage?: string | null
+          model?: string | null
+          photo_urls?: string[] | null
+          year?: string | null
+        }
+        Relationships: []
       }
     }
+    Functions: {
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
+      is_admin: { Args: never; Returns: boolean }
+    }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "user"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -424,6 +476,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "user"],
+    },
   },
 } as const

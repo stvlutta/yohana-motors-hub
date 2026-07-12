@@ -23,9 +23,11 @@ const CommunityInventoryPreview = () => {
   const [listings, setListings] = useState<Listing[]>([]);
 
   useEffect(() => {
-    supabase.rpc("get_public_sell_listings").then(({ data }) => {
-      if (data) setListings(shuffle(data as Listing[]).slice(0, 4));
-    });
+    (supabase.from as unknown as (n: string) => { select: (c: string) => Promise<{ data: Listing[] | null }> })("public_sell_listings")
+      .select("id, make, model, year, mileage, asking_price, photo_urls")
+      .then(({ data }) => {
+        if (data) setListings(shuffle(data).slice(0, 4));
+      });
   }, []);
 
   return (
