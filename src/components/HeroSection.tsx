@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, ShieldCheck, Globe2, Sparkles } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import slide1 from "@/assets/hero/handover-1.jpg";
 import slide2 from "@/assets/hero/handover-2.jpg";
@@ -76,110 +76,34 @@ const HeroSection = () => {
 
       {/* Content */}
       <div className="container mx-auto px-4 relative z-10 py-24 md:py-28">
-        <div className="grid lg:grid-cols-12 gap-10 items-center">
-          <div className="lg:col-span-7 animate-fade-in-up">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 mb-6 rounded-full border border-white/30 bg-white/10 backdrop-blur-xl text-primary-foreground text-xs md:text-sm font-body">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-primary" />
+        <div className="max-w-2xl animate-fade-in-up">
+          <p className="text-primary font-heading font-semibold uppercase tracking-[0.3em] text-sm mb-4 drop-shadow">
+            Kenya's Trusted Car Dealership
+          </p>
+          <h1 className="text-5xl md:text-7xl font-heading font-bold text-primary-foreground leading-tight mb-6 drop-shadow-lg">
+            Drive Your
+            <span className="block relative w-fit">
+              <span className="text-gradient-red">Dream Car</span>
+              <span className="pointer-events-none absolute inset-0 overflow-hidden">
+                <span className="absolute inset-y-0 w-1/3 bg-gradient-to-r from-transparent via-white/50 to-transparent blur-sm animate-shimmer-line" />
               </span>
-              <Sparkles className="w-3.5 h-3.5 text-primary" />
-              <span className="tracking-wide uppercase">Together at every step</span>
-            </div>
-
-            <h1 className="text-5xl md:text-7xl lg:text-[5.5rem] font-heading font-bold text-primary-foreground leading-[1.02] mb-6 drop-shadow-lg">
-              Drive Your
-              <span className="block relative w-fit">
-                <span className="text-gradient-red">Dream Car</span>
-                <span className="pointer-events-none absolute inset-0 overflow-hidden">
-                  <span className="absolute inset-y-0 w-1/3 bg-gradient-to-r from-transparent via-white/50 to-transparent blur-sm animate-shimmer-line" />
-                </span>
-              </span>
-              <span className="block text-primary-foreground/95">Home to Kenya.</span>
-            </h1>
-
-            <p className="text-base md:text-lg text-primary-foreground/90 mb-8 max-w-xl font-body drop-shadow">
-              Import directly from Japan, UK & Dubai. Duty-free options, flexible
-              financing, and a seamless handover — every single time.
-            </p>
-
-            <div className="flex flex-wrap gap-4 mb-10">
-              <Link to="/inventory">
-                <Button variant="hero" size="lg" className="text-base px-8 py-6 group">
-                  Browse Inventory
-                  <ArrowRight className="ml-1 w-4 h-4 transition-transform group-hover:translate-x-1" />
-                </Button>
-              </Link>
-              <Link to="/direct-import">
-                <Button variant="heroOutline" size="lg" className="text-base px-8 py-6">
-                  Direct Import
-                </Button>
-              </Link>
-            </div>
-
-            {/* Stat pills */}
-            <div className="grid grid-cols-3 gap-3 md:gap-4 max-w-xl">
-              {[
-                { k: "500+", v: "Cars Delivered" },
-                { k: "3", v: "Import Hubs" },
-                { k: "100%", v: "Verified Units" },
-              ].map((s, i) => (
-                <div
-                  key={s.v}
-                  className="rounded-2xl border border-white/25 bg-white/10 backdrop-blur-xl px-3 py-3 md:px-4 md:py-4 animate-fade-in-up"
-                  style={{ animationDelay: `${0.2 + i * 0.1}s`, opacity: 0 }}
-                >
-                  <div className="text-xl md:text-2xl font-heading font-bold text-primary-foreground">
-                    {s.k}
-                  </div>
-                  <div className="text-[11px] md:text-xs uppercase tracking-wider text-primary-foreground/75">
-                    {s.v}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Floating trust card */}
-          <div className="hidden lg:block lg:col-span-5">
-            <div className="relative animate-float-slow">
-              <div
-                className="absolute -inset-1 rounded-3xl blur-2xl opacity-70"
-                style={{ background: "linear-gradient(135deg, hsl(var(--primary)/0.5), hsl(var(--navy)/0.5))" }}
-              />
-              <div className="relative rounded-3xl border border-white/30 bg-white/15 backdrop-blur-2xl p-6 shadow-2xl">
-                <div className="flex items-center gap-3 mb-5">
-                  <div className="w-10 h-10 rounded-xl bg-primary/90 flex items-center justify-center">
-                    <ShieldCheck className="w-5 h-5 text-primary-foreground" />
-                  </div>
-                  <div>
-                    <p className="font-heading font-semibold text-primary-foreground">Trusted Import Partner</p>
-                    <p className="text-xs text-primary-foreground/70">Registered • Insured • Bonded</p>
-                  </div>
-                </div>
-                <div className="space-y-3">
-                  {[
-                    { icon: Globe2, label: "Japan • UK • Dubai sourcing" },
-                    { icon: ShieldCheck, label: "Full pre-shipment inspection" },
-                    { icon: Sparkles, label: "Duty-free & financing options" },
-                  ].map(({ icon: Icon, label }) => (
-                    <div
-                      key={label}
-                      className="flex items-center gap-3 rounded-xl border border-white/20 bg-white/10 px-3 py-2.5"
-                    >
-                      <Icon className="w-4 h-4 text-primary" />
-                      <span className="text-sm text-primary-foreground/90 font-body">{label}</span>
-                    </div>
-                  ))}
-                </div>
-                <Link to="/appointments" className="block mt-5">
-                  <Button variant="hero" size="sm" className="w-full">
-                    Book a Consultation
-                    <ArrowRight className="ml-1 w-4 h-4" />
-                  </Button>
-                </Link>
-              </div>
-            </div>
+            </span>
+          </h1>
+          <p className="text-lg text-primary-foreground/80 mb-8 max-w-lg font-body drop-shadow">
+            Import directly from Japan, UK & Dubai. Enjoy duty-free options, flexible financing, and a seamless buying experience.
+          </p>
+          <div className="flex flex-wrap gap-4">
+            <Link to="/inventory">
+              <Button variant="hero" size="lg" className="text-base px-8 py-6 group">
+                Browse Inventory
+                <ArrowRight className="ml-1 w-4 h-4 transition-transform group-hover:translate-x-1" />
+              </Button>
+            </Link>
+            <Link to="/direct-import">
+              <Button variant="heroOutline" size="lg" className="text-base px-8 py-6">
+                Direct Import
+              </Button>
+            </Link>
           </div>
         </div>
       </div>
