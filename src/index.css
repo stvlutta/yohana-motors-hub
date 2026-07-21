@@ -47,6 +47,7 @@
     --gradient-navy: linear-gradient(135deg, hsl(220, 60%, 20%) 0%, hsl(220, 40%, 30%) 100%);
     --shadow-card: 0 4px 24px -4px hsl(220 60% 20% / 0.1);
     --shadow-elevated: 0 12px 40px -8px hsl(220 60% 20% / 0.15);
+    --shadow-navbar: 0 4px 30px -12px hsl(220 60% 20% / 0.12);
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -90,6 +91,7 @@
     --gradient-navy: linear-gradient(135deg, hsl(220, 55%, 22%) 0%, hsl(220, 45%, 32%) 100%);
     --shadow-card: 0 4px 24px -4px hsl(220 80% 4% / 0.6);
     --shadow-elevated: 0 12px 40px -8px hsl(356 82% 30% / 0.35);
+    --shadow-navbar: 0 4px 30px -12px hsl(356 82% 30% / 0.25);
 
     --sidebar-background: 222 40% 9%;
     --sidebar-foreground: 210 40% 96%;
