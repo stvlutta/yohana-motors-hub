@@ -39,7 +39,7 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <section className="relative min-h-[60vh] md:min-h-[92vh] flex items-center overflow-hidden bg-secondary">
+    <section className="relative min-h-[60vh] md:min-h-[78vh] lg:min-h-[86vh] flex items-center overflow-hidden bg-secondary">
       {/* Slideshow background */}
       <div className="absolute inset-0">
         {slides.map((src, i) => (
