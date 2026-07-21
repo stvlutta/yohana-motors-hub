@@ -37,7 +37,23 @@
   <meta name="twitter:title" content="Yohana Automotive | Kenya Car Dealership, Imports &amp; Financing">
   <meta property="og:description" content="Yohana Automotive is a Kenyan car dealership offering vehicle sales, direct imports, duty-free options, and flexible financing. Together at every step.">
   <meta name="twitter:description" content="Yohana Automotive is a Kenyan car dealership offering vehicle sales, direct imports, duty-free options, and flexible financing. Together at every step.">
+  <script>
+    // Flag low-end devices so heavy animations can be softened via CSS.
+    (function () {
+      try {
+        var nav = window.navigator || {};
+        var mem = nav.deviceMemory;
+        var cpu = nav.hardwareConcurrency;
+        var conn = nav.connection || {};
+        var saveData = !!conn.saveData;
+        var slowNet = conn.effectiveType && /(^|-)2g$/.test(conn.effectiveType);
+        var lowEnd = (mem && mem <= 4) || (cpu && cpu <= 4) || saveData || slowNet;
+        if (lowEnd) document.documentElement.classList.add('low-end');
+      } catch (e) {}
+    })();
+  </script>
 </head>
+
 
   <body>
     <div id="root"></div>
