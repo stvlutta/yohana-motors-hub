@@ -149,6 +149,27 @@
   }
 }
 
+@keyframes drive-car {
+  0% {
+    transform: translateX(-120%);
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  88% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(120%);
+    opacity: 0;
+  }
+}
+
+.animate-drive-car {
+  animation: drive-car 5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
 /* Respect prefers-reduced-motion: disable non-essential animation & transitions */
 @media (prefers-reduced-motion: reduce) {
   *,
