@@ -49,7 +49,7 @@ const InventoryPreview = () => {
               <Link
                 to={`/inventory/${car.id}`}
                 key={car.id}
-                className="bg-card rounded-lg overflow-hidden shadow-card hover:shadow-elevated transition-all duration-300 border border-border group block"
+                className="bg-white/60 backdrop-blur-xl rounded-lg overflow-hidden shadow-card hover:shadow-elevated transition-all duration-300 border border-white/80 group block"
               >
                 <div className="h-48 bg-muted flex items-center justify-center overflow-hidden">
                   {car.image_url ? (
