@@ -359,35 +359,35 @@ const InventoryPage = () => {
                     <Button variant="ghost" size="sm" onClick={clearFilters} className="mt-2">Clear filters</Button>
                   </div>
                 ) : (
-                  <div className={viewMode === "grid" ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" : "space-y-4"}>
+                  <div className={viewMode === "grid" ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6" : "space-y-3 sm:space-y-4"}>
                     {paginated.map((car) => (
                       <Link
                         to={`/inventory/${car.id}`}
                         key={car.id}
                         className={`bg-card rounded-lg overflow-hidden shadow-card hover:shadow-elevated transition-all duration-300 border border-border group block ${viewMode === "list" ? "flex flex-col sm:flex-row" : ""}`}
                       >
-                        <div className={`bg-muted flex items-center justify-center overflow-hidden shrink-0 ${viewMode === "list" ? "w-full sm:w-56 h-56 sm:h-44" : "h-56"}`}>
+                        <div className={`bg-muted flex items-center justify-center overflow-hidden shrink-0 ${viewMode === "list" ? "w-full sm:w-56 h-44 sm:h-48" : "h-44 sm:h-56"}`}>
                           {car.image_url ? (
-                            <img src={car.image_url} alt={car.name} className={`w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 ${viewMode === "list" ? "sm:object-cover" : ""}`} />
+                            <img src={car.image_url} alt={car.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                           ) : (
-                            <Car className="h-16 w-16 text-muted-foreground/30" />
+                            <Car className="h-12 w-12 sm:h-16 sm:w-16 text-muted-foreground/30" />
                           )}
                         </div>
-                        <div className="p-5 flex flex-col justify-between flex-1">
+                        <div className="p-4 sm:p-5 flex flex-col justify-between flex-1">
                           <div>
-                            <h3 className="font-heading font-bold text-lg text-foreground mb-1 group-hover:text-primary transition-colors">{car.name}</h3>
-                            <p className="text-primary font-semibold mb-3">{formatPrice(car.price)}</p>
-                            <div className="flex flex-wrap items-center gap-3 text-xs text-muted-foreground">
+                            <h3 className="font-heading font-bold text-base sm:text-lg text-foreground mb-1 group-hover:text-primary transition-colors line-clamp-1">{car.name}</h3>
+                            <p className="text-primary font-semibold text-sm sm:text-base mb-2 sm:mb-3">{formatPrice(car.price)}</p>
+                            <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-xs text-muted-foreground">
                               <span className="flex items-center gap-1"><Calendar className="h-3 w-3" />{car.year}</span>
                               {car.mileage && <span className="flex items-center gap-1"><Gauge className="h-3 w-3" />{car.mileage}</span>}
                               {car.fuel && <span className="flex items-center gap-1"><Fuel className="h-3 w-3" />{car.fuel}</span>}
-                              {car.transmission && <span className="bg-muted px-2 py-0.5 rounded text-muted-foreground">{car.transmission}</span>}
-                              {car.body_type && <span className="bg-muted px-2 py-0.5 rounded text-muted-foreground">{car.body_type}</span>}
-                              {car.engine_cc && <span className="bg-muted px-2 py-0.5 rounded text-muted-foreground">{car.engine_cc} CC</span>}
+                              {car.transmission && <span className="bg-muted px-1.5 sm:px-2 py-0.5 rounded text-muted-foreground">{car.transmission}</span>}
+                              {car.body_type && <span className="bg-muted px-1.5 sm:px-2 py-0.5 rounded text-muted-foreground">{car.body_type}</span>}
+                              {car.engine_cc && <span className="bg-muted px-1.5 sm:px-2 py-0.5 rounded text-muted-foreground">{car.engine_cc} CC</span>}
                             </div>
                           </div>
                           {viewMode === "list" && (
-                            <div className="mt-4 sm:mt-0">
+                            <div className="mt-3 sm:mt-0">
                               <span className="inline-flex items-center gap-1 text-sm font-medium text-primary group-hover:underline">
                                 View Details <ArrowRight className="h-4 w-4" />
                               </span>
