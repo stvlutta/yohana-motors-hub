@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, ShieldCheck, Globe2, Sparkles } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import slide1 from "@/assets/hero/handover-1.jpg";
 import slide2 from "@/assets/hero/handover-2.jpg";
