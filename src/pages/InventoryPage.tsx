@@ -436,7 +436,7 @@ const InventoryPage = () => {
 
                 <div className="text-center mt-12">
                   <p className="text-sm text-muted-foreground mb-1">
-                    Showing {filtered.length} of {vehicles.length} vehicle{vehicles.length !== 1 ? "s" : ""}
+                    Showing {paginated.length} of {filtered.length} vehicle{filtered.length !== 1 ? "s" : ""} — page {currentPage} of {totalPages}
                   </p>
                   <div className="flex items-center justify-center gap-2 text-muted-foreground text-sm mb-4">
                     <MapPin className="h-4 w-4 text-primary" />
