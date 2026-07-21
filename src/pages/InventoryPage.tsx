@@ -426,39 +426,56 @@ const InventoryPage = () => {
                 )}
 
                 {totalPages > 1 && (
-                  <div className="flex items-center justify-center gap-2 mt-10">
+                  <div className="flex items-center justify-center gap-2 mt-10 flex-wrap">
                     <Button
                       variant="outline"
                       size="sm"
-                      onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                      onClick={() => { setCurrentPage(p => Math.max(1, p - 1)); window.scrollTo({ top: 0, behavior: "smooth" }); }}
                       disabled={currentPage === 1}
                     >
                       Previous
                     </Button>
                     <div className="flex items-center gap-1">
-                      {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-                        <button
-                          key={page}
-                          type="button"
-                          onClick={() => setCurrentPage(page)}
-                          className={`min-w-[2.25rem] h-9 px-2 rounded-md text-sm font-medium transition-colors ${currentPage === page ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:bg-muted"}`}
-                          aria-label={`Page ${page}`}
-                          aria-current={currentPage === page ? "page" : undefined}
-                        >
-                          {page}
-                        </button>
-                      ))}
+                      {(() => {
+                        const pages: (number | "…")[] = [];
+                        const add = (n: number | "…") => pages.push(n);
+                        const window_ = 1;
+                        for (let i = 1; i <= totalPages; i++) {
+                          if (i === 1 || i === totalPages || (i >= currentPage - window_ && i <= currentPage + window_)) {
+                            add(i);
+                          } else if (pages[pages.length - 1] !== "…") {
+                            add("…");
+                          }
+                        }
+                        return pages.map((page, idx) =>
+                          page === "…" ? (
+                            <span key={`e-${idx}`} className="px-1 text-muted-foreground text-sm">…</span>
+                          ) : (
+                            <button
+                              key={page}
+                              type="button"
+                              onClick={() => { setCurrentPage(page); window.scrollTo({ top: 0, behavior: "smooth" }); }}
+                              className={`min-w-[2.25rem] h-9 px-2 rounded-md text-sm font-medium transition-colors ${currentPage === page ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:bg-muted"}`}
+                              aria-label={`Page ${page}`}
+                              aria-current={currentPage === page ? "page" : undefined}
+                            >
+                              {page}
+                            </button>
+                          )
+                        );
+                      })()}
                     </div>
                     <Button
                       variant="outline"
                       size="sm"
-                      onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                      onClick={() => { setCurrentPage(p => Math.min(totalPages, p + 1)); window.scrollTo({ top: 0, behavior: "smooth" }); }}
                       disabled={currentPage === totalPages}
                     >
                       Next
                     </Button>
                   </div>
                 )}
+
 
                 <div className="text-center mt-12">
                   <p className="text-sm text-muted-foreground mb-1">
