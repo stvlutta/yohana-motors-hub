@@ -51,7 +51,7 @@ const CommunityInventoryPage = () => {
             {loading ? (
               <p className="text-center text-muted-foreground py-12">Loading...</p>
             ) : listings.length === 0 ? (
-              <div className="bg-white/60 backdrop-blur-xl border border-white/80 rounded-lg p-12 text-center max-w-2xl mx-auto">
+              <div className="bg-card/80 dark:bg-white/5 backdrop-blur-xl border border-border/60 dark:border-white/10 rounded-lg p-12 text-center max-w-2xl mx-auto">
                 <Car className="h-12 w-12 text-muted-foreground/40 mx-auto mb-4" />
                 <p className="text-muted-foreground mb-6">No client cars listed yet. Be the first!</p>
                 <Link to="/sell"><Button variant="hero" size="lg">Upload Your Car</Button></Link>
@@ -59,7 +59,7 @@ const CommunityInventoryPage = () => {
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {listings.map((l) => (
-                  <div key={l.id} className="bg-white/60 backdrop-blur-xl rounded-lg overflow-hidden shadow-card border border-white/80">
+                  <div key={l.id} className="bg-card/80 dark:bg-white/5 backdrop-blur-xl rounded-lg overflow-hidden shadow-card border border-border/60 dark:border-white/10">
                     <div className="h-56 bg-muted flex items-center justify-center overflow-hidden">
                       {l.photo_urls && l.photo_urls[0] ? (
                         <img src={l.photo_urls[0]} alt={`${l.make} ${l.model}`} className="w-full h-full object-cover" />
