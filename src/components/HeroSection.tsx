@@ -39,7 +39,7 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <section className="relative min-h-[85vh] md:min-h-[92vh] flex items-center overflow-hidden bg-secondary">
+    <section className="relative min-h-[60vh] md:min-h-[92vh] flex items-center overflow-hidden bg-secondary">
       {/* Slideshow background */}
       <div className="absolute inset-0">
         {slides.map((src, i) => (
@@ -53,7 +53,7 @@ const HeroSection = () => {
               src={src}
               alt=""
               aria-hidden="true"
-              className="absolute inset-0 w-full h-full object-cover scale-110 blur-2xl opacity-60"
+              className="absolute inset-0 w-full h-full object-cover scale-110 blur-2xl opacity-70"
             />
             <img
               src={src}
@@ -64,7 +64,9 @@ const HeroSection = () => {
             />
           </div>
         ))}
-        <div className="absolute inset-0 gradient-hero opacity-75 pointer-events-none" />
+        {/* Lighter overlay so photos read through; stronger scrim only at bottom for text */}
+        <div className="absolute inset-0 gradient-hero opacity-30 md:opacity-60 pointer-events-none" />
+        <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-secondary/90 via-secondary/60 to-transparent pointer-events-none md:hidden" />
       </div>
 
       {/* Floating color blobs */}
@@ -75,12 +77,12 @@ const HeroSection = () => {
       />
 
       {/* Content */}
-      <div className="container mx-auto px-4 relative z-10 py-16 md:py-28">
+      <div className="container mx-auto px-4 relative z-10 pt-8 pb-24 md:py-28 mt-auto md:mt-0 self-end md:self-center w-full">
         <div className="max-w-2xl animate-fade-in-up">
-          <p className="text-primary font-heading font-semibold uppercase tracking-[0.25em] text-xs sm:text-sm mb-3 md:mb-4 drop-shadow">
+          <p className="text-primary font-heading font-semibold uppercase tracking-[0.25em] text-xs sm:text-sm mb-2 md:mb-4 drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
             Kenya's Trusted Car Dealership
           </p>
-          <h1 className="text-4xl sm:text-5xl md:text-7xl font-heading font-bold text-primary-foreground leading-[1.05] mb-4 md:mb-6 drop-shadow-lg">
+          <h1 className="text-3xl sm:text-5xl md:text-7xl font-heading font-bold text-primary-foreground leading-[1.05] mb-3 md:mb-6 [text-shadow:_0_2px_12px_rgba(0,0,0,0.7)]">
             Drive Your
             <span className="block relative w-fit">
               <span className="text-gradient-red">Dream Car</span>
@@ -89,24 +91,25 @@ const HeroSection = () => {
               </span>
             </span>
           </h1>
-          <p className="text-sm sm:text-base md:text-lg text-primary-foreground/80 mb-6 md:mb-8 max-w-lg font-body drop-shadow">
+          <p className="text-sm sm:text-base md:text-lg text-primary-foreground/90 mb-5 md:mb-8 max-w-lg font-body [text-shadow:_0_1px_6px_rgba(0,0,0,0.7)]">
             Import directly from Japan, UK & Dubai. Enjoy duty-free options, flexible financing, and a seamless buying experience.
           </p>
           <div className="flex flex-wrap gap-3 md:gap-4">
             <Link to="/inventory">
-              <Button variant="hero" size="lg" className="text-sm md:text-base px-6 md:px-8 py-5 md:py-6 group">
+              <Button variant="hero" size="lg" className="text-sm md:text-base px-6 md:px-8 py-4 md:py-6 group">
                 Browse Inventory
                 <ArrowRight className="ml-1 w-4 h-4 transition-transform group-hover:translate-x-1" />
               </Button>
             </Link>
             <Link to="/direct-import">
-              <Button variant="heroOutline" size="lg" className="text-sm md:text-base px-6 md:px-8 py-5 md:py-6">
+              <Button variant="heroOutline" size="lg" className="text-sm md:text-base px-6 md:px-8 py-4 md:py-6">
                 Direct Import
               </Button>
             </Link>
           </div>
         </div>
       </div>
+
 
       {/* Brand marquee */}
       <div className="absolute bottom-0 left-0 right-0 z-10 border-t border-white/15 bg-navy/40 backdrop-blur-xl">
