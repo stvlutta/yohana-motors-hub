@@ -58,7 +58,7 @@ const HeroSection = () => {
             <img
               src={src}
               alt={`Happy Yohana Automotive client ${i + 1}`}
-              className={`absolute inset-0 w-full h-full object-cover object-center ${
+              className={`absolute inset-0 w-full h-full object-cover object-[center_25%] md:object-[center_30%] ${
                 i === index ? "animate-ken-burns" : ""
               }`}
             />
