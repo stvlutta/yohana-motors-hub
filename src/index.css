@@ -150,3 +150,20 @@
     opacity: 1 !important;
   }
 }
+
+/* Low-end devices: kill infinite/heavy loops, keep one-shot reveals */
+.low-end .animate-blob-drift,
+.low-end .animate-float-slow,
+.low-end .animate-shimmer-line,
+.low-end .animate-ken-burns {
+  animation: none !important;
+  transform: none !important;
+}
+.low-end .animate-marquee {
+  animation-duration: 60s !important;
+}
+.low-end .backdrop-blur-2xl,
+.low-end .backdrop-blur-xl {
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+}
