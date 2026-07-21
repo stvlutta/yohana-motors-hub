@@ -207,7 +207,7 @@ const InventoryPage = () => {
               <p className="text-center text-muted-foreground py-12">Loading vehicles...</p>
             ) : vehicles.length === 0 ? (
               <div className="max-w-3xl mx-auto text-center">
-                <div className="bg-card rounded-lg p-10 border border-border shadow-card">
+                <div className="bg-white/60 backdrop-blur-xl rounded-lg p-10 border border-white/80 shadow-card">
                   <Car className="h-16 w-16 text-primary/20 mx-auto mb-6" />
                   <h2 className="text-2xl font-heading font-bold text-foreground mb-4">Visit Our Showroom</h2>
                   <p className="text-muted-foreground mb-2">No vehicles listed online right now. Visit us or call for current stock.</p>
@@ -280,7 +280,7 @@ const InventoryPage = () => {
 
 
                   {showFilters && (
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 p-4 bg-card border border-border rounded-lg">
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 p-4 bg-white/60 backdrop-blur-xl border border-white/80 rounded-lg">
                       <div>
                         <label className="text-xs font-medium text-muted-foreground mb-1 block">Make</label>
                         <select
@@ -367,7 +367,7 @@ const InventoryPage = () => {
                       <Link
                         to={`/inventory/${car.id}`}
                         key={car.id}
-                        className={`bg-card rounded-lg overflow-hidden shadow-card hover:shadow-elevated transition-all duration-300 border border-border group block ${viewMode === "list" ? "flex flex-col sm:flex-row" : ""}`}
+                        className={`bg-white/60 backdrop-blur-xl rounded-lg overflow-hidden shadow-card hover:shadow-elevated transition-all duration-300 border border-white/80 group block ${viewMode === "list" ? "flex flex-col sm:flex-row" : ""}`}
                       >
                         <div className={`bg-muted flex items-center justify-center overflow-hidden shrink-0 ${viewMode === "list" ? "w-full sm:w-56 h-44 sm:h-48" : "h-44 sm:h-56"}`}>
                           {car.image_url ? (

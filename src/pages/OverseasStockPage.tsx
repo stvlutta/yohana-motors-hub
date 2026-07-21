@@ -48,14 +48,14 @@ const OverseasStockPage = () => {
             {loading ? (
               <p className="text-center text-muted-foreground py-12">Loading...</p>
             ) : vehicles.length === 0 ? (
-              <div className="bg-card border border-border rounded-lg p-12 text-center">
+              <div className="bg-white/60 backdrop-blur-xl border border-white/80 rounded-lg p-12 text-center">
                 <Car className="h-12 w-12 text-muted-foreground/40 mx-auto mb-4" />
                 <p className="text-muted-foreground">No overseas vehicles listed at the moment. Contact us with the link to a car you've found abroad and we'll source it for you.</p>
               </div>
             ) : (
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
                 {vehicles.map((v) => (
-                  <Link key={v.id} to={`/inventory/${v.id}`} className="bg-card border border-border rounded-lg overflow-hidden hover:shadow-elevated hover:border-primary/40 transition-all group">
+                  <Link key={v.id} to={`/inventory/${v.id}`} className="bg-white/60 backdrop-blur-xl border border-white/80 rounded-lg overflow-hidden hover:shadow-elevated hover:border-primary/40 transition-all group">
                     <div className="aspect-video bg-muted overflow-hidden">
                       {v.image_url ? (
                         <img src={v.image_url} alt={v.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform" />
@@ -102,7 +102,7 @@ const OverseasStockPage = () => {
                 ))}
               </div>
 
-              <div className="bg-card rounded-lg p-8 border border-border shadow-card text-center">
+              <div className="bg-white/60 backdrop-blur-xl rounded-lg p-8 border border-white/80 shadow-card text-center">
                 <h3 className="text-2xl font-heading font-bold text-foreground mb-4">How to Order</h3>
                 <p className="text-muted-foreground mb-6 max-w-lg mx-auto">
                   Have a specific car in mind from the UK, Japan, South Africa, or Australia? Send us the details and we'll give you a landed cost within 24 hours.

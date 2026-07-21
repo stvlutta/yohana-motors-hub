@@ -57,7 +57,7 @@ const ServicesSection = () => {
             <Link
               key={service.title}
               to={service.href}
-              className="group bg-card rounded-lg p-8 shadow-card hover:shadow-elevated transition-all duration-300 hover:-translate-y-1 border border-border"
+              className="group bg-white/60 backdrop-blur-xl rounded-lg p-8 shadow-card hover:shadow-elevated transition-all duration-300 hover:-translate-y-1 border border-white/80"
             >
               <div className="w-14 h-14 rounded-lg gradient-red flex items-center justify-center mb-5">
                 <service.icon className="h-7 w-7 text-primary-foreground" />
