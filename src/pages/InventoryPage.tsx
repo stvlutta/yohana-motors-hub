@@ -235,6 +235,26 @@ const InventoryPage = () => {
                         </span>
                       )}
                     </Button>
+                    <div className="flex items-center border border-input rounded-md overflow-hidden shrink-0">
+                      <button
+                        type="button"
+                        onClick={() => setViewMode("grid")}
+                        className={`px-3 py-2 flex items-center gap-1.5 text-sm transition-colors ${viewMode === "grid" ? "bg-primary text-primary-foreground" : "bg-background text-muted-foreground hover:bg-muted"}`}
+                        aria-label="Grid view"
+                        title="Grid view"
+                      >
+                        <LayoutGrid className="h-4 w-4" /> Grid
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setViewMode("list")}
+                        className={`px-3 py-2 flex items-center gap-1.5 text-sm transition-colors ${viewMode === "list" ? "bg-primary text-primary-foreground" : "bg-background text-muted-foreground hover:bg-muted"}`}
+                        aria-label="List view"
+                        title="List view"
+                      >
+                        <List className="h-4 w-4" /> List
+                      </button>
+                    </div>
                     {hasActiveFilters && (
                       <Button variant="ghost" size="sm" onClick={clearFilters} className="gap-1 text-muted-foreground shrink-0">
                         <X className="h-4 w-4" /> Clear
