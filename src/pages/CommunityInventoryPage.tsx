@@ -30,7 +30,7 @@ const CommunityInventoryPage = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
-      <main className="pt-24">
+      <main className="pt-16 md:pt-24">
         <section className="py-16 gradient-navy">
           <div className="container mx-auto px-4 text-center">
             <Users className="h-12 w-12 text-primary mx-auto mb-4" />
