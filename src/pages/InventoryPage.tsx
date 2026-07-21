@@ -99,6 +99,7 @@ const InventoryPage = () => {
   const [showFilters, setShowFilters] = useState(false);
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [currentPage, setCurrentPage] = useState(1);
+  const [quickView, setQuickView] = useState<Vehicle | null>(null);
   const PAGE_SIZE = 12;
 
   useEffect(() => {
