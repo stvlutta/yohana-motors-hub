@@ -90,6 +90,7 @@ const InventoryPage = () => {
   const [ccMin, setCcMin] = useState("");
   const [ccMax, setCcMax] = useState("");
   const [showFilters, setShowFilters] = useState(false);
+  const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
 
   useEffect(() => {
     supabase
