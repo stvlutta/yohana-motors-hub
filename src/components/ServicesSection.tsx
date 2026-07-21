@@ -42,30 +42,30 @@ const services = [
 
 const ServicesSection = () => {
   return (
-    <section className="py-20 bg-muted">
+    <section className="py-12 md:py-20 bg-muted">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-14">
-          <p className="text-primary font-heading font-semibold uppercase tracking-[0.2em] text-sm mb-2">
+        <div className="text-center mb-8 md:mb-14">
+          <p className="text-primary font-heading font-semibold uppercase tracking-[0.2em] text-xs md:text-sm mb-2">
             What We Offer
           </p>
-          <h2 className="text-4xl md:text-5xl font-heading font-bold text-foreground">
+          <h2 className="text-3xl md:text-5xl font-heading font-bold text-foreground">
             Our Services
           </h2>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6">
           {services.map((service) => (
             <Link
               key={service.title}
               to={service.href}
-              className="group bg-white/60 backdrop-blur-xl rounded-lg p-8 shadow-card hover:shadow-elevated transition-all duration-300 hover:-translate-y-1 border border-white/80"
+              className="group bg-white/60 backdrop-blur-xl rounded-lg p-4 md:p-8 shadow-card hover:shadow-elevated transition-all duration-300 hover:-translate-y-1 border border-white/80"
             >
-              <div className="w-14 h-14 rounded-lg gradient-red flex items-center justify-center mb-5">
-                <service.icon className="h-7 w-7 text-primary-foreground" />
+              <div className="w-10 h-10 md:w-14 md:h-14 rounded-lg gradient-red flex items-center justify-center mb-3 md:mb-5">
+                <service.icon className="h-5 w-5 md:h-7 md:w-7 text-primary-foreground" />
               </div>
-              <h3 className="text-xl font-heading font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
+              <h3 className="text-base md:text-xl font-heading font-bold text-foreground mb-1 md:mb-2 group-hover:text-primary transition-colors">
                 {service.title}
               </h3>
-              <p className="text-muted-foreground text-sm leading-relaxed">
+              <p className="text-muted-foreground text-xs md:text-sm leading-relaxed line-clamp-3 md:line-clamp-none">
                 {service.description}
               </p>
             </Link>
@@ -77,3 +77,4 @@ const ServicesSection = () => {
 };
 
 export default ServicesSection;
+
