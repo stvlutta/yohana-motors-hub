@@ -63,7 +63,7 @@ const InventoryPreview = () => {
           </h2>
 
           {/* Driving car track with light flash at the finish */}
-          <div className="relative w-72 md:w-96 h-12 mt-4 mx-auto flex items-center justify-center overflow-hidden">
+          <div className="relative w-72 md:w-[28rem] h-16 md:h-20 mt-4 mx-auto flex items-center justify-center overflow-hidden">
             {/* Road surface */}
             <div className="absolute w-full h-1.5 bg-border/70 rounded-full" />
             {/* Moving dashed lane markings */}
@@ -74,7 +74,7 @@ const InventoryPreview = () => {
             </div>
             <div className="absolute left-0 w-full overflow-hidden h-full flex items-center">
               <div className="animate-drive-car flex items-center">
-                <DrivingCarSVG className="text-foreground/90 drop-shadow-lg" />
+                <DrivingCarImage />
               </div>
             </div>
           </div>
