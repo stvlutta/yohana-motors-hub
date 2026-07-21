@@ -52,20 +52,20 @@ const ServicesSection = () => {
             Our Services
           </h2>
         </div>
-        <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6">
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6 auto-rows-fr">
           {services.map((service) => (
             <Link
               key={service.title}
               to={service.href}
-              className="group bg-white/60 backdrop-blur-xl rounded-lg p-4 md:p-8 shadow-card hover:shadow-elevated transition-all duration-300 hover:-translate-y-1 border border-white/80"
+              className="group flex flex-col h-full bg-white/60 backdrop-blur-xl rounded-xl p-4 sm:p-5 md:p-8 shadow-card hover:shadow-elevated transition-all duration-300 hover:-translate-y-1 border border-white/80"
             >
-              <div className="w-10 h-10 md:w-14 md:h-14 rounded-lg gradient-red flex items-center justify-center mb-3 md:mb-5">
-                <service.icon className="h-5 w-5 md:h-7 md:w-7 text-primary-foreground" />
+              <div className="w-11 h-11 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-lg gradient-red flex items-center justify-center mb-3 md:mb-5 shrink-0">
+                <service.icon className="h-5 w-5 sm:h-6 sm:w-6 md:h-7 md:w-7 text-primary-foreground" />
               </div>
-              <h3 className="text-base md:text-xl font-heading font-bold text-foreground mb-1 md:mb-2 group-hover:text-primary transition-colors">
+              <h3 className="text-sm sm:text-base md:text-xl font-heading font-bold text-foreground mb-1.5 md:mb-2 leading-tight group-hover:text-primary transition-colors">
                 {service.title}
               </h3>
-              <p className="text-muted-foreground text-xs md:text-sm leading-relaxed line-clamp-3 md:line-clamp-none">
+              <p className="text-muted-foreground text-xs sm:text-[13px] md:text-sm leading-snug md:leading-relaxed line-clamp-3 md:line-clamp-none">
                 {service.description}
               </p>
             </Link>
