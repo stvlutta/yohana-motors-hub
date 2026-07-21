@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Fuel, Gauge, Calendar, Car, LayoutGrid, List, ArrowRight } from "lucide-react";
+import { Car, LayoutGrid, List, ArrowRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { formatPrice } from "@/lib/utils";
