@@ -20,83 +20,23 @@ const shuffle = <T,>(arr: T[]) => {
   return a;
 };
 
-// Sleek premium grand-tourer side profile with animated light beams
-const DrivingCarSVG = ({ className }: { className?: string }) => (
-  <svg
-    className={className}
-    width="140"
-    height="48"
-    viewBox="0 0 220 76"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    aria-label="Premium sports car driving beneath the heading"
-  >
-    {/* Headlight beam cones — flash at the end of the drive */}
-    <path
-      d="M6 40 L-70 28 L-70 56 Z"
-      fill="url(#headlightBeam)"
-      className="animate-flash-beams"
-      opacity="0"
+// Realistic driving car image with overlaid headlight/taillight effects
+const DrivingCarImage = () => (
+  <div className="relative w-40 md:w-56 h-14 md:h-20 shrink-0">
+    <img
+      src={drivingCar}
+      alt="Porsche 911 GT3 RS driving beneath the heading"
+      width={224}
+      height={96}
+      className="w-full h-full object-contain drop-shadow-xl"
+      loading="lazy"
+      decoding="async"
     />
-    {/* Tail light glow */}
-    <ellipse cx="206" cy="44" rx="6" ry="3" fill="#ef4444" className="animate-pulse opacity-80" />
-
-    {/* Lower aero lip / front splitter */}
-    <path d="M4 52 L0 54 L10 54 L12 52 Z" fill="currentColor" />
-
-    {/* Main body — long hood, fastback cabin, muscular rear haunches */}
-    <path
-      d="M8 52 C8 46 14 44 22 43 L42 41 C48 40 54 40 60 39 L96 38 C104 38 112 39 120 41 L150 46 C162 48 170 50 174 52 L174 58 C174 61 171 62 166 62 L156 62 C153 56 147 52 140 52 C133 52 127 56 124 62 L68 62 C65 56 59 52 52 52 C45 52 39 56 36 62 L14 62 C10 62 8 60 8 57 Z"
-      fill="currentColor"
-    />
-
-    {/* Greenhouse / windows */}
-    <path
-      d="M40 42 L52 24 C56 20 64 18 74 18 L108 18 C118 18 126 20 132 24 L150 38 L146 44 L40 42 Z"
-      fill="currentColor"
-      fillOpacity="0.25"
-    />
-    {/* Window divider / B-pillar */}
-    <path d="M96 18 L96 40" stroke="currentColor" strokeWidth="2" strokeOpacity="0.6" />
-    {/* Side mirror */}
-    <path d="M42 36 L36 32 L44 32 Z" fill="currentColor" />
-
-    {/* Headlight */}
-    <path d="M8 46 L14 44 L14 50 L8 50 Z" fill="#f8fafc" className="animate-flash-headlight" />
-    {/* Taillight */}
-    <path d="M198 46 L210 48 L210 44 L198 42 Z" fill="#ef4444" />
-
-    {/* Side intake / character line */}
-    <path d="M128 48 L154 45 L154 52 L132 54 Z" fill="currentColor" fillOpacity="0.35" />
-    {/* Aerodynamic side skirt */}
-    <path d="M42 58 L170 56 L170 60 L42 62 Z" fill="currentColor" fillOpacity="0.5" />
-
-    {/* Rear diffuser */}
-    <path d="M176 56 L210 58 L214 54 L178 54 Z" fill="currentColor" />
-
-    {/* Wheels — large alloys with spokes */}
-    <circle cx="52" cy="62" r="11" fill="#1f2937" />
-    <circle cx="140" cy="62" r="11" fill="#1f2937" />
-    <circle cx="52" cy="62" r="6" fill="currentColor" className="text-primary" />
-    <circle cx="140" cy="62" r="6" fill="currentColor" className="text-primary" />
-    {/* Spokes */}
-    <g stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-      <line x1="52" y1="62" x2="52" y2="54" />
-      <line x1="52" y1="62" x2="58" y2="66" />
-      <line x1="52" y1="62" x2="46" y2="66" />
-      <line x1="140" y1="62" x2="140" y2="54" />
-      <line x1="140" y1="62" x2="146" y2="66" />
-      <line x1="140" y1="62" x2="134" y2="66" />
-    </g>
-
-    <defs>
-      <linearGradient id="headlightBeam" x1="-70" y1="28" x2="6" y2="56" gradientUnits="userSpaceOnUse">
-        <stop offset="0" stopColor="#f8fafc" stopOpacity="0" />
-        <stop offset="0.5" stopColor="#f8fafc" stopOpacity="0.35" />
-        <stop offset="1" stopColor="#f8fafc" stopOpacity="0.75" />
-      </linearGradient>
-    </defs>
-  </svg>
+    {/* Headlight flash overlay */}
+    <div className="absolute top-[42%] -left-10 w-14 h-8 md:w-20 md:h-10 bg-gradient-to-l from-white/80 via-white/30 to-transparent rounded-full blur-md animate-flash-beams opacity-0 pointer-events-none" />
+    {/* Taillight glow */}
+    <div className="absolute top-[45%] -right-1 w-4 h-3 md:w-5 md:h-4 bg-red-500 rounded-full blur-[3px] animate-pulse opacity-80 pointer-events-none" />
+  </div>
 );
 
 const InventoryPreview = () => {
