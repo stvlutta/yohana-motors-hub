@@ -225,54 +225,57 @@ const InventoryPage = () => {
               <>
                 {/* Search & Filter Bar */}
                 <div className="mb-8 space-y-4">
-                  <div className="flex flex-col sm:flex-row gap-3">
-                    <div className="relative flex-1">
-                      <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                      <Input
-                        placeholder="Search vehicles..."
-                        value={search}
-                        onChange={(e) => setSearch(e.target.value)}
-                        className="pl-10"
-                      />
-                    </div>
-                    <Button
-                      variant="outline"
-                      onClick={() => setShowFilters(!showFilters)}
-                      className="gap-2 shrink-0"
-                    >
-                      <SlidersHorizontal className="h-4 w-4" />
-                      Filters
-                      {activeCount > 0 && (
-                        <span className="ml-1 bg-primary text-primary-foreground text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                          {activeCount}
-                        </span>
-                      )}
-                    </Button>
-                    <div className="flex items-center border border-input rounded-md overflow-hidden shrink-0">
-                      <button
-                        type="button"
-                        onClick={() => setViewMode("grid")}
-                        className={`px-3 py-2 flex items-center gap-1.5 text-sm transition-colors ${viewMode === "grid" ? "bg-primary text-primary-foreground" : "bg-background text-muted-foreground hover:bg-muted"}`}
-                        aria-label="Grid view"
-                        title="Grid view"
+                  {/* Sticky mobile header so search/filter controls stay reachable while scrolling */}
+                  <div className="sticky top-24 z-30 md:static bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/70 border-b border-border md:border-b-0 -mx-4 px-4 md:mx-0 md:px-0 py-3 md:py-0">
+                    <div className="flex flex-col sm:flex-row gap-3">
+                      <div className="relative flex-1">
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                        <Input
+                          placeholder="Search vehicles..."
+                          value={search}
+                          onChange={(e) => setSearch(e.target.value)}
+                          className="pl-10"
+                        />
+                      </div>
+                      <Button
+                        variant="outline"
+                        onClick={() => setShowFilters(!showFilters)}
+                        className="gap-2 shrink-0"
                       >
-                        <LayoutGrid className="h-4 w-4" /> Grid
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => setViewMode("list")}
-                        className={`px-3 py-2 flex items-center gap-1.5 text-sm transition-colors ${viewMode === "list" ? "bg-primary text-primary-foreground" : "bg-background text-muted-foreground hover:bg-muted"}`}
-                        aria-label="List view"
-                        title="List view"
-                      >
-                        <List className="h-4 w-4" /> List
-                      </button>
-                    </div>
-                    {hasActiveFilters && (
-                      <Button variant="ghost" size="sm" onClick={clearFilters} className="gap-1 text-muted-foreground shrink-0">
-                        <X className="h-4 w-4" /> Clear
+                        <SlidersHorizontal className="h-4 w-4" />
+                        Filters
+                        {activeCount > 0 && (
+                          <span className="ml-1 bg-primary text-primary-foreground text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                            {activeCount}
+                          </span>
+                        )}
                       </Button>
-                    )}
+                      <div className="flex items-center border border-input rounded-md overflow-hidden shrink-0">
+                        <button
+                          type="button"
+                          onClick={() => setViewMode("grid")}
+                          className={`px-3 py-2 flex items-center gap-1.5 text-sm transition-colors ${viewMode === "grid" ? "bg-primary text-primary-foreground" : "bg-background text-muted-foreground hover:bg-muted"}`}
+                          aria-label="Grid view"
+                          title="Grid view"
+                        >
+                          <LayoutGrid className="h-4 w-4" /> Grid
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setViewMode("list")}
+                          className={`px-3 py-2 flex items-center gap-1.5 text-sm transition-colors ${viewMode === "list" ? "bg-primary text-primary-foreground" : "bg-background text-muted-foreground hover:bg-muted"}`}
+                          aria-label="List view"
+                          title="List view"
+                        >
+                          <List className="h-4 w-4" /> List
+                        </button>
+                      </div>
+                      {hasActiveFilters && (
+                        <Button variant="ghost" size="sm" onClick={clearFilters} className="gap-1 text-muted-foreground shrink-0">
+                          <X className="h-4 w-4" /> Clear
+                        </Button>
+                      )}
+                    </div>
                   </div>
 
 
