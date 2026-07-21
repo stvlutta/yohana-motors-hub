@@ -179,14 +179,6 @@
   animation: drive-car 5.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 }
 
-.animate-flash-headlight {
-  animation: flash-headlight 5.5s ease-in-out infinite;
-}
-
-.animate-flash-beams {
-  animation: flash-beams 5.5s ease-in-out infinite;
-}
-
 .animate-road-stripes {
   animation: road-stripes 2.5s linear infinite;
 }
