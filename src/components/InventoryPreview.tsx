@@ -20,7 +20,7 @@ const shuffle = <T,>(arr: T[]) => {
   return a;
 };
 
-// Realistic driving car image with overlaid headlight/taillight effects
+// Realistic driving car image with taillight glow
 const DrivingCarImage = () => (
   <div className="relative w-40 md:w-56 h-14 md:h-20 shrink-0">
     <img
@@ -32,10 +32,8 @@ const DrivingCarImage = () => (
       loading="lazy"
       decoding="async"
     />
-    {/* Headlight flash overlay */}
-    <div className="absolute top-[42%] -left-10 w-14 h-8 md:w-20 md:h-10 bg-gradient-to-l from-white/80 via-white/30 to-transparent rounded-full blur-md animate-flash-beams opacity-0 pointer-events-none" />
-    {/* Taillight glow */}
-    <div className="absolute top-[45%] -right-1 w-4 h-3 md:w-5 md:h-4 bg-red-500 rounded-full blur-[3px] animate-pulse opacity-80 pointer-events-none" />
+    {/* Taillight glow (rear now on the left since car faces right) */}
+    <div className="absolute top-[45%] -left-1 w-4 h-3 md:w-5 md:h-4 bg-red-500 rounded-full blur-[3px] animate-pulse opacity-80 pointer-events-none" />
   </div>
 );
 
@@ -62,7 +60,7 @@ const InventoryPreview = () => {
             Our Inventory
           </h2>
 
-          {/* Driving car track with light flash at the finish */}
+          {/* Driving car track */}
           <div className="relative w-72 md:w-[28rem] h-16 md:h-20 mt-4 mx-auto flex items-center justify-center overflow-hidden">
             {/* Road surface */}
             <div className="absolute w-full h-1.5 bg-border/70 rounded-full" />
