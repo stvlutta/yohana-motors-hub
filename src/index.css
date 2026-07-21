@@ -149,6 +149,27 @@
   }
 }
 
+@keyframes drive-car {
+  0% {
+    transform: translateX(-120%);
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  88% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(120%);
+    opacity: 0;
+  }
+}
+
+.animate-drive-car {
+  animation: drive-car 5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
 /* Respect prefers-reduced-motion: disable non-essential animation & transitions */
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -166,7 +187,8 @@
   .animate-marquee,
   .animate-shimmer-line,
   .animate-fade-in-up,
-  .animate-slide-in-right {
+  .animate-slide-in-right,
+  .animate-drive-car {
     animation: none !important;
     transform: none !important;
     opacity: 1 !important;
@@ -176,7 +198,8 @@
 /* Low-end devices: kill infinite/heavy loops, keep one-shot reveals */
 .low-end .animate-blob-drift,
 .low-end .animate-float-slow,
-.low-end .animate-ken-burns {
+.low-end .animate-ken-burns,
+.low-end .animate-drive-car {
   animation: none !important;
   transform: none !important;
 }
