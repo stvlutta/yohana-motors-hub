@@ -154,7 +154,6 @@
 /* Low-end devices: kill infinite/heavy loops, keep one-shot reveals */
 .low-end .animate-blob-drift,
 .low-end .animate-float-slow,
-.low-end .animate-shimmer-line,
 .low-end .animate-ken-burns {
   animation: none !important;
   transform: none !important;
@@ -167,3 +166,4 @@
   backdrop-filter: blur(8px) !important;
   -webkit-backdrop-filter: blur(8px) !important;
 }
+
