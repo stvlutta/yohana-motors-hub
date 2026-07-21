@@ -19,66 +19,82 @@ const shuffle = <T,>(arr: T[]) => {
   return a;
 };
 
-// GT3 RS-style side-profile silhouette
-const GT3RSSVG = ({ className }: { className?: string }) => (
+// Sleek premium grand-tourer side profile with animated light beams
+const DrivingCarSVG = ({ className }: { className?: string }) => (
   <svg
     className={className}
-    width="96"
-    height="32"
-    viewBox="0 0 160 54"
+    width="140"
+    height="48"
+    viewBox="0 0 220 76"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    aria-label="Porsche GT3 RS silhouette"
+    aria-label="Premium sports car driving beneath the heading"
   >
-    {/* Front splitter / lip */}
+    {/* Headlight beam cones — flash at the end of the drive */}
     <path
-      d="M2 42 L0 44 L6 44 L8 42 Z"
+      d="M6 40 L-70 28 L-70 56 Z"
+      fill="url(#headlightBeam)"
+      className="animate-flash-beams"
+      opacity="0"
+    />
+    {/* Tail light glow */}
+    <ellipse cx="206" cy="44" rx="6" ry="3" fill="#ef4444" className="animate-pulse opacity-80" />
+
+    {/* Lower aero lip / front splitter */}
+    <path d="M4 52 L0 54 L10 54 L12 52 Z" fill="currentColor" />
+
+    {/* Main body — long hood, fastback cabin, muscular rear haunches */}
+    <path
+      d="M8 52 C8 46 14 44 22 43 L42 41 C48 40 54 40 60 39 L96 38 C104 38 112 39 120 41 L150 46 C162 48 170 50 174 52 L174 58 C174 61 171 62 166 62 L156 62 C153 56 147 52 140 52 C133 52 127 56 124 62 L68 62 C65 56 59 52 52 52 C45 52 39 56 36 62 L14 62 C10 62 8 60 8 57 Z"
       fill="currentColor"
     />
-    {/* Main body — low nose, long hood, rounded cabin, wide rear haunches */}
+
+    {/* Greenhouse / windows */}
     <path
-      d="M6 42 C6 38 10 36 16 35 L30 34 C34 33 38 33 42 32 L58 31 C62 30 66 30 70 30 L92 29 C98 29 104 30 110 32 L124 36 C130 38 134 40 135 42 L135 46 C135 48 133 49 130 49 L122 49 C120 45 116 42 111 42 C106 42 102 45 100 49 L54 49 C52 45 48 42 43 42 C38 42 34 45 32 49 L10 49 C8 49 6 48 6 46 Z"
+      d="M40 42 L52 24 C56 20 64 18 74 18 L108 18 C118 18 126 20 132 24 L150 38 L146 44 L40 42 Z"
       fill="currentColor"
+      fillOpacity="0.25"
     />
-    {/* Roof / windshield / rear window line */}
-    <path
-      d="M30 35 L40 22 C42 20 46 19 52 19 L74 19 C80 19 84 20 88 22 L104 30"
-      stroke="currentColor"
-      strokeWidth="2"
-      fill="none"
-      strokeLinecap="round"
-    />
-    {/* Huge swan-neck rear wing (RS signature) */}
-    <path
-      d="M112 30 L112 16 C112 14 114 13 116 13 L142 12 C145 12 146 13 146 15 L146 22 C146 24 145 25 142 25 L134 25 L134 28 L118 28 L118 25 L112 25 Z"
-      fill="currentColor"
-    />
-    {/* Wing endplates */}
-    <path
-      d="M112 25 L110 32 M146 22 L148 29"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-    />
-    {/* Side intake behind the door */}
-    <path
-      d="M82 36 L96 35 L96 41 L84 42 Z"
-      fill="currentColor"
-      fillOpacity="0.45"
-    />
+    {/* Window divider / B-pillar */}
+    <path d="M96 18 L96 40" stroke="currentColor" strokeWidth="2" strokeOpacity="0.6" />
+    {/* Side mirror */}
+    <path d="M42 36 L36 32 L44 32 Z" fill="currentColor" />
+
+    {/* Headlight */}
+    <path d="M8 46 L14 44 L14 50 L8 50 Z" fill="#f8fafc" className="animate-flash-headlight" />
+    {/* Taillight */}
+    <path d="M198 46 L210 48 L210 44 L198 42 Z" fill="#ef4444" />
+
+    {/* Side intake / character line */}
+    <path d="M128 48 L154 45 L154 52 L132 54 Z" fill="currentColor" fillOpacity="0.35" />
+    {/* Aerodynamic side skirt */}
+    <path d="M42 58 L170 56 L170 60 L42 62 Z" fill="currentColor" fillOpacity="0.5" />
+
     {/* Rear diffuser */}
-    <path
-      d="M130 46 L144 48 L144 44 Z"
-      fill="currentColor"
-    />
-    {/* Wheels with center-lock style hub */}
-    <circle cx="43" cy="49" r="8" fill="currentColor" className="text-primary" />
-    <circle cx="111" cy="49" r="8" fill="currentColor" className="text-primary" />
-    <circle cx="43" cy="49" r="4" fill="currentColor" />
-    <circle cx="111" cy="49" r="4" fill="currentColor" />
-    {/* Center-lock nut detail */}
-    <circle cx="43" cy="49" r="1.5" fill="currentColor" className="text-primary" />
-    <circle cx="111" cy="49" r="1.5" fill="currentColor" className="text-primary" />
+    <path d="M176 56 L210 58 L214 54 L178 54 Z" fill="currentColor" />
+
+    {/* Wheels — large alloys with spokes */}
+    <circle cx="52" cy="62" r="11" fill="#1f2937" />
+    <circle cx="140" cy="62" r="11" fill="#1f2937" />
+    <circle cx="52" cy="62" r="6" fill="currentColor" className="text-primary" />
+    <circle cx="140" cy="62" r="6" fill="currentColor" className="text-primary" />
+    {/* Spokes */}
+    <g stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+      <line x1="52" y1="62" x2="52" y2="54" />
+      <line x1="52" y1="62" x2="58" y2="66" />
+      <line x1="52" y1="62" x2="46" y2="66" />
+      <line x1="140" y1="62" x2="140" y2="54" />
+      <line x1="140" y1="62" x2="146" y2="66" />
+      <line x1="140" y1="62" x2="134" y2="66" />
+    </g>
+
+    <defs>
+      <linearGradient id="headlightBeam" x1="-70" y1="28" x2="6" y2="56" gradientUnits="userSpaceOnUse">
+        <stop offset="0" stopColor="#f8fafc" stopOpacity="0" />
+        <stop offset="0.5" stopColor="#f8fafc" stopOpacity="0.35" />
+        <stop offset="1" stopColor="#f8fafc" stopOpacity="0.75" />
+      </linearGradient>
+    </defs>
   </svg>
 );
 
@@ -105,12 +121,19 @@ const InventoryPreview = () => {
             Our Inventory
           </h2>
 
-          {/* Driving GT3 RS track */}
-          <div className="relative w-64 md:w-80 h-8 mt-4 mx-auto flex items-center justify-center overflow-hidden">
-            <div className="absolute w-full h-px bg-border/70" />
+          {/* Driving car track with light flash at the finish */}
+          <div className="relative w-72 md:w-96 h-12 mt-4 mx-auto flex items-center justify-center overflow-hidden">
+            {/* Road surface */}
+            <div className="absolute w-full h-1.5 bg-border/70 rounded-full" />
+            {/* Moving dashed lane markings */}
+            <div className="absolute w-[200%] h-px top-1/2 -translate-y-1/2 flex gap-6 animate-road-stripes">
+              {[...Array(8)].map((_, i) => (
+                <span key={i} className="w-8 h-px bg-primary/60" />
+              ))}
+            </div>
             <div className="absolute left-0 w-full overflow-hidden h-full flex items-center">
-              <div className="animate-drive-car flex items-center gap-1">
-                <GT3RSSVG className="text-foreground/90" />
+              <div className="animate-drive-car flex items-center">
+                <DrivingCarSVG className="text-foreground/90 drop-shadow-lg" />
               </div>
             </div>
           </div>
