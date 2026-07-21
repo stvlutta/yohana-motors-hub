@@ -49,27 +49,52 @@ const OverseasStockPreview = () => {
           </p>
         </div>
 
+        {vehicles.length > 0 && (
+          <div className="flex justify-center md:justify-end mb-5 md:mb-6">
+            <div className="inline-flex rounded-md border border-border overflow-hidden">
+              <button
+                type="button"
+                onClick={() => setViewMode("grid")}
+                className={`px-3 py-2 flex items-center gap-1.5 text-sm transition-colors ${viewMode === "grid" ? "bg-primary text-primary-foreground" : "bg-background text-muted-foreground hover:bg-muted"}`}
+                aria-label="Grid view"
+                aria-pressed={viewMode === "grid"}
+              >
+                <LayoutGrid className="h-4 w-4" /> Grid
+              </button>
+              <button
+                type="button"
+                onClick={() => setViewMode("list")}
+                className={`px-3 py-2 flex items-center gap-1.5 text-sm transition-colors ${viewMode === "list" ? "bg-primary text-primary-foreground" : "bg-background text-muted-foreground hover:bg-muted"}`}
+                aria-label="List view"
+                aria-pressed={viewMode === "list"}
+              >
+                <List className="h-4 w-4" /> List
+              </button>
+            </div>
+          </div>
+        )}
+
         {vehicles.length === 0 ? (
           <div className="bg-card border border-border rounded-lg p-10 text-center max-w-2xl mx-auto">
             <Car className="h-12 w-12 text-muted-foreground/30 mx-auto mb-4" />
             <p className="text-muted-foreground">No overseas stock listed right now. Check back soon or send us a link to a car you'd like sourced.</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+          <div className={viewMode === "grid" ? "grid grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-6" : "space-y-3 sm:space-y-4"}>
             {vehicles.map((v) => (
               <Link
                 to="/overseas-stock"
                 key={v.id}
-                className="bg-white/60 backdrop-blur-xl rounded-lg overflow-hidden shadow-card hover:shadow-elevated transition-all duration-300 border border-white/80 group block"
+                className={`bg-white/60 backdrop-blur-xl rounded-lg overflow-hidden shadow-card hover:shadow-elevated transition-all duration-300 border border-white/80 group block ${viewMode === "list" ? "flex flex-col sm:flex-row" : ""}`}
               >
-                <div className="h-40 bg-muted flex items-center justify-center overflow-hidden">
+                <div className={`bg-muted flex items-center justify-center overflow-hidden shrink-0 ${viewMode === "list" ? "w-full sm:w-56 h-40 sm:h-48" : "h-32 sm:h-40"}`}>
                   {v.image_url ? (
-                    <img src={v.image_url} alt={v.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    <img src={v.image_url} alt={v.name} loading="lazy" decoding="async" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                   ) : (
                     <Car className="h-10 w-10 text-muted-foreground/30" />
                   )}
                 </div>
-                <div className="p-4">
+                <div className={`p-4 ${viewMode === "list" ? "flex-1" : ""}`}>
                   <h3 className="font-heading font-bold text-base text-foreground mb-1 group-hover:text-primary transition-colors line-clamp-1">{v.name}</h3>
                   <p className="text-xs text-muted-foreground mb-2">{v.year} • {v.make}</p>
                   {v.source_country && (
