@@ -182,6 +182,7 @@ const InventoryPage = () => {
   const clearFilters = () => {
     setSearch(""); setMakeFilter(""); setModelFilter(""); setFuelFilter(""); setBodyFilter("");
     setBudgetMin(""); setBudgetMax(""); setMileageMax(""); setAgeMax(""); setCcMin(""); setCcMax("");
+    setCurrentPage(1);
   };
 
   return (
