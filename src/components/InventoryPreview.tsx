@@ -4,7 +4,7 @@ import { Fuel, Gauge, Calendar, Car, LayoutGrid, List } from "lucide-react";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { formatPrice } from "@/lib/utils";
-import drivingCar from "@/assets/driving-car.png";
+import drivingCar from "@/assets/driving-car.webp";
 
 type Vehicle = {
   id: string; name: string; year: number; price: string;
