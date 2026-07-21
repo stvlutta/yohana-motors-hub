@@ -53,15 +53,16 @@ const HeroSection = () => {
               src={src}
               alt=""
               aria-hidden="true"
-              className="absolute inset-0 w-full h-full object-cover scale-110 blur-2xl opacity-70"
+              className="absolute inset-0 w-full h-full object-cover scale-110 blur-2xl opacity-60 md:opacity-70"
             />
             <img
               src={src}
               alt={`Happy Yohana Automotive client ${i + 1}`}
-              className={`absolute inset-0 w-full h-full object-contain ${
+              className={`absolute inset-0 w-full h-full object-cover md:object-contain object-center ${
                 i === index ? "animate-ken-burns" : ""
               }`}
             />
+
           </div>
         ))}
         {/* Lighter overlay so photos read through; stronger scrim only at bottom for text */}

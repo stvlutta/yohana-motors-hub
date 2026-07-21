@@ -47,7 +47,7 @@
         var conn = nav.connection || {};
         var saveData = !!conn.saveData;
         var slowNet = conn.effectiveType && /(^|-)2g$/.test(conn.effectiveType);
-        var lowEnd = (mem && mem <= 4) || (cpu && cpu <= 4) || saveData || slowNet;
+        var lowEnd = (mem && mem <= 2) || (cpu && cpu <= 2) || saveData || slowNet;
         if (lowEnd) document.documentElement.classList.add('low-end');
       } catch (e) {}
     })();
