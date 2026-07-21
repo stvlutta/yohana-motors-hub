@@ -76,7 +76,7 @@ const InventoryPreview = () => {
               <Link
                 to={`/inventory/${car.id}`}
                 key={car.id}
-                className={`bg-white/60 backdrop-blur-xl rounded-lg overflow-hidden shadow-card hover:shadow-elevated transition-all duration-300 border border-white/80 group block ${viewMode === "list" ? "flex flex-col sm:flex-row" : ""}`}
+                className={`bg-card/80 dark:bg-white/5 backdrop-blur-xl rounded-lg overflow-hidden shadow-card hover:shadow-elevated transition-all duration-300 border border-border/60 dark:border-white/10 group block ${viewMode === "list" ? "flex flex-col sm:flex-row" : ""}`}
               >
                 <div className={`bg-muted flex items-center justify-center overflow-hidden shrink-0 ${viewMode === "list" ? "w-full sm:w-56 h-40 sm:h-48" : "h-32 sm:h-48"}`}>
                   {car.image_url ? (
