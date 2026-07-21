@@ -39,7 +39,7 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <section className="relative min-h-[92vh] flex items-center overflow-hidden bg-secondary">
+    <section className="relative min-h-[85vh] md:min-h-[92vh] flex items-center overflow-hidden bg-secondary">
       {/* Slideshow background */}
       <div className="absolute inset-0">
         {slides.map((src, i) => (
@@ -75,12 +75,12 @@ const HeroSection = () => {
       />
 
       {/* Content */}
-      <div className="container mx-auto px-4 relative z-10 py-24 md:py-28">
+      <div className="container mx-auto px-4 relative z-10 py-16 md:py-28">
         <div className="max-w-2xl animate-fade-in-up">
-          <p className="text-primary font-heading font-semibold uppercase tracking-[0.3em] text-sm mb-4 drop-shadow">
+          <p className="text-primary font-heading font-semibold uppercase tracking-[0.25em] text-xs sm:text-sm mb-3 md:mb-4 drop-shadow">
             Kenya's Trusted Car Dealership
           </p>
-          <h1 className="text-5xl md:text-7xl font-heading font-bold text-primary-foreground leading-tight mb-6 drop-shadow-lg">
+          <h1 className="text-4xl sm:text-5xl md:text-7xl font-heading font-bold text-primary-foreground leading-[1.05] mb-4 md:mb-6 drop-shadow-lg">
             Drive Your
             <span className="block relative w-fit">
               <span className="text-gradient-red">Dream Car</span>
@@ -89,18 +89,18 @@ const HeroSection = () => {
               </span>
             </span>
           </h1>
-          <p className="text-lg text-primary-foreground/80 mb-8 max-w-lg font-body drop-shadow">
+          <p className="text-sm sm:text-base md:text-lg text-primary-foreground/80 mb-6 md:mb-8 max-w-lg font-body drop-shadow">
             Import directly from Japan, UK & Dubai. Enjoy duty-free options, flexible financing, and a seamless buying experience.
           </p>
-          <div className="flex flex-wrap gap-4">
+          <div className="flex flex-wrap gap-3 md:gap-4">
             <Link to="/inventory">
-              <Button variant="hero" size="lg" className="text-base px-8 py-6 group">
+              <Button variant="hero" size="lg" className="text-sm md:text-base px-6 md:px-8 py-5 md:py-6 group">
                 Browse Inventory
                 <ArrowRight className="ml-1 w-4 h-4 transition-transform group-hover:translate-x-1" />
               </Button>
             </Link>
             <Link to="/direct-import">
-              <Button variant="heroOutline" size="lg" className="text-base px-8 py-6">
+              <Button variant="heroOutline" size="lg" className="text-sm md:text-base px-6 md:px-8 py-5 md:py-6">
                 Direct Import
               </Button>
             </Link>

@@ -49,8 +49,8 @@ const BlogPage = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
-      <main className="pt-24">
-        <section className="py-16 gradient-navy">
+      <main className="pt-16 md:pt-24">
+        <section className="py-10 md:py-16 gradient-navy">
           <div className="container mx-auto px-4 text-center">
             <h1 className="text-4xl md:text-5xl font-heading font-bold text-secondary-foreground">Blog & Reviews</h1>
             <p className="text-secondary-foreground/70 mt-4 max-w-2xl mx-auto">
@@ -59,7 +59,7 @@ const BlogPage = () => {
           </div>
         </section>
 
-        <section className="py-16 bg-background">
+        <section className="py-10 md:py-16 bg-background">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl font-heading font-bold text-foreground mb-8">Latest Articles</h2>
             <div className="grid md:grid-cols-3 gap-6">
@@ -86,7 +86,7 @@ const BlogPage = () => {
           </div>
         </section>
 
-        <section className="py-16 bg-muted">
+        <section className="py-10 md:py-16 bg-muted">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl font-heading font-bold text-foreground mb-8">Customer Testimonials</h2>
             <div className="grid md:grid-cols-3 gap-6">
@@ -107,7 +107,7 @@ const BlogPage = () => {
           </div>
         </section>
 
-        <section className="py-16 bg-background">
+        <section className="py-10 md:py-16 bg-background">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl font-heading font-bold text-foreground mb-8">Video Content</h2>
             <div className="grid md:grid-cols-2 gap-6">

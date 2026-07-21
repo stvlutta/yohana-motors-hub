@@ -55,8 +55,8 @@ const DutyFreePage = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
-      <main className="pt-24">
-        <section className="py-16 gradient-navy">
+      <main className="pt-16 md:pt-24">
+        <section className="py-10 md:py-16 gradient-navy">
           <div className="container mx-auto px-4 text-center">
             <h1 className="text-4xl md:text-5xl font-heading font-bold text-secondary-foreground">
               Duty Free Vehicles
@@ -67,7 +67,7 @@ const DutyFreePage = () => {
           </div>
         </section>
 
-        <section className="py-16">
+        <section className="py-10 md:py-16">
           <div className="container mx-auto px-4 max-w-5xl">
             <div className="space-y-12">
               {categories.map((cat, i) => (
@@ -100,7 +100,7 @@ const DutyFreePage = () => {
           </div>
         </section>
 
-        <section className="py-16 gradient-navy">
+        <section className="py-10 md:py-16 gradient-navy">
           <div className="container mx-auto px-4 text-center">
             <h2 className="text-3xl font-heading font-bold text-secondary-foreground mb-4">
               Ready to Import Duty Free?

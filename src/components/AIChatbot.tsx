@@ -101,16 +101,16 @@ const AIChatbot = () => {
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          className="fixed bottom-24 right-6 z-50 w-14 h-14 rounded-full gradient-navy text-secondary-foreground flex items-center justify-center shadow-lg hover:scale-110 transition-transform"
+          className="fixed bottom-20 right-4 md:bottom-24 md:right-6 z-50 w-12 h-12 md:w-14 md:h-14 rounded-full gradient-navy text-secondary-foreground flex items-center justify-center shadow-lg hover:scale-110 transition-transform"
           aria-label="Open AI chat"
         >
-          <MessageSquare className="h-7 w-7" />
+          <MessageSquare className="h-6 w-6 md:h-7 md:w-7" />
         </button>
       )}
 
       {/* Chat window */}
       {isOpen && (
-        <div className="fixed bottom-24 right-6 z-50 w-[360px] max-w-[calc(100vw-2rem)] h-[500px] max-h-[70vh] bg-card border border-border rounded-lg shadow-elevated flex flex-col overflow-hidden">
+        <div className="fixed bottom-20 right-4 md:bottom-24 md:right-6 z-50 w-[360px] max-w-[calc(100vw-2rem)] h-[500px] max-h-[70vh] bg-card border border-border rounded-lg shadow-elevated flex flex-col overflow-hidden">
           {/* Header */}
           <div className="gradient-navy p-4 flex items-center justify-between">
             <div className="flex items-center gap-2">

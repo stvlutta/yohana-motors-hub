@@ -35,9 +35,9 @@ const PremiumPage = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
-      <main className="pt-24">
+      <main className="pt-16 md:pt-24">
         {/* Hero */}
-        <section className="py-20 gradient-navy relative overflow-hidden">
+        <section className="py-12 md:py-20 gradient-navy relative overflow-hidden">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,hsl(var(--primary)/0.15),transparent_70%)]" />
           <div className="container mx-auto px-4 text-center relative z-10">
             <div className="inline-flex items-center gap-2 bg-primary/10 border border-primary/20 rounded-full px-4 py-1.5 mb-6">
@@ -61,7 +61,7 @@ const PremiumPage = () => {
                 </Button>
               </Link>
               <a href="tel:+254714007122">
-                <Button variant="outline" size="lg" className="border-secondary-foreground/30 text-secondary-foreground hover:bg-secondary-foreground/10">
+                <Button variant="heroOutline" size="lg">
                   <Phone className="mr-2 h-5 w-5" />
                   Call Us
                 </Button>
@@ -71,7 +71,7 @@ const PremiumPage = () => {
         </section>
 
         {/* Services */}
-        <section className="py-20">
+        <section className="py-12 md:py-20">
           <div className="container mx-auto px-4">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-heading font-bold text-foreground">
@@ -119,7 +119,7 @@ const PremiumPage = () => {
         </section>
 
         {/* CTA */}
-        <section className="py-16 gradient-navy">
+        <section className="py-10 md:py-16 gradient-navy">
           <div className="container mx-auto px-4 text-center">
             <h2 className="text-3xl font-heading font-bold text-secondary-foreground mb-4">
               Ready to Experience Premium?

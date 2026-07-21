@@ -29,8 +29,8 @@ const OverseasStockPage = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
-      <main className="pt-24">
-        <section className="py-16 gradient-navy">
+      <main className="pt-16 md:pt-24">
+        <section className="py-10 md:py-16 gradient-navy">
           <div className="container mx-auto px-4 text-center">
             <Globe className="h-12 w-12 text-primary mx-auto mb-4" />
             <h1 className="text-4xl md:text-5xl font-heading font-bold text-secondary-foreground">
@@ -42,7 +42,7 @@ const OverseasStockPage = () => {
           </div>
         </section>
 
-        <section className="py-16">
+        <section className="py-10 md:py-16">
           <div className="container mx-auto px-4">
             <h2 className="text-2xl font-heading font-bold text-foreground mb-6">Available Overseas Vehicles</h2>
             {loading ? (

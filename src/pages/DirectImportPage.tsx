@@ -22,8 +22,8 @@ const DirectImportPage = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
-      <main className="pt-24">
-        <section className="py-16 gradient-navy">
+      <main className="pt-16 md:pt-24">
+        <section className="py-10 md:py-16 gradient-navy">
           <div className="container mx-auto px-4 text-center">
             <Ship className="h-12 w-12 text-primary mx-auto mb-4" />
             <h1 className="text-4xl md:text-5xl font-heading font-bold text-secondary-foreground">
@@ -35,7 +35,7 @@ const DirectImportPage = () => {
           </div>
         </section>
 
-        <section className="py-16">
+        <section className="py-10 md:py-16">
           <div className="container mx-auto px-4 max-w-5xl">
             <h2 className="text-3xl font-heading font-bold text-foreground mb-8 text-center">Where We Import From</h2>
             <div className="grid md:grid-cols-2 gap-6">
@@ -52,7 +52,7 @@ const DirectImportPage = () => {
           </div>
         </section>
 
-        <section className="py-16 bg-muted">
+        <section className="py-10 md:py-16 bg-muted">
           <div className="container mx-auto px-4 max-w-4xl">
             <h2 className="text-3xl font-heading font-bold text-foreground mb-10 text-center">How It Works</h2>
             <div className="grid md:grid-cols-2 gap-8">
@@ -71,7 +71,7 @@ const DirectImportPage = () => {
           </div>
         </section>
 
-        <section className="py-16">
+        <section className="py-10 md:py-16">
           <div className="container mx-auto px-4 max-w-3xl">
             <h2 className="text-3xl font-heading font-bold text-foreground mb-6 text-center">Why Import With Us?</h2>
             <ul className="space-y-3 max-w-xl mx-auto">
