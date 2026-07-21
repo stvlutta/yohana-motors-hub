@@ -169,6 +169,16 @@ const InventoryPage = () => {
   const activeCount = [makeFilter, modelFilter, fuelFilter, bodyFilter, budgetMin, budgetMax, mileageMax, ageMax, ccMin, ccMax].filter(Boolean).length;
   const hasActiveFilters = search || activeCount > 0;
 
+  const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+  const paginated = useMemo(() => {
+    const start = (currentPage - 1) * PAGE_SIZE;
+    return filtered.slice(start, start + PAGE_SIZE);
+  }, [filtered, currentPage]);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [search, makeFilter, modelFilter, fuelFilter, bodyFilter, budgetMin, budgetMax, mileageMax, ageMax, ccMin, ccMax]);
+
   const clearFilters = () => {
     setSearch(""); setMakeFilter(""); setModelFilter(""); setFuelFilter(""); setBodyFilter("");
     setBudgetMin(""); setBudgetMax(""); setMileageMax(""); setAgeMax(""); setCcMin(""); setCcMax("");
