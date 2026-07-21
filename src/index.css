@@ -202,8 +202,6 @@
   .animate-fade-in-up,
   .animate-slide-in-right,
   .animate-drive-car,
-  .animate-flash-headlight,
-  .animate-flash-beams,
   .animate-road-stripes {
     animation: none !important;
     transform: none !important;
@@ -216,8 +214,6 @@
 .low-end .animate-float-slow,
 .low-end .animate-ken-burns,
 .low-end .animate-drive-car,
-.low-end .animate-flash-headlight,
-.low-end .animate-flash-beams,
 .low-end .animate-road-stripes {
   animation: none !important;
   transform: none !important;
