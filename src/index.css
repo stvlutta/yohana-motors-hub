@@ -198,7 +198,8 @@
 /* Low-end devices: kill infinite/heavy loops, keep one-shot reveals */
 .low-end .animate-blob-drift,
 .low-end .animate-float-slow,
-.low-end .animate-ken-burns {
+.low-end .animate-ken-burns,
+.low-end .animate-drive-car {
   animation: none !important;
   transform: none !important;
 }
