@@ -22,6 +22,7 @@ const shuffle = <T,>(arr: T[]) => {
 
 const OverseasStockPreview = () => {
   const [vehicles, setVehicles] = useState<OverseasVehicle[]>([]);
+  const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
 
   useEffect(() => {
     supabase
