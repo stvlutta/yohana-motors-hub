@@ -121,12 +121,19 @@ const InventoryPreview = () => {
             Our Inventory
           </h2>
 
-          {/* Driving GT3 RS track */}
-          <div className="relative w-64 md:w-80 h-8 mt-4 mx-auto flex items-center justify-center overflow-hidden">
-            <div className="absolute w-full h-px bg-border/70" />
+          {/* Driving car track with light flash at the finish */}
+          <div className="relative w-72 md:w-96 h-12 mt-4 mx-auto flex items-center justify-center overflow-hidden">
+            {/* Road surface */}
+            <div className="absolute w-full h-1.5 bg-border/70 rounded-full" />
+            {/* Moving dashed lane markings */}
+            <div className="absolute w-[200%] h-px top-1/2 -translate-y-1/2 flex gap-6 animate-road-stripes">
+              {[...Array(8)].map((_, i) => (
+                <span key={i} className="w-8 h-px bg-primary/60" />
+              ))}
+            </div>
             <div className="absolute left-0 w-full overflow-hidden h-full flex items-center">
-              <div className="animate-drive-car flex items-center gap-1">
-                <GT3RSSVG className="text-foreground/90" />
+              <div className="animate-drive-car flex items-center">
+                <DrivingCarSVG className="text-foreground/90 drop-shadow-lg" />
               </div>
             </div>
           </div>
