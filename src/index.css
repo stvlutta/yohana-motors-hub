@@ -166,30 +166,6 @@
   }
 }
 
-@keyframes flash-headlight {
-  0%, 84%, 88%, 92%, 96% {
-    opacity: 0.3;
-  }
-  86%, 90%, 94%, 98% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0.3;
-  }
-}
-
-@keyframes flash-beams {
-  0%, 84% {
-    opacity: 0;
-  }
-  86%, 90%, 94%, 98% {
-    opacity: 1;
-  }
-  88%, 92%, 96%, 100% {
-    opacity: 0;
-  }
-}
-
 @keyframes road-stripes {
   0% {
     transform: translateX(0);
