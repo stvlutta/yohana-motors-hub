@@ -61,7 +61,7 @@ const PremiumPage = () => {
                 </Button>
               </Link>
               <a href="tel:+254714007122">
-                <Button variant="outline" size="lg" className="border-secondary-foreground/30 text-secondary-foreground hover:bg-secondary-foreground/10">
+                <Button variant="heroOutline" size="lg">
                   <Phone className="mr-2 h-5 w-5" />
                   Call Us
                 </Button>
