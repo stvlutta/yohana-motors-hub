@@ -39,7 +39,7 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <section className="relative min-h-[60vh] md:min-h-[92vh] flex items-center overflow-hidden bg-secondary">
+    <section className="relative min-h-[60vh] md:min-h-[78vh] lg:min-h-[86vh] flex items-center overflow-hidden bg-secondary">
       {/* Slideshow background */}
       <div className="absolute inset-0">
         {slides.map((src, i) => (
@@ -58,7 +58,7 @@ const HeroSection = () => {
             <img
               src={src}
               alt={`Happy Yohana Automotive client ${i + 1}`}
-              className={`absolute inset-0 w-full h-full object-cover object-center ${
+              className={`absolute inset-0 w-full h-full object-cover object-[center_25%] md:object-[center_30%] ${
                 i === index ? "animate-ken-burns" : ""
               }`}
             />
