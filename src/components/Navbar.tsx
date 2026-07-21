@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -21,10 +21,24 @@ const navItems = [
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const headerClasses = scrolled || isOpen
+    ? "bg-background/90 dark:bg-background/80 backdrop-blur-xl border-border/70 dark:border-white/10 shadow-[var(--shadow-navbar)]"
+    : "bg-transparent border-transparent shadow-none";
+
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/90 dark:bg-background/80 backdrop-blur-xl border-b border-border/70 dark:border-white/10 shadow-[var(--shadow-navbar)] transition-colors duration-300">
+    <nav className={`fixed top-0 left-0 right-0 z-50 border-b transition-all duration-300 ease-out ${headerClasses}`}>
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16 md:h-28">
           <Link to="/" aria-label="Go to homepage" className="flex items-center gap-2 cursor-pointer">
