@@ -63,7 +63,7 @@ const AppointmentPage = () => {
     <div className="min-h-screen bg-background">
       <Navbar />
       <main className="pt-16 md:pt-24">
-        <section className="py-16 gradient-navy">
+        <section className="py-10 md:py-16 gradient-navy">
           <div className="container mx-auto px-4 text-center">
             <CalendarCheck className="h-12 w-12 text-primary mx-auto mb-4" />
             <h1 className="text-4xl md:text-5xl font-heading font-bold text-secondary-foreground">
@@ -75,7 +75,7 @@ const AppointmentPage = () => {
           </div>
         </section>
 
-        <section className="py-16">
+        <section className="py-10 md:py-16">
           <div className="container mx-auto px-4 max-w-2xl">
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid md:grid-cols-2 gap-4">

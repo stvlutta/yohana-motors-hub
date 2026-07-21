@@ -119,7 +119,7 @@ const PremiumPage = () => {
         </section>
 
         {/* CTA */}
-        <section className="py-16 gradient-navy">
+        <section className="py-10 md:py-16 gradient-navy">
           <div className="container mx-auto px-4 text-center">
             <h2 className="text-3xl font-heading font-bold text-secondary-foreground mb-4">
               Ready to Experience Premium?

@@ -55,7 +55,7 @@ const VlogPage = () => {
     <div className="min-h-screen bg-background">
       <Navbar />
       <main className="pt-16 md:pt-24">
-        <section className="py-16 gradient-navy">
+        <section className="py-10 md:py-16 gradient-navy">
           <div className="container mx-auto px-4 text-center">
             <Film className="h-12 w-12 text-primary mx-auto mb-4" />
             <h1 className="text-4xl md:text-5xl font-heading font-bold text-secondary-foreground">VLOG</h1>
@@ -65,7 +65,7 @@ const VlogPage = () => {
           </div>
         </section>
 
-        <section className="py-16 bg-background">
+        <section className="py-10 md:py-16 bg-background">
           <div className="container mx-auto px-4">
             {loading ? (
               <p className="text-center text-muted-foreground py-12">Loading videos...</p>
