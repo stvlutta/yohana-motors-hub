@@ -151,23 +151,68 @@
 
 @keyframes drive-car {
   0% {
-    transform: translateX(-120%);
+    transform: translateX(-100%);
     opacity: 0;
   }
-  12% {
+  8% {
     opacity: 1;
   }
-  88% {
+  92% {
     opacity: 1;
   }
   100% {
-    transform: translateX(120%);
+    transform: translateX(100%);
     opacity: 0;
   }
 }
 
+@keyframes flash-headlight {
+  0%, 84%, 88%, 92%, 96% {
+    opacity: 0.3;
+  }
+  86%, 90%, 94%, 98% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.3;
+  }
+}
+
+@keyframes flash-beams {
+  0%, 84% {
+    opacity: 0;
+  }
+  86%, 90%, 94%, 98% {
+    opacity: 1;
+  }
+  88%, 92%, 96%, 100% {
+    opacity: 0;
+  }
+}
+
+@keyframes road-stripes {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
 .animate-drive-car {
-  animation: drive-car 5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  animation: drive-car 5.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.animate-flash-headlight {
+  animation: flash-headlight 5.5s ease-in-out infinite;
+}
+
+.animate-flash-beams {
+  animation: flash-beams 5.5s ease-in-out infinite;
+}
+
+.animate-road-stripes {
+  animation: road-stripes 2.5s linear infinite;
 }
 
 /* Respect prefers-reduced-motion: disable non-essential animation & transitions */
@@ -188,7 +233,10 @@
   .animate-shimmer-line,
   .animate-fade-in-up,
   .animate-slide-in-right,
-  .animate-drive-car {
+  .animate-drive-car,
+  .animate-flash-headlight,
+  .animate-flash-beams,
+  .animate-road-stripes {
     animation: none !important;
     transform: none !important;
     opacity: 1 !important;
@@ -199,7 +247,10 @@
 .low-end .animate-blob-drift,
 .low-end .animate-float-slow,
 .low-end .animate-ken-burns,
-.low-end .animate-drive-car {
+.low-end .animate-drive-car,
+.low-end .animate-flash-headlight,
+.low-end .animate-flash-beams,
+.low-end .animate-road-stripes {
   animation: none !important;
   transform: none !important;
 }
