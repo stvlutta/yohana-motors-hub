@@ -471,6 +471,68 @@ const InventoryPage = () => {
           </div>
         </section>
       </main>
+
+      <Dialog open={!!quickView} onOpenChange={(open) => !open && setQuickView(null)}>
+        {quickView && (
+          <DialogContent className="max-w-2xl p-0 overflow-hidden border-white/80 bg-white/95 backdrop-blur-xl">
+            <div className="grid md:grid-cols-2">
+              <div className="h-56 md:h-auto bg-muted flex items-center justify-center overflow-hidden">
+                {quickView.image_url ? (
+                  <img src={quickView.image_url} alt={quickView.name} className="w-full h-full object-cover" />
+                ) : (
+                  <Car className="h-16 w-16 text-muted-foreground/30" />
+                )}
+              </div>
+              <div className="p-6 flex flex-col">
+                <DialogHeader className="text-left mb-4">
+                  <DialogTitle className="font-heading text-xl sm:text-2xl text-foreground">{quickView.name}</DialogTitle>
+                  <DialogDescription className="sr-only">Quick view of {quickView.name}</DialogDescription>
+                  <p className="text-primary font-bold text-lg mt-1">{formatPrice(quickView.price)}</p>
+                </DialogHeader>
+                <div className="grid grid-cols-2 gap-3 text-sm mb-6">
+                  <div className="bg-muted/50 rounded-md p-3">
+                    <span className="block text-muted-foreground text-xs">Year</span>
+                    <span className="font-semibold text-foreground flex items-center gap-1"><Calendar className="h-3.5 w-3.5" /> {quickView.year}</span>
+                  </div>
+                  <div className="bg-muted/50 rounded-md p-3">
+                    <span className="block text-muted-foreground text-xs">Mileage</span>
+                    <span className="font-semibold text-foreground flex items-center gap-1"><Gauge className="h-3.5 w-3.5" /> {quickView.mileage || "N/A"}</span>
+                  </div>
+                  <div className="bg-muted/50 rounded-md p-3">
+                    <span className="block text-muted-foreground text-xs">Fuel</span>
+                    <span className="font-semibold text-foreground flex items-center gap-1"><Fuel className="h-3.5 w-3.5" /> {quickView.fuel || "N/A"}</span>
+                  </div>
+                  <div className="bg-muted/50 rounded-md p-3">
+                    <span className="block text-muted-foreground text-xs">Transmission</span>
+                    <span className="font-semibold text-foreground">{quickView.transmission || "N/A"}</span>
+                  </div>
+                  <div className="bg-muted/50 rounded-md p-3">
+                    <span className="block text-muted-foreground text-xs">Body Type</span>
+                    <span className="font-semibold text-foreground">{quickView.body_type || "N/A"}</span>
+                  </div>
+                  <div className="bg-muted/50 rounded-md p-3">
+                    <span className="block text-muted-foreground text-xs">Engine</span>
+                    <span className="font-semibold text-foreground">{quickView.engine_cc ? `${quickView.engine_cc} CC` : "N/A"}</span>
+                  </div>
+                </div>
+                <div className="mt-auto flex flex-col sm:flex-row gap-3">
+                  <Link to={`/inventory/${quickView.id}`} className="flex-1">
+                    <Button className="w-full gap-2" variant="hero">
+                      View Details <ArrowRight className="h-4 w-4" />
+                    </Button>
+                  </Link>
+                  <Link to="/appointment" className="flex-1">
+                    <Button variant="navy" className="w-full gap-2">
+                      <Phone className="h-4 w-4" /> Book Test Drive
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </DialogContent>
+        )}
+      </Dialog>
+
       <Footer />
     </div>
   );
