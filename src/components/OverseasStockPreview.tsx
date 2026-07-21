@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Car, Globe, MapPin } from "lucide-react";
+import { Car, Globe, MapPin, LayoutGrid, List } from "lucide-react";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { formatPrice } from "@/lib/utils";
