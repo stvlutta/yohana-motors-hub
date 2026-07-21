@@ -32,7 +32,7 @@ const InventoryPreview = () => {
   }, []);
 
   return (
-    <section className="py-20 bg-background">
+    <section className="pt-20 pb-10 bg-background">
       <div className="container mx-auto px-4">
         <div className="text-center mb-8 md:mb-14">
           <p className="text-primary font-heading font-semibold uppercase tracking-[0.2em] text-sm mb-2">
