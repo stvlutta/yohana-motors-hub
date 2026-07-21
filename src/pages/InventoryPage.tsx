@@ -5,7 +5,14 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Link } from "react-router-dom";
-import { Car, MapPin, Phone, ArrowRight, Fuel, Gauge, Calendar, Search, X, SlidersHorizontal, LayoutGrid, List } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
+import { Car, MapPin, Phone, ArrowRight, Fuel, Gauge, Calendar, Search, X, SlidersHorizontal, LayoutGrid, List, Eye } from "lucide-react";
 import { formatPrice } from "@/lib/utils";
 
 type Vehicle = {
@@ -92,6 +99,7 @@ const InventoryPage = () => {
   const [showFilters, setShowFilters] = useState(false);
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [currentPage, setCurrentPage] = useState(1);
+  const [quickView, setQuickView] = useState<Vehicle | null>(null);
   const PAGE_SIZE = 12;
 
   useEffect(() => {
@@ -389,13 +397,21 @@ const InventoryPage = () => {
                               {car.engine_cc && <span className="bg-muted px-1.5 sm:px-2 py-0.5 rounded text-muted-foreground">{car.engine_cc} CC</span>}
                             </div>
                           </div>
-                          {viewMode === "list" && (
-                            <div className="mt-3 sm:mt-0">
+                          <div className={`flex items-center gap-4 mt-3 ${viewMode === "list" ? "sm:mt-0" : ""}`}>
+                            {viewMode === "list" && (
                               <span className="inline-flex items-center gap-1 text-sm font-medium text-primary group-hover:underline">
                                 View Details <ArrowRight className="h-4 w-4" />
                               </span>
-                            </div>
-                          )}
+                            )}
+                            <button
+                              type="button"
+                              onClick={(e) => { e.preventDefault(); e.stopPropagation(); setQuickView(car); }}
+                              className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline focus:outline-none"
+                              aria-label={`Quick view ${car.name}`}
+                            >
+                              <Eye className="h-4 w-4" /> Quick View
+                            </button>
+                          </div>
                         </div>
                       </Link>
                     ))}
@@ -455,6 +471,68 @@ const InventoryPage = () => {
           </div>
         </section>
       </main>
+
+      <Dialog open={!!quickView} onOpenChange={(open) => !open && setQuickView(null)}>
+        {quickView && (
+          <DialogContent className="max-w-2xl p-0 overflow-hidden border-white/80 bg-white/95 backdrop-blur-xl">
+            <div className="grid md:grid-cols-2">
+              <div className="h-56 md:h-auto bg-muted flex items-center justify-center overflow-hidden">
+                {quickView.image_url ? (
+                  <img src={quickView.image_url} alt={quickView.name} className="w-full h-full object-cover" />
+                ) : (
+                  <Car className="h-16 w-16 text-muted-foreground/30" />
+                )}
+              </div>
+              <div className="p-6 flex flex-col">
+                <DialogHeader className="text-left mb-4">
+                  <DialogTitle className="font-heading text-xl sm:text-2xl text-foreground">{quickView.name}</DialogTitle>
+                  <DialogDescription className="sr-only">Quick view of {quickView.name}</DialogDescription>
+                  <p className="text-primary font-bold text-lg mt-1">{formatPrice(quickView.price)}</p>
+                </DialogHeader>
+                <div className="grid grid-cols-2 gap-3 text-sm mb-6">
+                  <div className="bg-muted/50 rounded-md p-3">
+                    <span className="block text-muted-foreground text-xs">Year</span>
+                    <span className="font-semibold text-foreground flex items-center gap-1"><Calendar className="h-3.5 w-3.5" /> {quickView.year}</span>
+                  </div>
+                  <div className="bg-muted/50 rounded-md p-3">
+                    <span className="block text-muted-foreground text-xs">Mileage</span>
+                    <span className="font-semibold text-foreground flex items-center gap-1"><Gauge className="h-3.5 w-3.5" /> {quickView.mileage || "N/A"}</span>
+                  </div>
+                  <div className="bg-muted/50 rounded-md p-3">
+                    <span className="block text-muted-foreground text-xs">Fuel</span>
+                    <span className="font-semibold text-foreground flex items-center gap-1"><Fuel className="h-3.5 w-3.5" /> {quickView.fuel || "N/A"}</span>
+                  </div>
+                  <div className="bg-muted/50 rounded-md p-3">
+                    <span className="block text-muted-foreground text-xs">Transmission</span>
+                    <span className="font-semibold text-foreground">{quickView.transmission || "N/A"}</span>
+                  </div>
+                  <div className="bg-muted/50 rounded-md p-3">
+                    <span className="block text-muted-foreground text-xs">Body Type</span>
+                    <span className="font-semibold text-foreground">{quickView.body_type || "N/A"}</span>
+                  </div>
+                  <div className="bg-muted/50 rounded-md p-3">
+                    <span className="block text-muted-foreground text-xs">Engine</span>
+                    <span className="font-semibold text-foreground">{quickView.engine_cc ? `${quickView.engine_cc} CC` : "N/A"}</span>
+                  </div>
+                </div>
+                <div className="mt-auto flex flex-col sm:flex-row gap-3">
+                  <Link to={`/inventory/${quickView.id}`} className="flex-1">
+                    <Button className="w-full gap-2" variant="hero">
+                      View Details <ArrowRight className="h-4 w-4" />
+                    </Button>
+                  </Link>
+                  <Link to="/appointment" className="flex-1">
+                    <Button variant="navy" className="w-full gap-2">
+                      <Phone className="h-4 w-4" /> Book Test Drive
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </DialogContent>
+        )}
+      </Dialog>
+
       <Footer />
     </div>
   );
