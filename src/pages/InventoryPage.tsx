@@ -397,13 +397,21 @@ const InventoryPage = () => {
                               {car.engine_cc && <span className="bg-muted px-1.5 sm:px-2 py-0.5 rounded text-muted-foreground">{car.engine_cc} CC</span>}
                             </div>
                           </div>
-                          {viewMode === "list" && (
-                            <div className="mt-3 sm:mt-0">
+                          <div className={`flex items-center gap-4 mt-3 ${viewMode === "list" ? "sm:mt-0" : ""}`}>
+                            {viewMode === "list" && (
                               <span className="inline-flex items-center gap-1 text-sm font-medium text-primary group-hover:underline">
                                 View Details <ArrowRight className="h-4 w-4" />
                               </span>
-                            </div>
-                          )}
+                            )}
+                            <button
+                              type="button"
+                              onClick={(e) => { e.preventDefault(); e.stopPropagation(); setQuickView(car); }}
+                              className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline focus:outline-none"
+                              aria-label={`Quick view ${car.name}`}
+                            >
+                              <Eye className="h-4 w-4" /> Quick View
+                            </button>
+                          </div>
                         </div>
                       </Link>
                     ))}
