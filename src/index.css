@@ -126,3 +126,44 @@
     background-clip: text;
   }
 }
+
+/* Respect prefers-reduced-motion: disable non-essential animation & transitions */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .animate-ken-burns,
+  .animate-float-slow,
+  .animate-blob-drift,
+  .animate-marquee,
+  .animate-shimmer-line,
+  .animate-fade-in-up,
+  .animate-slide-in-right {
+    animation: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}
+
+/* Low-end devices: kill infinite/heavy loops, keep one-shot reveals */
+.low-end .animate-blob-drift,
+.low-end .animate-float-slow,
+.low-end .animate-shimmer-line,
+.low-end .animate-ken-burns {
+  animation: none !important;
+  transform: none !important;
+}
+.low-end .animate-marquee {
+  animation-duration: 60s !important;
+}
+.low-end .backdrop-blur-2xl,
+.low-end .backdrop-blur-xl {
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+}
