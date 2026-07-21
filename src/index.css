@@ -126,3 +126,27 @@
     background-clip: text;
   }
 }
+
+/* Respect prefers-reduced-motion: disable non-essential animation & transitions */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .animate-ken-burns,
+  .animate-float-slow,
+  .animate-blob-drift,
+  .animate-marquee,
+  .animate-shimmer-line,
+  .animate-fade-in-up,
+  .animate-slide-in-right {
+    animation: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}
