@@ -23,40 +23,62 @@ const shuffle = <T,>(arr: T[]) => {
 const GT3RSSVG = ({ className }: { className?: string }) => (
   <svg
     className={className}
-    width="72"
-    height="24"
-    viewBox="0 0 120 40"
+    width="96"
+    height="32"
+    viewBox="0 0 160 54"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     aria-label="Porsche GT3 RS silhouette"
   >
-    {/* Main body silhouette */}
+    {/* Front splitter / lip */}
     <path
-      d="M2 29 C2 26 5 24 8 24 L14 23 C16 22 18 20 22 19 L38 18 C40 18 42 18 44 18 L58 19 C60 19 62 18 64 17 L76 16 C80 16 84 17 87 18 L92 20 C96 22 98 24 99 26 L99 31 C99 32 97 33 95 33 L92 33 C91 30 89 28 86 28 C83 28 81 30 80 33 L38 33 C37 30 35 28 32 28 C29 28 27 30 26 33 L6 33 C4 33 2 32 2 30 Z"
+      d="M2 42 L0 44 L6 44 L8 42 Z"
       fill="currentColor"
     />
-    {/* Rear wing (RS signature) */}
+    {/* Main body — low nose, long hood, rounded cabin, wide rear haunches */}
     <path
-      d="M84 16 L84 10 C84 9 85 8 87 8 L105 7 C107 7 108 8 108 10 L108 14 C108 15 107 16 105 16 L100 16 L100 18 L88 18 L88 16 Z"
+      d="M6 42 C6 38 10 36 16 35 L30 34 C34 33 38 33 42 32 L58 31 C62 30 66 30 70 30 L92 29 C98 29 104 30 110 32 L124 36 C130 38 134 40 135 42 L135 46 C135 48 133 49 130 49 L122 49 C120 45 116 42 111 42 C106 42 102 45 100 49 L54 49 C52 45 48 42 43 42 C38 42 34 45 32 49 L10 49 C8 49 6 48 6 46 Z"
       fill="currentColor"
     />
-    {/* Side intake */}
+    {/* Roof / windshield / rear window line */}
     <path
-      d="M62 22 L72 22 L72 26 L62 26 Z"
-      fill="currentColor"
-      fillOpacity="0.5"
+      d="M30 35 L40 22 C42 20 46 19 52 19 L74 19 C80 19 84 20 88 22 L104 30"
+      stroke="currentColor"
+      strokeWidth="2"
+      fill="none"
+      strokeLinecap="round"
     />
-    {/* Front splitter */}
+    {/* Huge swan-neck rear wing (RS signature) */}
     <path
-      d="M2 30 L0 32 L2 32 Z"
+      d="M112 30 L112 16 C112 14 114 13 116 13 L142 12 C145 12 146 13 146 15 L146 22 C146 24 145 25 142 25 L134 25 L134 28 L118 28 L118 25 L112 25 Z"
       fill="currentColor"
     />
-    {/* Wheels */}
-    <circle cx="32" cy="33" r="5.5" fill="currentColor" className="text-primary" />
-    <circle cx="86" cy="33" r="5.5" fill="currentColor" className="text-primary" />
-    {/* Wheel rims */}
-    <circle cx="32" cy="33" r="2.5" fill="currentColor" />
-    <circle cx="86" cy="33" r="2.5" fill="currentColor" />
+    {/* Wing endplates */}
+    <path
+      d="M112 25 L110 32 M146 22 L148 29"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+    />
+    {/* Side intake behind the door */}
+    <path
+      d="M82 36 L96 35 L96 41 L84 42 Z"
+      fill="currentColor"
+      fillOpacity="0.45"
+    />
+    {/* Rear diffuser */}
+    <path
+      d="M130 46 L144 48 L144 44 Z"
+      fill="currentColor"
+    />
+    {/* Wheels with center-lock style hub */}
+    <circle cx="43" cy="49" r="8" fill="currentColor" className="text-primary" />
+    <circle cx="111" cy="49" r="8" fill="currentColor" className="text-primary" />
+    <circle cx="43" cy="49" r="4" fill="currentColor" />
+    <circle cx="111" cy="49" r="4" fill="currentColor" />
+    {/* Center-lock nut detail */}
+    <circle cx="43" cy="49" r="1.5" fill="currentColor" className="text-primary" />
+    <circle cx="111" cy="49" r="1.5" fill="currentColor" className="text-primary" />
   </svg>
 );
 
