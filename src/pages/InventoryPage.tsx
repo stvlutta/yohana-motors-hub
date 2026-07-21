@@ -91,6 +91,8 @@ const InventoryPage = () => {
   const [ccMax, setCcMax] = useState("");
   const [showFilters, setShowFilters] = useState(false);
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
+  const [currentPage, setCurrentPage] = useState(1);
+  const PAGE_SIZE = 12;
 
   useEffect(() => {
     supabase
@@ -167,9 +169,20 @@ const InventoryPage = () => {
   const activeCount = [makeFilter, modelFilter, fuelFilter, bodyFilter, budgetMin, budgetMax, mileageMax, ageMax, ccMin, ccMax].filter(Boolean).length;
   const hasActiveFilters = search || activeCount > 0;
 
+  const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+  const paginated = useMemo(() => {
+    const start = (currentPage - 1) * PAGE_SIZE;
+    return filtered.slice(start, start + PAGE_SIZE);
+  }, [filtered, currentPage]);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [search, makeFilter, modelFilter, fuelFilter, bodyFilter, budgetMin, budgetMax, mileageMax, ageMax, ccMin, ccMax]);
+
   const clearFilters = () => {
     setSearch(""); setMakeFilter(""); setModelFilter(""); setFuelFilter(""); setBodyFilter("");
     setBudgetMin(""); setBudgetMax(""); setMileageMax(""); setAgeMax(""); setCcMin(""); setCcMax("");
+    setCurrentPage(1);
   };
 
   return (
@@ -347,7 +360,7 @@ const InventoryPage = () => {
                   </div>
                 ) : (
                   <div className={viewMode === "grid" ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" : "space-y-4"}>
-                    {filtered.map((car) => (
+                    {paginated.map((car) => (
                       <Link
                         to={`/inventory/${car.id}`}
                         key={car.id}
@@ -386,9 +399,44 @@ const InventoryPage = () => {
                   </div>
                 )}
 
+                {totalPages > 1 && (
+                  <div className="flex items-center justify-center gap-2 mt-10">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                      disabled={currentPage === 1}
+                    >
+                      Previous
+                    </Button>
+                    <div className="flex items-center gap-1">
+                      {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                        <button
+                          key={page}
+                          type="button"
+                          onClick={() => setCurrentPage(page)}
+                          className={`min-w-[2.25rem] h-9 px-2 rounded-md text-sm font-medium transition-colors ${currentPage === page ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:bg-muted"}`}
+                          aria-label={`Page ${page}`}
+                          aria-current={currentPage === page ? "page" : undefined}
+                        >
+                          {page}
+                        </button>
+                      ))}
+                    </div>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                      disabled={currentPage === totalPages}
+                    >
+                      Next
+                    </Button>
+                  </div>
+                )}
+
                 <div className="text-center mt-12">
                   <p className="text-sm text-muted-foreground mb-1">
-                    Showing {filtered.length} of {vehicles.length} vehicle{vehicles.length !== 1 ? "s" : ""}
+                    Showing {paginated.length} of {filtered.length} vehicle{filtered.length !== 1 ? "s" : ""} — page {currentPage} of {totalPages}
                   </p>
                   <div className="flex items-center justify-center gap-2 text-muted-foreground text-sm mb-4">
                     <MapPin className="h-4 w-4 text-primary" />
