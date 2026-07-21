@@ -59,33 +59,53 @@
   }
 
   .dark {
-    --background: 220 30% 8%;
-    --foreground: 0 0% 95%;
-    --card: 220 30% 12%;
-    --card-foreground: 0 0% 95%;
-    --popover: 220 30% 12%;
-    --popover-foreground: 0 0% 95%;
-    --primary: 356 82% 50%;
+    --background: 222 40% 7%;
+    --foreground: 210 40% 98%;
+    --card: 222 35% 11%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222 35% 11%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 356 90% 58%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 220 50% 25%;
-    --secondary-foreground: 0 0% 95%;
-    --muted: 220 20% 18%;
-    --muted-foreground: 220 10% 55%;
-    --accent: 356 82% 50%;
+    --secondary: 220 55% 30%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 220 25% 16%;
+    --muted-foreground: 220 15% 78%;
+    --accent: 356 90% 58%;
     --accent-foreground: 0 0% 100%;
-    --destructive: 0 62.8% 30.6%;
+    --destructive: 0 72% 50%;
     --destructive-foreground: 210 40% 98%;
-    --border: 220 20% 20%;
-    --input: 220 20% 20%;
-    --ring: 356 82% 50%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
+    --border: 220 25% 24%;
+    --input: 220 25% 22%;
+    --ring: 356 90% 58%;
+
+    --navy: 220 60% 28%;
+    --navy-light: 220 50% 38%;
+    --red-brand: 356 90% 58%;
+    --red-light: 356 85% 65%;
+    --red-glow: 356 85% 68%;
+
+    --gradient-hero: linear-gradient(135deg, hsl(222, 45%, 10%) 0%, hsl(220, 55%, 20%) 50%, hsl(356, 82%, 42%) 100%);
+    --gradient-red: linear-gradient(135deg, hsl(356, 90%, 55%) 0%, hsl(356, 85%, 65%) 100%);
+    --gradient-navy: linear-gradient(135deg, hsl(220, 55%, 22%) 0%, hsl(220, 45%, 32%) 100%);
+    --shadow-card: 0 4px 24px -4px hsl(220 80% 4% / 0.6);
+    --shadow-elevated: 0 12px 40px -8px hsl(356 82% 30% / 0.35);
+
+    --sidebar-background: 222 40% 9%;
+    --sidebar-foreground: 210 40% 96%;
+    --sidebar-primary: 356 90% 58%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-accent: 222 35% 15%;
+    --sidebar-accent-foreground: 210 40% 96%;
+    --sidebar-border: 220 25% 20%;
+    --sidebar-ring: 356 90% 58%;
+  }
+
+  .dark body {
+    background-image:
+      radial-gradient(ellipse 80% 50% at 20% 0%, hsl(220 60% 22% / 0.35), transparent 60%),
+      radial-gradient(ellipse 60% 50% at 100% 100%, hsl(356 82% 40% / 0.18), transparent 60%);
+    background-attachment: fixed;
   }
 }
 
