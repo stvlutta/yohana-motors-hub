@@ -5,6 +5,11 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { formatPrice } from "@/lib/utils";
 
+type Vehicle = {
+  id: string; name: string; year: number; price: string;
+  mileage: string | null; fuel: string | null; image_url: string | null;
+};
+
 const shuffle = <T,>(arr: T[]) => {
   const a = [...arr];
   for (let i = a.length - 1; i > 0; i--) {
