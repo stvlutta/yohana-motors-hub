@@ -187,7 +187,8 @@
   .animate-marquee,
   .animate-shimmer-line,
   .animate-fade-in-up,
-  .animate-slide-in-right {
+  .animate-slide-in-right,
+  .animate-drive-car {
     animation: none !important;
     transform: none !important;
     opacity: 1 !important;
